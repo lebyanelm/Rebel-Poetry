@@ -1,1 +1,36 @@
-.SearchPage {}
+@import "../../variables.scss";
+
+// WILL CONTAIN THE SEARCH INPUT AND BUTTON
+.SearchInputContainer {
+  display: grid;
+  grid-template-columns: 90% 10%;
+  border: $BORDER;
+}
+
+.SearchInputContainer .LargeSearchInput {
+  float: left;
+  font-size: 50px;
+  font-weight: normal;
+  border: none;
+}
+
+.SearchInputContainer .SearchButton {
+  display: grid;
+  place-items: center;
+  border-left: $BORDER;
+  cursor: pointer;
+}
+
+.SearchInputContainer .SearchButton svg {
+  color: $TEXT_COLOR_DARK;
+  height: 40px;
+  transform: translateY(-10px) translateX(-10px);
+}
+
+.SearchInputContainer .SearchButton:hover {
+  background-color: $TEXT_COLOR_DARK;
+}
+
+.SearchInputContainer .SearchButton:hover svg {
+  stroke: $TEXT_COLOR_LIGHT;
+}

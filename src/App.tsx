@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import PoetsPage from './pages/PoetsPage/PoetsPage';
 import PoemPage from './pages/PoemPage/PoemPage';
+import SearchPage from './pages/SearchPage/SearchPage';
 
 export const SessionContext = React.createContext({});
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <Route exact path="/"><HomePage /></Route>
             <Route path="/poets"><PoetsPage /></Route>
             <Route path="/poem"><PoemPage /></Route>
+            <Route path="/search"><SearchPage /></Route>
             <Route path="*"><NotFoundPage /></Route>
           </Switch>
         </BrowserRouter>
