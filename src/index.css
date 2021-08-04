@@ -13,9 +13,8 @@
   --BORDER: 2px solid var(--SECONDARY_COLOR);
 
   /* TYPOGRAPHY */
-  --FONT_FAMILY: "Gibson", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
-    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  --FONT_SIZE: 20px;
+  --FONT_FAMILY: "Helvetica Neue", sans-serif;
+  --FONT_SIZE: 18px;
   --HEADER_SIZE: 50px;
   --SUBHEADER_SIZE: 30px;
 }
