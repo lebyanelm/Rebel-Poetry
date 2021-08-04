@@ -1,0 +1,24 @@
+@import "../../variables.scss";
+@import "../../utils/utils.scss";
+
+/* HEADER CONTAINER */
+.HeaderContainer,
+.HeaderContainer section {
+  display: flex;
+  align-items: center;
+}
+
+.HeaderContainer {
+  border-bottom: $BORDER;
+  padding: 10px $PAGE_MARGINS;
+  justify-content: space-between;
+}
+
+.HeaderContainer .HeaderBrandLogo img {
+  height: 50px;
+  transform: translateY(3px);
+}
+
+.HeaderContainer section a {
+  margin: 0 10px;
+}

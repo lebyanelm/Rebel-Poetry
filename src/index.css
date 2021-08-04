@@ -1,41 +1,59 @@
-/* VARIABLES */
-:root {
-  /* COLORS */
-  --PRIMARY_COLOR: #ebc952;
-  --SECONDARY_COLOR: #1436ad;
-  --TERTIARY_COLOR: #000000;
-  --BACKGROUND_COLOR: #f6edec;
-  --TEXT_COLOR_DARK: #000000;
-  --TEXT_COLOR_LIGHT: #ffffff;
-  --TEXT_COLOR: $TEXT_COLOR_DARK;
-
-  /* SHAPES AND OUTLINE */
-  --BORDER: 2px solid var(--SECONDARY_COLOR);
-
-  /* TYPOGRAPHY */
-  --FONT_FAMILY: "Helvetica Neue", sans-serif;
-  --FONT_SIZE: 18px;
-  --HEADER_SIZE: 50px;
-  --SUBHEADER_SIZE: 30px;
-}
-
 /* Browser resets */
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: var(--BACKGROUND_COLOR) !important;
-}
+  background-color: #f6edec; }
 
 * {
   outline: none;
   box-sizing: border-box;
-  font-family: var(--FONT_FAMILY);
-  font-size: var(--FONT_SIZE);
-  color: var(--TEXT_COLOR);
-}
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 16px; }
 
-.header {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
+/* Anchor tags */
+a {
+  text-decoration: none;
+  font-weight: 500;
+  color: #000000;
+  transition: color 300ms ease; }
+
+a:hover {
+  color: #1436ad; }
+
+/* Headers */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "GD-Sage", "Helvetica Neue", sans-serif; }
+
+/* Inputs */
+input,
+textarea {
+  border: 2px solid #000000;
+  background: #ffffff;
+  padding: 10px;
+  text-indent: 10px;
+  transition: border-color 300ms ease; }
+
+input:focus,
+textarea:focus {
+  border-color: #ebc952; }
+
+/* Buttons */
+button,
+.button {
+  padding: 13px 20px;
+  border-radius: 0;
+  background: #1436ad;
+  color: #ffffff;
+  font-size: small;
+  font-weight: bold;
+  transition: background 300ms ease; }
+
+button:hover,
+.button:hover {
+  background: #ebc952; }

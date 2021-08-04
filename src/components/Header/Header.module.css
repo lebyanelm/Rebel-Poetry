@@ -1,1 +1,17 @@
-.Header {}
+/* HEADER CONTAINER */
+.HeaderContainer,
+.HeaderContainer section {
+  display: flex;
+  align-items: center; }
+
+.HeaderContainer {
+  border-bottom: 2px solid #000000;
+  padding: 10px 100px;
+  justify-content: space-between; }
+
+.HeaderContainer .HeaderBrandLogo img {
+  height: 50px;
+  transform: translateY(3px); }
+
+.HeaderContainer section a {
+  margin: 0 10px; }
