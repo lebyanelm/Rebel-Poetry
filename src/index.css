@@ -1,13 +1,42 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* VARIABLES */
+:root {
+  /* COLORS */
+  --PRIMARY_COLOR: #ebc952;
+  --SECONDARY_COLOR: #1436ad;
+  --TERTIARY_COLOR: #000000;
+  --BACKGROUND_COLOR: #f6edec;
+  --TEXT_COLOR_DARK: #000000;
+  --TEXT_COLOR_LIGHT: #ffffff;
+  --TEXT_COLOR: $TEXT_COLOR_DARK;
+
+  /* SHAPES AND OUTLINE */
+  --BORDER: 2px solid var(--SECONDARY_COLOR);
+
+  /* TYPOGRAPHY */
+  --FONT_FAMILY: "Gibson", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  --FONT_SIZE: 20px;
+  --HEADER_SIZE: 50px;
+  --SUBHEADER_SIZE: 30px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+/* Browser resets */
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--BACKGROUND_COLOR) !important;
+}
+
+* {
+  outline: none;
+  box-sizing: border-box;
+  font-family: var(--FONT_FAMILY);
+  font-size: var(--FONT_SIZE);
+  color: var(--TEXT_COLOR);
+}
+
+.header {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
