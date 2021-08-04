@@ -9,39 +9,43 @@ class PoemPostInput extends Component {
   }
 
   toggleIdentity = () => {
-    this.state.isAnonymousPublish = !this.state.isAnonymousPublish;
-    this.setState({ ...this.state });
+    this.setState({ isAnonymousPublish: !this.state.isAnonymousPublish });
   }
   
   render() {
     return (
       <div className={styles.PoemInputContainer}>
         <input className={styles.PoemInputTitle} placeholder="Type a poem title here..." />
-        <textarea className={styles.PeomInput} placeholder="Craft your poem in this space, resize height if needed."></textarea>
+        <textarea className={styles.PoemInput} placeholder="Craft your poem in this space, resize height if needed."></textarea>
   
-        
+        <br />
+        <br />
+        <input type="text" className={styles.PoemTagsInput} placeholder="Type comma-separated tags of the poem"/>
   
         <div className={styles.Buttons}>
+
           <section>
             <button className="outline">
               <span>Attach Thumbnail</span>
-              <IonIcon name="attach"></IonIcon>
+            </button>
+
+            <button>
+              <span>Feature a Poet</span>
             </button>
   
             <button>
-              <span>Publish Poem</span>
-              <IonIcon name="arrow-forward"></IonIcon>
+              <span>Preview & Publish</span>
             </button>
           </section>
           <section>
             <a className={styles.PostingAuthority} onClick={this.toggleIdentity}>
-              {this.state.isAnonymousPublish ? 'Anonymous' : 'Publishing as Libby Lebyane'}
+              {this.state.isAnonymousPublish ? 'Anonymous' : 'Libby Lebyane'}
             </a>
             &mdash;
   
             {/* When the user updates the poem draft */}
             <BeatLoader></BeatLoader>
-            <span className={styles.SyncingStatus}>Syncing draft (<a>Delete</a>)</span>
+            <span className={styles.SyncingStatus}>Syncing to draft (<a>Delete</a>)</span>
           </section>
         </div>
       </div>

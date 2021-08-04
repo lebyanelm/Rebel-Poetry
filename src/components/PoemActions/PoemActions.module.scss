@@ -1,0 +1,46 @@
+@import "../../variables.scss";
+
+.PoemActions {
+  display: block;
+  display: flex;
+  padding: 0 20px 20px 20px;
+  justify-content: space-between;
+}
+
+.PoemActions section {
+  gap: 10px;
+}
+
+// ACTION
+.PoemActions .Action {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.PoemActions .Action span {
+  margin-left: 10px;
+  font-size: small;
+  font-weight: bolder;
+}
+
+.PoemActions .Action svg {
+  height: 23px;
+  transform: translateY(-3px);
+}
+
+.PoemActions .Action:hover svg {
+  stroke: $PRIMARY_COLOR;
+}
+
+.PoemActions .Action:hover span {
+  color: $PRIMARY_COLOR;
+}
+
+.PoemActions .Action[data-like]:hover svg {
+  stroke: orangered;
+}
+
+.PoemActions .Action[data-like]:hover span {
+  stroke: orangered;
+}

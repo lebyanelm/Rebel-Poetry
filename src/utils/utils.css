@@ -1,0 +1,10 @@
+/* Flex Items */
+.flex {
+  display: flex;
+  align-items: center; }
+
+.flex.space-between {
+  justify-content: space-between; }
+
+.flex-space {
+  flex: 5; }

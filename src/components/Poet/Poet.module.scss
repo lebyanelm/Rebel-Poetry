@@ -1,0 +1,31 @@
+@import "../../variables.scss";
+
+.Poet {
+  border: $BORDER;
+  border-left-color: transparent;
+  border-top-color: transparent;
+  text-align: center;
+  padding: 10px;
+}
+
+.PoetAvatar {
+  display: block;
+  height: 200px;
+  width: 200px;
+  border-radius: 100px;
+  background-color: $TERTIARY_COLOR;
+  background-size: cover;
+  background-position: center center;
+  margin: 0 auto 10px auto;
+}
+
+.PoetName {
+  font-weight: bolder;
+}
+
+.Poet span {
+  display: block;
+  margin: 10px 0;
+  color: lighten($TEXT_COLOR_DARK, 0.5);
+  font-weight: normal !important;
+}

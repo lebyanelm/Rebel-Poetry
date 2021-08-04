@@ -1,24 +1,53 @@
 @import "../../variables.scss";
 @import "../../utils/utils.scss";
 
+/* BANNER */
+a.Banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+  background-color: $PRIMARY_COLOR;
+  color: $TEXT_COLOR_LIGHT;
+}
+
+a.Banner svg {
+  transition: transform 300ms ease;
+}
+
+a.Banner:hover svg {
+  transform: translateX(10px);
+}
+
 /* HEADER CONTAINER */
-.HeaderContainer,
-.HeaderContainer section {
+.HeaderContainer {
+  position: fixed;
+  width: 100%;
+  background-color: $BACKGROUND_COLOR;
+  z-index: 10000;
+}
+
+.Header,
+.Header section {
   display: flex;
   align-items: center;
 }
 
-.HeaderContainer {
+.Header {
   border-bottom: $BORDER;
-  padding: 10px $PAGE_MARGINS;
+  padding: 10px $PAGE_MARGINS 15px $PAGE_MARGINS;
   justify-content: space-between;
 }
 
-.HeaderContainer .HeaderBrandLogo img {
+.Header .HeaderBrandLogo img {
   height: 50px;
   transform: translateY(3px);
+  border-radius: 10px;
 }
 
-.HeaderContainer section a {
+.Header section a {
   margin: 0 10px;
 }

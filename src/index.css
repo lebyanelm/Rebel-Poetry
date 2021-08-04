@@ -1,3 +1,4 @@
+@import url(./utils/utils.css);
 /* Browser resets */
 body {
   margin: 0;
@@ -9,8 +10,7 @@ body {
   outline: none;
   box-sizing: border-box;
   font-family: "Helvetica Neue", sans-serif;
-  font-size: 16px;
-  font-weight: 500; }
+  font-size: 16px; }
 
 *::selection {
   background-color: #1436ad;
@@ -21,6 +21,7 @@ a {
   text-decoration: none;
   color: #000000;
   transition: color 300ms ease;
+  font-weight: 500;
   cursor: pointer; }
 
 a:hover {
@@ -35,8 +36,12 @@ h3,
 h4,
 h5,
 h6 {
+  display: block;
+  padding: 10px 20px 0 20px;
   font-family: "GD-Sage";
-  margin-bottom: 0; }
+  margin-bottom: 0;
+  background-color: #ebc952;
+  word-wrap: break-word; }
 
 h1 {
   font-size: 70px; }
@@ -75,7 +80,7 @@ button,
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 13px 20px;
+  padding: 8px 20px;
   border-radius: 0;
   border: 2px solid #000000;
   background: #1436ad;
@@ -98,10 +103,26 @@ button:hover,
 
 button.outline,
 .button.outline {
-  background-color: transparent;
+  background-color: #ffffff;
   border: 2px solid #000000;
   color: #000000; }
 
 /* Page container */
 .page-container {
-  padding: 20px 180px; }
+  padding: 140px 180px 20px 180px; }
+
+/* Tags */
+.tags {
+  margin: 10px 0;
+  gap: 5px; }
+
+.tags .tag {
+  padding: 5px;
+  float: lef;
+  background-color: #ebc952;
+  color: #000000;
+  font-size: 12px;
+  font-weight: bold;
+  transform: translateY(-4px);
+  cursor: pointer;
+  transition: background-color 300ms ease; }

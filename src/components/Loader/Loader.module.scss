@@ -1,0 +1,37 @@
+@import "../../variables.scss";
+
+.Loader svg {
+  height: 30px;
+}
+
+.FirstCircle {
+  fill: $TEXT_COLOR_DARK;
+  animation: FirstCircleBlink 500ms ease infinite alternate-reverse;
+}
+
+.SecondCircle {
+  fill: $SECONDARY_COLOR;
+  animation: SecondCircleBlink 500ms ease infinite alternate-reverse;
+}
+
+.BlendGroup {
+  mix-blend-mode: difference;
+}
+
+@keyframes FirstCircleBlink {
+  from {
+    fill: $TEXT_COLOR_DARK;
+  }
+  to {
+    fill: $SECONDARY_COLOR;
+  }
+}
+
+@keyframes SecondCircleBlink {
+  from {
+    fill: $SECONDARY_COLOR;
+  }
+  to {
+    fill: $PRIMARY_COLOR;
+  }
+}

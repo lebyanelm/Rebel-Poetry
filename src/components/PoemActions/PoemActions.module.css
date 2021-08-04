@@ -1,0 +1,35 @@
+.PoemActions {
+  display: block;
+  display: flex;
+  padding: 0 20px 20px 20px;
+  justify-content: space-between; }
+
+.PoemActions section {
+  gap: 10px; }
+
+.PoemActions .Action {
+  display: flex;
+  align-items: center;
+  cursor: pointer; }
+
+.PoemActions .Action span {
+  margin-left: 5px;
+  font-size: small;
+  font-weight: bolder; }
+
+.PoemActions .Action svg {
+  fill: gray;
+  height: 20px;
+  transform: translateY(-2px); }
+
+.PoemActions .Action:hover svg {
+  fill: #1436ad; }
+
+.PoemActions .Action:hover span {
+  color: #1436ad; }
+
+.PoemActions .Action[data-like]:hover svg {
+  fill: orangered; }
+
+.PoemActions .Action[data-like]:hover span {
+  fill: orangered !important; }

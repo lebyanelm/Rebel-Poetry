@@ -1,4 +1,5 @@
 @import "./variables.scss";
+@import "./utils/utils.css";
 
 /* Browser resets */
 body {
@@ -13,7 +14,6 @@ body {
   box-sizing: border-box;
   font-family: $FONT_FAMILY;
   font-size: $FONT_SIZE;
-  font-weight: 500;
 }
 
 *::selection {
@@ -26,6 +26,7 @@ a {
   text-decoration: none;
   color: $TEXT_COLOR;
   transition: color 300ms ease;
+  font-weight: 500;
   cursor: pointer;
 }
 
@@ -42,8 +43,12 @@ h3,
 h4,
 h5,
 h6 {
+  display: block;
+  padding: 10px 20px 0 20px;
   font-family: "GD-Sage";
   margin-bottom: 0;
+  background-color: $SECONDARY_COLOR;
+  word-wrap: break-word;
 }
 
 h1 {
@@ -91,7 +96,7 @@ button,
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 13px $PADDING;
+  padding: 8px $PADDING;
   border-radius: 0;
   border: $BORDER;
   background: $PRIMARY_COLOR;
@@ -117,12 +122,30 @@ button:hover,
 
 button.outline,
 .button.outline {
-  background-color: transparent;
+  background-color: $TEXT_COLOR_LIGHT;
   border: $BORDER;
   color: $TEXT_COLOR;
 }
 
 /* Page container */
 .page-container {
-  padding: $PADDING $PAGE_MARGINS;
+  padding: 140px $PAGE_MARGINS $PADDING $PAGE_MARGINS;
+}
+
+/* Tags */
+.tags {
+  margin: 10px 0;
+  gap: 5px;
+}
+
+.tags .tag {
+  padding: 5px;
+  float: lef;
+  background-color: $SECONDARY_COLOR;
+  color: $TEXT_COLOR_DARK;
+  font-size: 12px;
+  font-weight: bold;
+  transform: translateY(-4px);
+  cursor: pointer;
+  transition: background-color 300ms ease;
 }

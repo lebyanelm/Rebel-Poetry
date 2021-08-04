@@ -1,14 +1,10 @@
-@import "../../variables.scss";
-
 .PoemInputContainer:focus-within input,
 .PoemInputContainer:focus-within textarea {
-  border-color: $TEXT_COLOR_DARK;
-}
+  border-color: #000000; }
 
 .PoemInputTitle,
 .PoemInput {
-  text-indent: 0 !important;
-}
+  text-indent: 0 !important; }
 
 .PoemInputTitle {
   border-bottom: none;
@@ -16,36 +12,33 @@
   font-family: "GD-Sage";
   width: 100%;
   text-overflow: clip;
-  color: $PRIMARY_COLOR;
-}
+  color: #1436ad; }
 
 .PoemInput {
   border-top: none;
-  font-style: italic;
-}
+  font-style: italic; }
 
 input,
 textarea {
   width: 100%;
   max-width: 100%;
-  min-width: 100%;
-}
+  min-width: 100%; }
 
 .PoemTagsInput {
   display: block;
   width: 100%;
-  border-top: $BORDER;
-}
+  border-top: 2px solid #000000; }
 
 /* Buttons section */
 .Buttons {
-  justify-content: space-between;
-}
+  justify-content: space-between; }
 
 .Buttons,
 .Buttons section {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 10px;
-}
+  margin-top: 10px; }
+
+.PostingAuthority {
+  opacity: 0.5; }

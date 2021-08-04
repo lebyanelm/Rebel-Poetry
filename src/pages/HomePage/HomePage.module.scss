@@ -1,1 +1,5 @@
-.HomePage {}
+@import "../../variables.scss";
+
+.PoemsHeader {
+  font-family: $FONT_FAMILY !important;
+}

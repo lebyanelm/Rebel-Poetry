@@ -1,0 +1,27 @@
+.Poem {
+  border: 1.5px solid #000000; }
+
+.Poem .PoemThumbnail {
+  width: 100%;
+  height: 200px;
+  background: #000000;
+  background-size: cover;
+  background-position: center;
+  margin: 0; }
+
+.Poem .PoemDetails {
+  padding: 20px; }
+
+.Poem .PoemDetails .PoemTitle {
+  display: flex;
+  align-items: center;
+  font-size: 40px;
+  font-family: "GD-Sage", "Helvetica Neue", sans-serif; }
+
+.Poem .PoemDetails .PoemAuthor,
+.Poem .PoemDetails .PoemDescription {
+  display: block; }
+
+.Poem .PoemDetails .PoemDescription {
+  margin: 10px 0 20px 0;
+  color: gray; }
