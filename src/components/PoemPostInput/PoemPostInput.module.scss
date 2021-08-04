@@ -22,13 +22,24 @@
 .PeomInput {
   width: 100%;
   max-width: 100%;
+  min-width: 100%;
   border-top: none;
+  font-style: italic;
 }
 
 /* Buttons section */
 .Buttons {
+  justify-content: space-between;
+}
+
+.Buttons,
+.Buttons section {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-top: 10px;
+}
+
+.PostingAuthority {
+  opacity: 0.5;
 }

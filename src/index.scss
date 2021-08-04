@@ -26,6 +26,7 @@ a {
   text-decoration: none;
   color: $TEXT_COLOR;
   transition: color 300ms ease;
+  cursor: pointer;
 }
 
 a:hover {
