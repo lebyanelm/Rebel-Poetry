@@ -13,18 +13,25 @@ body {
   box-sizing: border-box;
   font-family: $FONT_FAMILY;
   font-size: $FONT_SIZE;
+  font-weight: 500;
+}
+
+*::selection {
+  background-color: $PRIMARY_COLOR;
+  color: $TEXT_COLOR_LIGHT;
 }
 
 /* Anchor tags */
 a {
   text-decoration: none;
-  font-weight: 500;
   color: $TEXT_COLOR;
   transition: color 300ms ease;
 }
 
 a:hover {
   color: $PRIMARY_COLOR;
+  text-decoration: underline;
+  text-decoration-thickness: 5px;
 }
 
 /* Headers */
@@ -34,7 +41,33 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "GD-Sage", $FONT_FAMILY;
+  font-family: "GD-Sage";
+  margin-bottom: 0;
+}
+
+h1 {
+  font-size: 70px;
+}
+
+h2 {
+  font-size: 50px;
+}
+
+h3 {
+  font-size: 40px;
+}
+
+h4 {
+  font-size: 30px;
+}
+
+h5 {
+  font-size: 20px;
+}
+
+/* Paragraph content */
+p {
+  color: lighten($TEXT_COLOR_DARK, 25%);
 }
 
 /* Inputs */
@@ -43,7 +76,6 @@ textarea {
   border: $BORDER;
   background: $TEXT_COLOR_LIGHT;
   padding: 10px;
-  text-indent: 10px;
   transition: border-color 300ms ease;
 }
 
@@ -55,16 +87,41 @@ textarea:focus {
 /* Buttons */
 button,
 .button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   padding: 13px $PADDING;
   border-radius: 0;
+  border: $BORDER;
   background: $PRIMARY_COLOR;
+  border-color: $PRIMARY_COLOR;
   color: $TEXT_COLOR_LIGHT;
   font-size: small;
   font-weight: bold;
   transition: background 300ms ease;
+  cursor: pointer;
+}
+
+button span,
+.button span {
+  font-size: small;
+  font-weight: bold;
 }
 
 button:hover,
 .button:hover {
   background: $SECONDARY_COLOR;
+  color: $TEXT_COLOR_DARK;
+}
+
+button.outline,
+.button.outline {
+  background-color: transparent;
+  border: $BORDER;
+  color: $TEXT_COLOR;
+}
+
+/* Page container */
+.page-container {
+  padding: $PADDING $PAGE_MARGINS;
 }

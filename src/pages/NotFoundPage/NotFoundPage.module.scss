@@ -1,0 +1,12 @@
+@import "../../variables.scss";
+
+.NotFoundPage {
+  height: calc(100vh - 85px);
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+h1 {
+  font-weight: 900;
+}

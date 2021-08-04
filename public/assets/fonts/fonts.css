@@ -1,6 +1,6 @@
 /* GDSage - Headers and Titles */
 @font-face {
   font-family: "GD-Sage";
-  src: url("/GDSage/8a86b3e611f41da6ca263bf6c73dc65b.woff2") format("woff2"),
-    url("/GDSage/8a86b3e611f41da6ca263bf6c73dc65b.woff") format("woff");
+  src: url("./GDSage/8a86b3e611f41da6ca263bf6c73dc65b.woff2") format("woff2"),
+    url("./GDSage/8a86b3e611f41da6ca263bf6c73dc65b.woff") format("woff");
 }

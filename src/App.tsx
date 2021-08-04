@@ -3,15 +3,21 @@ import './App.css';
 import Header from "./components/Header/Header";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
+// Pages
+import HomePage from "./pages/HomePage/HomePage";
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
+
+export const SessionContext = React.createContext({});
 function App() {
-  const SessionContext = React.createContext({});
   
   return (
     <React.Fragment>
-      <SessionContext.Provider value="">
+      <SessionContext.Provider value={{token: "tok_8"}}>
         <BrowserRouter>
           <Header />
           <Switch>
+            <Route exact path="/"><HomePage /></Route>
+            <Route path="*"><NotFoundPage /></Route>
           </Switch>
         </BrowserRouter>
       </SessionContext.Provider>
