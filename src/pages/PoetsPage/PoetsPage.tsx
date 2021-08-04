@@ -6,7 +6,7 @@ import styles from './PoetsPage.module.scss';
 const PoetsPage = () => {
   const sessionContext: any = useContext(SessionContext);
   useEffect(() => {
-    document.title = [sessionContext[0].appName, 'All Rebel Poets'].join(' | ')
+    document.title = [sessionContext[0].appName, 'All Rebel Poets'].join(': ')
   }, []);
 
   return (

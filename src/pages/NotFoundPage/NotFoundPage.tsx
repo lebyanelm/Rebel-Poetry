@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const NotFoundPage = () => {
   useEffect(() => {
-    document.title = 'Rebel Poetry | Page Not Found'
+    document.title = 'Rebel Poetry: Page Not Found'
   }, []);
   
   return (<div className="page-container" style={{transform: 'translateY(-100px)'}}>

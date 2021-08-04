@@ -7,7 +7,7 @@ import { SessionContext } from '../../App';
 const HomePage = () => {
   const sessionContext: any = useContext(SessionContext);
   useEffect(() => {
-    document.title = [sessionContext[0].appName, 'Discover'].join(' | ')
+    document.title = [sessionContext[0].appName, 'Discover'].join(': ')
   }, []);
   
   return (
