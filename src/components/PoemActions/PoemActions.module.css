@@ -13,23 +13,22 @@
   cursor: pointer; }
 
 .PoemActions .Action span {
-  margin-left: 5px;
+  margin-left: 10px;
   font-size: small;
   font-weight: bolder; }
 
 .PoemActions .Action svg {
-  fill: gray;
-  height: 20px;
-  transform: translateY(-2px); }
+  height: 23px;
+  transform: translateY(-3px); }
 
 .PoemActions .Action:hover svg {
-  fill: #1436ad; }
+  stroke: #1436ad; }
 
 .PoemActions .Action:hover span {
   color: #1436ad; }
 
 .PoemActions .Action[data-like]:hover svg {
-  fill: orangered; }
+  stroke: orangered; }
 
 .PoemActions .Action[data-like]:hover span {
-  fill: orangered !important; }
+  stroke: orangered; }

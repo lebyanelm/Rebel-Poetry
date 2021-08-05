@@ -25,7 +25,7 @@ const Poem = () => (
       <span className={styles.PoemDescription}>I’ve learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.</span>
 
       <div className="tags flex">
-        <Link to="/tag?name=30min_read"><div className="tag">18min Read</div></Link>
+        <Link to="/tag?name=30min_read"><div className="tag flex align-center"><IonIcon name="star" style={{marginRight: '5px'}}></IonIcon> Premium</div></Link>
         <Link to="/tag?name=30min_read"><div className="tag">African Struggle</div></Link>
         <Link to="/tag?name=30min_read"><div className="tag">Black</div></Link>
         <Link to="/tag?name=30min_read"><div className="tag">Life</div></Link>

@@ -1,0 +1,25 @@
+.Poet {
+  border: 2px solid #000000;
+  border-left-color: transparent;
+  border-top-color: transparent;
+  text-align: center;
+  padding: 10px; }
+
+.PoetAvatar {
+  display: block;
+  height: 200px;
+  width: 200px;
+  border-radius: 100px;
+  background-color: #000000;
+  background-size: cover;
+  background-position: center center;
+  margin: 0 auto 10px auto; }
+
+.PoetName {
+  font-weight: bolder; }
+
+.Poet span {
+  display: block;
+  margin: 10px 0;
+  color: #010101;
+  font-weight: normal !important; }

@@ -1,0 +1,27 @@
+.SearchInputContainer {
+  display: grid;
+  grid-template-columns: 90% 10%;
+  border: 2px solid #000000; }
+
+.SearchInputContainer .LargeSearchInput {
+  float: left;
+  font-size: 50px;
+  font-weight: normal;
+  border: none; }
+
+.SearchInputContainer .SearchButton {
+  display: grid;
+  place-items: center;
+  border-left: 2px solid #000000;
+  cursor: pointer; }
+
+.SearchInputContainer .SearchButton svg {
+  color: #000000;
+  height: 40px;
+  transform: translateY(-10px) translateX(-10px); }
+
+.SearchInputContainer .SearchButton:hover {
+  background-color: #000000; }
+
+.SearchInputContainer .SearchButton:hover svg {
+  stroke: #ffffff; }
