@@ -76,18 +76,31 @@ p {
   color: lighten($TEXT_COLOR_DARK, 25%);
 }
 
+p.danger {
+  color: $DANGER_COLOR;
+}
+
+p.success {
+  color: $SUCCESS_COLOR;
+}
+
 /* Inputs */
 input,
+.input,
 textarea {
   border: $BORDER;
+  border-bottom: 4px solid $TEXT_COLOR_DARK;
   background: $TEXT_COLOR_LIGHT;
   padding: 10px;
   transition: border-color 300ms ease;
 }
 
 input:focus,
+.input:focus-within,
+.input:focus,
 textarea:focus {
   border-color: $SECONDARY_COLOR;
+  border-bottom-color: $PRIMARY_COLOR;
 }
 
 /* Buttons */
@@ -148,4 +161,24 @@ button.outline,
   transform: translateY(-4px);
   cursor: pointer;
   transition: background-color 300ms ease;
+}
+
+/* Form container */
+.form {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.form button {
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.form input {
+  margin-bottom: 10px;
+}
+
+.form input:focus {
+  border-color: $TEXT_COLOR_DARK;
 }

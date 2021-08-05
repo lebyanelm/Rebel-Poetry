@@ -10,6 +10,7 @@ import PoetsPage from './pages/PoetsPage/PoetsPage';
 import PoemPage from './pages/PoemPage/PoemPage';
 import SearchPage from './pages/SearchPage/SearchPage';
 import Footer from './components/Footer/Footer';
+import SignUpPage from './pages/SignUpPage/SignUpPage';
 
 export const SessionContext = React.createContext({});
 function App() {
@@ -28,6 +29,7 @@ function App() {
             <Route path="/poets"><PoetsPage /></Route>
             <Route path="/poem"><PoemPage /></Route>
             <Route path="/search"><SearchPage /></Route>
+            <Route path="/sign_up"><SignUpPage /></Route>
             <Route path="*"><NotFoundPage /></Route>
           </Switch>
           <Footer />

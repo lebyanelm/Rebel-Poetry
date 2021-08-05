@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-import styles from './HomePage.module.scss';
 import PoemPostInput from '../../components/PoemPostInput/PoemPostInput';
 import PoemsList from "../../components/PoemsList/PoemsList";
 import { SessionContext } from '../../App';

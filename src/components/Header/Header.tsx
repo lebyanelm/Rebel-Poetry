@@ -1,8 +1,6 @@
 import React from 'react';
 import Logo from "../../logo.svg";
 import styles from './Header.module.css';
-import { Link } from "react-router-dom";
-import Loader from '../Loader/Loader';
 import IonIcon from "@reacticons/ionicons";
 
 const Header = () => (
@@ -28,7 +26,7 @@ const Header = () => (
 
         <section>
           <a href="/donate"><div className="navigation-item button">Become a Donator</div></a>
-          <a href="/sign_in"><div className="navigation-item">My Profile</div></a>
+          <a href="/sign_up"><div className="navigation-item">Become a Member</div></a>
         </section>
       </React.Fragment>
     </div>
