@@ -49,8 +49,6 @@ const SignUpPage = () => {
           <button type="submit">Become a Member</button>
 
           <p>By creating an account you agree to our <a href="">Terms and Conditions</a>. If you are already a member you can <a href="/sign_in">Sign in to your account.</a></p>
-          
-          <br />
         </form>
       </div>
     </>
