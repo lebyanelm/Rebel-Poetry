@@ -8,7 +8,7 @@ const Footer = () => (
       {/* RIGHT SECTION */}
       <section className={styles.LeftSection}>
         <img src={Logo} alt="" />
-        <a className={styles.BrandName} href="/">Rebel Poetry</a>
+        <a className={styles.BrandName} href="/">{process.env.REACT_APP_NAME}</a>
         
         <div className={styles.Legal}>All poems on this site are part of copyrights of their respective poets. All content on this site is published here under <a href="https://creativecommons.org/licenses/" target="_blank">Creative Commons License</a>.</div>
       </section>

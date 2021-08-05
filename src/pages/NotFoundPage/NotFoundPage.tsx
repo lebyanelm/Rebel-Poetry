@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const NotFoundPage = () => {
   useEffect(() => {
-    document.title = 'Rebel Poetry: Page Not Found'
+    document.title = [process.env.REACT_APP_NAME, 'Page Not Found'].join(': ')
   }, []);
   
   return (<div className="page-container" style={{transform: 'translateY(-100px)'}}>

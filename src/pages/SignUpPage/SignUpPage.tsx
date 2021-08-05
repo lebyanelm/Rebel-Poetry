@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SessionContext } from '../../App';
 import styles from './SignUpPage.module.scss';
+import { post } from 'superagent';
 
 const SignUpPage = () => {
-  const sessionContext: any = useContext(SessionContext);
   useEffect(() => {
-    document.title = [sessionContext[0].appName, 'Discover'].join(': ')
+    document.title = [process.env.REACT_APP_NAME, 'Create an account'].join(': ')
   }, [ ]);
   
   const [requestData, setRequestData] = useState({

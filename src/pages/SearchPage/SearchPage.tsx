@@ -1,13 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styles from './SearchPage.module.scss';
 import IonIcon from '@reacticons/ionicons';
 import PoemsList from '../../components/PoemsList/PoemsList';
-import { SessionContext } from '../../App';
 
 const SearchPage = () => {
-  const sessionContext: any = useContext(SessionContext);
   useEffect(() =>  {
-    document.title = [sessionContext[0].appName, 'Search'].join(': ');
+    document.title = [process.env.REACT_APP_NAME, 'Search'].join(': ');
   }, []);
 
   return (

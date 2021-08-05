@@ -1,12 +1,10 @@
-import React, { useContext, useEffect } from 'react';
-import { SessionContext } from '../../App';
+import React, { useEffect } from 'react';
 import Poet from '../../components/Poet/Poet';
 import styles from './PoetsPage.module.scss';
 
 const PoetsPage = () => {
-  const sessionContext: any = useContext(SessionContext);
   useEffect(() => {
-    document.title = [sessionContext[0].appName, 'All Rebel Poets'].join(': ')
+    document.title = [process.env.REACT_APP_NAME, 'All Rebbel Poets'].join(': ')
   }, []);
 
   return (
