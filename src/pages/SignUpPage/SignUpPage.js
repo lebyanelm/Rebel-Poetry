@@ -81,7 +81,7 @@ const SignUpPage = () => {
     <>
       <div className="page-container">
         <form onSubmit={onFormSubmit} className="form">
-          <h1>Create Account</h1>
+          <h1>Sign Up</h1>
 
           {responseError ? (
             <p className={[styles.ResponseError, "danger"].join(" ")}>
@@ -113,9 +113,9 @@ const SignUpPage = () => {
           <button type="submit">Become a Member</button>
 
           <p>
-            By creating an account you agree to our{" "}
-            <Link to="">Terms and Conditions</Link>. If you are already a member
-            you can <Link to="/sign_in">Sign in to your account.</Link>
+            We are glad to have you onboard, by creating an account you agree to
+            our <Link to="">Terms and Conditions</Link>. If you are already a
+            member you can <Link to="/sign_in">Sign in to your account.</Link>
           </p>
         </form>
       </div>

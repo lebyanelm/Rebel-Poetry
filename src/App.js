@@ -12,6 +12,7 @@ import PoemPage from "./pages/PoemPage/PoemPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import Footer from "./components/Footer/Footer";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
+import SignInPage from "./pages/SignInPage/SignInPage";
 import RootWrapper from "./components/RootWrapper/RootWrapper";
 
 function App() {
@@ -36,6 +37,9 @@ function App() {
               </Route>
               <Route path="/sign_up">
                 <SignUpPage />
+              </Route>
+              <Route path="/sign_in">
+                <SignInPage></SignInPage>
               </Route>
               <Route path="*">
                 <NotFoundPage />
