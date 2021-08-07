@@ -156,3 +156,21 @@ button.outline,
 
 .form input:focus {
   border-color: #000000; }
+
+.loader-container {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  z-index: 2000000000;
+  background: rgba(0, 0, 0, 0.9);
+  transition: all 300ms ease;
+  pointer-events: none; }
+
+.loader-container[data-isVisible="true"] {
+  opacity: 1;
+  pointer-events: none; }

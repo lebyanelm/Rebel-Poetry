@@ -25,3 +25,7 @@
 
 .SearchInputContainer .SearchButton:hover svg {
   stroke: #ffffff; }
+
+h4 {
+  background-color: #1436ad;
+  color: #ffffff; }

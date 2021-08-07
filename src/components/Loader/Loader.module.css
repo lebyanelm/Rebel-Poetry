@@ -3,11 +3,11 @@
 
 .FirstCircle {
   fill: #000000;
-  animation: FirstCircleBlink 500ms ease infinite alternate-reverse; }
+  animation: FirstCircleBlink 300ms ease infinite alternate-reverse; }
 
 .SecondCircle {
   fill: #ebc952;
-  animation: SecondCircleBlink 500ms ease infinite alternate-reverse; }
+  animation: SecondCircleBlink 300ms ease infinite alternate-reverse; }
 
 .BlendGroup {
   mix-blend-mode: difference; }
