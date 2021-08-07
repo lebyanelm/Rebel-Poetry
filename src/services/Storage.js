@@ -33,4 +33,16 @@ export const Storage = {
       }
     });
   },
+
+  remove: (name) => {
+    return new Promise((resolve, reject) => {
+      try {
+        localStorage.removeItem(name);
+        resolve();
+      } catch(error) {
+        console.error(error);
+        reject(error);
+      }
+    });
+  }
 };

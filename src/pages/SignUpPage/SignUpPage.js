@@ -3,10 +3,11 @@ import styles from "./SignUpPage.module.scss";
 import * as superagent from "superagent";
 import { Storage } from "../../services/Storage";
 import { useSession } from "../../providers/SessionContext";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const SignUpPage = () => {
   const { userSession, setUserSession } = useSession();
+  const router = useHistory();
 
   useEffect(() => {
     document.title = [process.env.REACT_APP_NAME, "Create an account"].join(
@@ -52,6 +53,8 @@ const SignUpPage = () => {
             if (response.statusCode === 200) {
               Storage.set("AUTH_TOKEN", response.body.data.token);
               setUserSession(response.body.data);
+              router.push("/");
+              // TODO: Show a welcome modal
             } else {
               // Means the account already exists
               if (response.statusCode === 208) {
