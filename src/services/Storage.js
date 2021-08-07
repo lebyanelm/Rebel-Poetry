@@ -1,5 +1,5 @@
 export const Storage = {
-  set: (name: string, data: any) => {
+  set: (name, data) => {
     return new Promise((resolve, reject) => {
       try {
         if (data && data.constructor !== String) {
@@ -14,6 +14,22 @@ export const Storage = {
       } catch (error) {
         console.error(error);
         reject("Something went wrong while saving data");
+      }
+    });
+  },
+
+  get: (name, isJSON = false) => {
+    return new Promise((resolve, reject) => {
+      try {
+        const data = localStorage.getItem(name);
+        if (isJSON) {
+          resolve(JSON.parse(data));
+        } else {
+          resolve(data);
+        }
+      } catch (error) {
+        console.error(error);
+        reject(error);
       }
     });
   },

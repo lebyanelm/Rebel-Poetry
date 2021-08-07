@@ -1,12 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import PoemPostInput from '../../components/PoemPostInput/PoemPostInput';
 import PoemsList from "../../components/PoemsList/PoemsList";
-import { SessionContext } from '../../App';
 
 const HomePage = () => {
-  const sessionContext: any = useContext(SessionContext);
   useEffect(() => {
-    document.title = [sessionContext[0].appName, 'Discover'].join(': ')
+    document.title = [process.env.REACT_APP_NAME, 'Discover'].join(': ')
   }, []);
   
   return (
