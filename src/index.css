@@ -122,6 +122,14 @@ button.outline,
 .page-container {
   padding: 140px 180px 20px 180px; }
 
+.navigation-item {
+  border-bottom: 4px dashed transparent;
+  transform: translateY(4px); }
+
+.navigation-item.active {
+  color: #1436ad;
+  border-color: #1436ad; }
+
 /* Tags */
 .tags {
   margin: 10px 0;

@@ -145,6 +145,16 @@ button.outline,
   padding: 140px $PAGE_MARGINS $PADDING $PAGE_MARGINS;
 }
 
+// HEADER
+.navigation-item {
+  border-bottom: 4px dashed transparent;
+  transform: translateY(4px);
+}
+.navigation-item.active {
+  color: $PRIMARY_COLOR;
+  border-color: $PRIMARY_COLOR;
+}
+
 /* Tags */
 .tags {
   margin: 10px 0;

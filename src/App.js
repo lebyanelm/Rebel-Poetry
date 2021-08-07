@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./App.css";
 import Header from "./components/Header/Header";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 // Pages
 import HomePage from "./pages/HomePage/HomePage";
@@ -31,6 +31,9 @@ function App() {
               <Header />
               <Switch>
                 <Route exact path="/">
+                  <Redirect to="/discover"></Redirect>
+                </Route>
+                <Route path="/discover">
                   <HomePage />
                 </Route>
                 <Route path="/poets">

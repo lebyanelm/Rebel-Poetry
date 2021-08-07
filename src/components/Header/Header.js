@@ -2,9 +2,13 @@ import React from "react";
 import Logo from "../../logo.svg";
 import styles from "./Header.module.css";
 import IonIcon from "@reacticons/ionicons";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useSession } from "../../providers/SessionContext";
 
 const Header = () => {
+  const location = useLocation();
+  const { userSession } = useSession();
+
   return (
     <div className={styles.HeaderContainer}>
       {/* BANNER */}
@@ -24,20 +28,60 @@ const Header = () => {
           <img src={Logo} alt="" />
         </Link>
         <section>
-          <Link to="/">
-            <div className="navigation-item">Discover</div>
+          <Link to="/discover">
+            <div
+              className={[
+                "navigation-item",
+                location.pathname === "/discover" ? "active" : "inactive",
+              ].join(" ")}
+            >
+              Discover
+            </div>
           </Link>
           <Link to="/poets">
-            <div className="navigation-item">Rebel Poets</div>
+            <div
+              className={[
+                "navigation-item",
+                location.pathname === "/poets" ? "active" : "inactive",
+              ].join(" ")}
+            >
+              Rebel Poets
+            </div>
           </Link>
-          <Link to="/your_drafts">
-            <div className="navigation-item">Your Drafts</div>
-          </Link>
+
+          {/* Only when there's a session */}
+          {userSession && (
+            <Link to="/your_drafts">
+              <div
+                className={[
+                  "navigation-item",
+                  location.pathname === "/your_drafts" ? "active" : "inactive",
+                ].join(" ")}
+              >
+                Your Drafts
+              </div>
+            </Link>
+          )}
+
           <Link to="/feeling_lucky">
-            <div className="navigation-item">Feeling Lucky</div>
+            <div
+              className={[
+                "navigation-item",
+                location.pathname === "/feeling_lucky" ? "active" : "inactive",
+              ].join(" ")}
+            >
+              Feeling Lucky
+            </div>
           </Link>
           <Link to="/search">
-            <div className="navigation-item">Search</div>
+            <div
+              className={[
+                "navigation-item",
+                location.pathname === "/search" ? "active" : "inactive",
+              ].join(" ")}
+            >
+              Search
+            </div>
           </Link>
         </section>
 
@@ -48,7 +92,17 @@ const Header = () => {
             <div className="navigation-item button">Become a Donator</div>
           </Link>
           <Link to="/sign_up">
-            <div className="navigation-item">Become a Member</div>
+            <div
+              className={[
+                "navigation-item",
+                location.pathname === "/sign_in" ||
+                location.pathname === "/sign_up"
+                  ? "active"
+                  : "inactive",
+              ].join(" ")}
+            >
+              Sign Up / Sign
+            </div>
           </Link>
         </section>
       </div>
