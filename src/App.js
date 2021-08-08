@@ -16,6 +16,8 @@ import RootWrapper from "./components/RootWrapper/RootWrapper";
 
 // Providers
 import { SessionContextProvider } from "./providers/SessionContext";
+import { BacklightContextProvider } from "./providers/BacklightContext";
+
 import {
   LoaderContextProvider,
   useLoaderState,
@@ -25,40 +27,42 @@ function App() {
   return (
     <React.Fragment>
       <SessionContextProvider>
-        <LoaderContextProvider>
-          <BrowserRouter>
-            <RootWrapper>
-              <Header />
-              <Switch>
-                <Route exact path="/">
-                  <Redirect to="/discover"></Redirect>
-                </Route>
-                <Route path="/discover">
-                  <HomePage />
-                </Route>
-                <Route path="/poets">
-                  <PoetsPage />
-                </Route>
-                <Route path="/poem">
-                  <PoemPage />
-                </Route>
-                <Route path="/search">
-                  <SearchPage />
-                </Route>
-                <Route path="/sign_up">
-                  <SignUpPage />
-                </Route>
-                <Route path="/sign_in">
-                  <SignInPage></SignInPage>
-                </Route>
-                <Route path="*">
-                  <NotFoundPage />
-                </Route>
-              </Switch>
-              <Footer />
-            </RootWrapper>
-          </BrowserRouter>
-        </LoaderContextProvider>
+        <BacklightContextProvider>
+          <LoaderContextProvider>
+            <BrowserRouter>
+              <RootWrapper>
+                <Header />
+                <Switch>
+                  <Route exact path="/">
+                    <Redirect to="/discover"></Redirect>
+                  </Route>
+                  <Route path="/discover">
+                    <HomePage />
+                  </Route>
+                  <Route path="/poets">
+                    <PoetsPage />
+                  </Route>
+                  <Route path="/poem">
+                    <PoemPage />
+                  </Route>
+                  <Route path="/search">
+                    <SearchPage />
+                  </Route>
+                  <Route path="/sign_up">
+                    <SignUpPage />
+                  </Route>
+                  <Route path="/sign_in">
+                    <SignInPage></SignInPage>
+                  </Route>
+                  <Route path="*">
+                    <NotFoundPage />
+                  </Route>
+                </Switch>
+                <Footer />
+              </RootWrapper>
+            </BrowserRouter>
+          </LoaderContextProvider>
+        </BacklightContextProvider>
       </SessionContextProvider>
     </React.Fragment>
   );

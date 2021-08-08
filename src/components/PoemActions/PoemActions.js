@@ -1,6 +1,6 @@
-import React from 'react';
-import styles from './PoemActions.module.scss';
-import IonIcon from '@reacticons/ionicons';
+import React from "react";
+import styles from "./PoemActions.module.scss";
+import IonIcon from "@reacticons/ionicons";
 
 const PoemActions = () => (
   <div className={styles.PoemActions}>
@@ -20,7 +20,7 @@ const PoemActions = () => (
     </section>
     <section className="flex">
       <div className={styles.Action}>
-        <IonIcon name="bookmark"></IonIcon>
+        <IonIcon name="bookmark-outline"></IonIcon>
         <span>120</span>
       </div>
     </section>

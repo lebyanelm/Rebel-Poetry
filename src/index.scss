@@ -76,8 +76,8 @@ p {
   color: lighten($TEXT_COLOR_DARK, 25%);
 }
 
-p.danger {
-  color: $DANGER_COLOR;
+*.danger {
+  color: $DANGER_COLOR !important;
 }
 
 p.success {
@@ -143,6 +143,19 @@ button.outline,
 /* Page container */
 .page-container {
   padding: 140px $PAGE_MARGINS $PADDING $PAGE_MARGINS;
+  position: relative;
+}
+
+// BACKLIGHT
+.backlight {
+  display: block;
+  height: 100vh;
+  width: 100vw;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10000;
 }
 
 // HEADER
@@ -153,6 +166,92 @@ button.outline,
 .navigation-item.active {
   color: $PRIMARY_COLOR;
   border-color: $PRIMARY_COLOR;
+}
+
+.navigation-item.dropdown .dropdown-options-backlight {
+  display: block;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  background-color: transparentize($TEXT_COLOR_DARK, 0.5);
+  z-index: calc(100000000 - 2);
+  top: 0;
+  left: 0;
+}
+
+.navigation-item.dropdown .dropdown-options {
+  padding: block;
+  border: $BORDER;
+  border-radius: 8px;
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  background: $BACKGROUND_COLOR;
+  transform: translateY(100%) translateX(-50%);
+  width: 200px;
+  font-weight: normal;
+  z-index: 100000;
+}
+
+.navigation-item.dropdown .dropdown-options::before {
+  content: "";
+  display: block;
+  height: 18px;
+  width: 18px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background: $TEXT_COLOR_DARK;
+  z-index: -10;
+}
+
+.navigation-item .dropdown-options::after {
+  content: "";
+  display: block;
+  height: 13px;
+  width: 80%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: $BACKGROUND_COLOR;
+}
+
+.navigation-item.dropdown .dropdown-options section,
+.navigation-item.dropdown .dropdown-options section a {
+  display: block !important;
+}
+
+.navigation-item.dropdown .dropdown-options section {
+  text-align: left;
+  padding: 10px 0;
+  border-bottom: 1px solid #555;
+}
+
+.navigation-item.dropdown .dropdown-options section a,
+.navigation-item.dropdown .dropdown-options section span {
+  padding: 5px $PADDING;
+  margin: 0;
+}
+
+.navigation-item.dropdown .dropdown-options section span {
+  text-align: center;
+}
+
+// AVATAR
+// .avatar {
+// }
+
+.small-avatar {
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  border-radius: 100px;
+  background: #333;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border: 1.5px solid $PRIMARY_COLOR;
 }
 
 /* Tags */

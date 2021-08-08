@@ -4,6 +4,7 @@ import styles from "./Header.module.css";
 import IonIcon from "@reacticons/ionicons";
 import { Link, useLocation } from "react-router-dom";
 import { useSession } from "../../providers/SessionContext";
+import AccountDropdownOptions from "../AccountDropdownOptions/AccountDropdownOptions";
 
 const Header = () => {
   const location = useLocation();
@@ -88,22 +89,36 @@ const Header = () => {
         <div className="flex-space"></div>
 
         <section>
-          <Link to="/donate">
-            <div className="navigation-item button">Become a Donator</div>
-          </Link>
-          <Link to="/sign_up">
-            <div
-              className={[
-                "navigation-item",
-                location.pathname === "/sign_in" ||
-                location.pathname === "/sign_up"
-                  ? "active"
-                  : "inactive",
-              ].join(" ")}
-            >
-              Sign Up / Sign
-            </div>
-          </Link>
+          {!userSession && (
+            <Link to="/donate">
+              <div className="navigation-item button">Become a Donator</div>
+            </Link>
+          )}
+
+          {/* For members this will be shown */}
+          {userSession && (
+            <AccountDropdownOptions
+              userSession={userSession}
+              location={location}
+            ></AccountDropdownOptions>
+          )}
+
+          {/* For non-logged in members */}
+          {!userSession && (
+            <Link to="/sign_up">
+              <div
+                className={[
+                  "navigation-item",
+                  location.pathname === "/sign_in" ||
+                  location.pathname === "/sign_up"
+                    ? "active"
+                    : "inactive",
+                ].join(" ")}
+              >
+                Sign Up / Sign
+              </div>
+            </Link>
+          )}
         </section>
       </div>
     </div>

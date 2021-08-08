@@ -4,6 +4,9 @@ import IonIcon from "@reacticons/ionicons";
 import PoemsList from "../../components/PoemsList/PoemsList";
 
 const SearchPage = () => {
+  const [searchValue, setSearchValue] = React.useState("");
+  const [results, setResults] = React.useState([]);
+
   useEffect(() => {
     document.title = [process.env.REACT_APP_NAME, "Search"].join(": ");
   }, []);
@@ -17,18 +20,23 @@ const SearchPage = () => {
             className={styles.LargeSearchInput}
             type="text"
             placeholder="Search for Rebel Poems / Poets"
+            onKeyUp={(event) => setSearchValue(event.target.value)}
           />
           <div className={styles.SearchButton}>
             <IonIcon name="arrow-forward-sharp"></IonIcon>
           </div>
         </div>
 
-        <h4 style={{ textAlign: "center" }}>
-          Your search results are presented below.
-        </h4>
-
-        {/* POEMS SEARCH RESULTS */}
-        <PoemsList></PoemsList>
+        {results.length
+          ? true
+          : false && (
+              <>
+                <h4 style={{ textAlign: "center" }}>
+                  All results for "{searchValue}"
+                </h4>
+                <PoemsList></PoemsList>
+              </>
+            )}
       </div>
     </>
   );
