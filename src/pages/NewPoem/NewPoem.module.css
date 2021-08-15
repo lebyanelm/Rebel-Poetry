@@ -1,0 +1,45 @@
+.NewPoemInputContainer {
+  padding: 20px 0; }
+
+.NewPoemInput {
+  margin-bottom: 10px;
+  position: relative; }
+
+.NewPoemInput:hover .NewPoemInputButton {
+  opacity: 1; }
+
+.NewPoemInput textarea {
+  background-color: transparent;
+  padding: 0 20px;
+  border: none;
+  height: auto; }
+
+.NewPoemInput .NewPoemTitle {
+  font-size: 50px;
+  font-family: "GD-Sage", "Helvetica Neue", sans-serif;
+  height: auto;
+  color: #1436ad; }
+
+.NewPoemInput .NewPoemBody {
+  font-style: italic; }
+
+.NewPoemInput .NewPoemInputButton {
+  height: 35px;
+  width: 35px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #000000;
+  border-radius: 100px;
+  position: absolute;
+  left: -12px;
+  top: 30px;
+  transform: translateX(-50%) translateY(-50%);
+  opacity: 0; }
+  .NewPoemInput .NewPoemInputButton:hover {
+    background: #1436ad;
+    color: #ffffff;
+    cursor: pointer; }
+
+.NewPoemInput .NewPoemInputButton svg {
+  height: 25px;
+  transform: translate(-20%, -15%); }

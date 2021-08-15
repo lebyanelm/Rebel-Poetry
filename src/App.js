@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import PoetsPage from "./pages/PoetsPage/PoetsPage";
+import PoetProfile from "./pages/PoetProfile/PoetProfile";
 import PoemPage from "./pages/PoemPage/PoemPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import Footer from "./components/Footer/Footer";
@@ -22,6 +23,7 @@ import {
   LoaderContextProvider,
   useLoaderState,
 } from "./providers/LoaderContext";
+import NewPoem from "./pages/NewPoem/NewPoem";
 
 function App() {
   return (
@@ -33,14 +35,20 @@ function App() {
               <RootWrapper>
                 <Header />
                 <Switch>
+                  <Route path="/new_poem">
+                    <NewPoem></NewPoem>
+                  </Route>
                   <Route exact path="/">
                     <Redirect to="/discover"></Redirect>
                   </Route>
                   <Route path="/discover">
                     <HomePage />
                   </Route>
-                  <Route path="/poets">
+                  <Route exact path="/rebels">
                     <PoetsPage />
+                  </Route>
+                  <Route path="/rebels/@:poet">
+                    <PoetProfile />
                   </Route>
                   <Route path="/poem">
                     <PoemPage />

@@ -1,0 +1,39 @@
+.PoemPageContainer {
+  padding: 118px 0; }
+
+.PoemContents {
+  padding: 40px 180px; }
+
+.PoemContents .PoemSplitSides {
+  display: grid;
+  grid-template-columns: 1fr 0.5fr;
+  gap: 20px; }
+
+.PoemContents .PoemTextContainer,
+.PoemContents .PoemTextContainer * {
+  font-size: 20px;
+  font-weight: 500;
+  font-style: italic;
+  font-family: serif; }
+
+.PoemContents .PoemTextContainer a {
+  font-weight: 900;
+  text-decoration: underline;
+  text-decoration-thickness: 5px;
+  background: rgba(20, 54, 173, 0.2); }
+
+.PoemContents .PoemInformation {
+  padding: 0 20px; }
+
+.PoemContents section .SectionTitle {
+  padding: 10px 0;
+  border-bottom: 2px solid #000000;
+  font-size: small;
+  text-transform: uppercase;
+  font-weight: bold; }
+
+.FeaturedPoetPoemCount {
+  font-weight: normal;
+  font-size: small;
+  margin-top: 2.5px;
+  opacity: 0.7; }

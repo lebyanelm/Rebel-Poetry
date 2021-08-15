@@ -1,0 +1,57 @@
+@import "../../variables.scss";
+
+.NewPoemInputContainer {
+  padding: $PADDING 0;
+}
+
+.NewPoemInput {
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.NewPoemInput:hover .NewPoemInputButton {
+  opacity: 1;
+}
+
+.NewPoemInput textarea {
+  background-color: transparent;
+  padding: 0 20px;
+  border: none;
+  height: auto;
+}
+
+.NewPoemInput .NewPoemTitle {
+  font-size: 50px;
+  font-family: "GD-Sage", $FONT_FAMILY;
+  height: auto;
+  color: $PRIMARY_COLOR;
+}
+
+.NewPoemInput .NewPoemBody {
+  font-style: italic;
+}
+
+.NewPoemInput .NewPoemInputButton {
+  height: 35px;
+  width: 35px;
+  display: grid;
+  place-items: center;
+  border: 1px solid $TEXT_COLOR_DARK;
+  border-radius: 100px;
+  position: absolute;
+  left: -12px;
+  top: 30px;
+  transform: translateX(-50%) translateY(-50%);
+  opacity: 0;
+
+  &:hover {
+    background: $PRIMARY_COLOR;
+    color: $TEXT_COLOR_LIGHT;
+    cursor: pointer;
+  }
+}
+
+.NewPoemInput .NewPoemInputButton svg {
+  height: 25px;
+  transform: translate(-20%, -15%);
+}

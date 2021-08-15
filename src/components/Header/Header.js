@@ -29,6 +29,16 @@ const Header = () => {
           <img src={Logo} alt="" />
         </Link>
         <section>
+          <Link to="/new_poem">
+            <div
+              className={[
+                "navigation-item",
+                location.pathname === "/new_poem" ? "active" : "inactive",
+              ].join(" ")}
+            >
+              Publish New
+            </div>
+          </Link>
           <Link to="/discover">
             <div
               className={[
@@ -39,11 +49,11 @@ const Header = () => {
               Discover
             </div>
           </Link>
-          <Link to="/poets">
+          <Link to="/rebels">
             <div
               className={[
                 "navigation-item",
-                location.pathname === "/poets" ? "active" : "inactive",
+                location.pathname.includes("/poets") ? "active" : "inactive",
               ].join(" ")}
             >
               Rebel Poets

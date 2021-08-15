@@ -1,0 +1,53 @@
+.PoemPageHeader {
+  width: 100%;
+  height: auto;
+  background-color: #000000;
+  background-position: center;
+  position: relative; }
+
+.BackgroundDiffuser {
+  padding: 40px 180px;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.85); }
+
+.PoemPageHeader .PoemInformationContainer {
+  display: flex;
+  width: 100%;
+  color: #f6edec;
+  z-index: 2; }
+
+.PoemPageHeader .PoemThumbnailImage {
+  height: 250px;
+  width: 250px;
+  border: 2.5px solid #f6edec;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; }
+
+.PoemPageHeader .PoemDetailsContainer {
+  padding: 0 20px; }
+
+.PoemPageHeader .PoemDetailsContainer .PoemTitle {
+  background-color: transparent;
+  color: #ebc952;
+  padding: 0;
+  margin: 0;
+  -webkit-text-stroke: 0.8px #ffffff !important;
+  -o-text-stroke: 0.8px #ffffff !important;
+  -moz-text-stroke: 0.8px #ffffff !important; }
+
+.PoemPageHeader .PoemDetailsContainer .PoemDescription {
+  color: rgba(255, 255, 255, 0.7); }
+
+.PoemPageHeader a {
+  color: #f6edec; }
+
+.PoemPageHeader a:hover {
+  color: #ebc952; }
+
+.PoemPageHeader .PoemMetadataItems {
+  margin-top: 10px; }
+
+.PoemPageHeader .PoemMetadataItems tbody tr td:not(:first-child) {
+  padding: 0 10px; }

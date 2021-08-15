@@ -1,7 +1,10 @@
+@import "../variables.scss";
+
 /* Flex Items */
 .flex {
   display: flex;
   align-items: center;
+  gap: $PADDING;
 }
 
 .flex.space-between {

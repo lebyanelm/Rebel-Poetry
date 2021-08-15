@@ -110,12 +110,12 @@ button,
   align-items: center;
   gap: 10px;
   padding: 8px $PADDING;
-  border-radius: 0;
+  border-radius: 5px;
   border: $BORDER;
   background: $PRIMARY_COLOR;
   border-color: $PRIMARY_COLOR;
   color: $TEXT_COLOR_LIGHT;
-  font-size: small;
+  font-size: 14px;
   font-weight: bold;
   transition: background 300ms ease;
   cursor: pointer;
