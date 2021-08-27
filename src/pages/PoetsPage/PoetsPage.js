@@ -5,6 +5,7 @@ import * as superagent from "superagent";
 import { useSession } from "../../providers/SessionContext";
 import { useLoaderState } from "../../providers/LoaderContext";
 import { useHistory } from "react-router";
+import qs from "qs";
 
 const PoetsPage = () => {
   const [rebbels, setRebbels] = React.useState([]);
@@ -18,19 +19,9 @@ const PoetsPage = () => {
   const { setIsLoaderVisible } = useLoaderState();
 
   // Get query parameters to get the page index
-  const defaultParams = (() => {
-    const paramsSearch = router.location.search;
-    const paramsList = paramsSearch.split("?").join("").split("&");
-    const params = {};
-
-    paramsList.forEach((p) => {
-      const param = p.split("=");
-      params[param[0]] = param[1];
-    });
-
-    return params;
-  })();
-  console.log(defaultParams);
+  const defaultParams = qs.parse(router.location.search, {
+    ignoreQueryPrefix: true,
+  });
   const [queryParameters, setQueryParameters] = React.useState(defaultParams);
 
   // For when an error occurs when retrieving the rebbels
@@ -51,6 +42,7 @@ const PoetsPage = () => {
       .end((_, response) => {
         setIsLoaderVisible(false);
         if (response) {
+          console.log(response.body);
           if (response.statusCode === 200) {
             setRebbels(response.body.data.rebbels);
             // Rebuild the number of pages left
@@ -103,7 +95,9 @@ const PoetsPage = () => {
       {/* Results retrieved from the backend retrieval */}
       {!responseError && (
         <div className={styles.Poets}>
-          <Poet poet={{ display_name: "Anonymous", username: "anonymous" }} />
+          {queryParameters.index === "1" && (
+            <Poet poet={{ display_name: "Anonymous", username: "anonymous" }} />
+          )}
           {rebbels.map((poet) => (
             <Poet poet={poet} key={poet._id} />
           ))}

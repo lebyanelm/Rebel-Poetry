@@ -9,6 +9,11 @@ body {
   background-color: $BACKGROUND_COLOR;
 }
 
+body,
+html {
+  overflow-x: hidden !important;
+}
+
 * {
   outline: none;
   box-sizing: border-box;
@@ -122,13 +127,13 @@ button,
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 15px $PADDING;
+  padding: 10px $PADDING;
   border-radius: 0;
   border: $BORDER;
   border-color: transparent;
   background: $PRIMARY_COLOR;
   color: $TEXT_COLOR_LIGHT;
-  font-size: 14px;
+  font-size: smaller;
   font-weight: 900;
   transition: background 300ms ease;
   cursor: pointer;
@@ -193,7 +198,7 @@ button:disabled .button:disabled {
 
 .page-header span {
   font-size: 60px;
-  font-weight: lighter;
+  font-weight: 400;
 }
 
 .page-header span.name {
