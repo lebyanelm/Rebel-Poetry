@@ -1,7 +1,14 @@
+.PageTitle {
+  border-bottom: none; }
+
 .SearchInputContainer {
   display: grid;
   grid-template-columns: 90% 10%;
-  border: 2px solid #000000; }
+  border: 2.5px solid #000000; }
+
+.SearchInputContainer:focus-within,
+SearchInputContainer:hover {
+  border-color: #1436ad; }
 
 .SearchInputContainer .LargeSearchInput {
   float: left;
@@ -12,7 +19,7 @@
 .SearchInputContainer .SearchButton {
   display: grid;
   place-items: center;
-  border-left: 2px solid #000000;
+  border-left: 2.5px solid #000000;
   cursor: pointer; }
 
 .SearchInputContainer .SearchButton svg {

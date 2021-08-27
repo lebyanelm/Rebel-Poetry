@@ -16,9 +16,9 @@ const Footer = () => (
         <div className={styles.Legal}>
           All poems on this site are part of copyrights of their respective
           poets. All content on this site is published here under{" "}
-          <Link to="https://creativecommons.org/licenses/" target="_blank">
+          <a href="https://creativecommons.org/licenses/" target="_blank">
             Creative Commons License
-          </Link>
+          </a>
           .
         </div>
       </section>

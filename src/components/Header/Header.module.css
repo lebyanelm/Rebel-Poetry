@@ -10,6 +10,10 @@
 .flex-space {
   flex: 5; }
 
+.clickable {
+  cursor: pointer;
+  font-weight: 900; }
+
 /* BANNER */
 a.Banner {
   display: flex;
@@ -19,7 +23,7 @@ a.Banner {
   padding: 10px;
   width: 100%;
   text-align: center;
-  background-color: #1436ad;
+  background-color: #000000;
   color: #ffffff; }
 
 a.Banner svg {
@@ -41,7 +45,7 @@ a.Banner:hover svg {
   align-items: center; }
 
 .Header {
-  border-bottom: 2px solid #000000;
+  border-bottom: 2.5px solid #000000;
   padding: 10px 180px 15px 180px;
   justify-content: space-between; }
 

@@ -2,20 +2,20 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Poet.module.scss";
 
-const Poet = () => (
-  <Link className={styles.Poet} to="/rebels/@mayaan">
+const Poet = ({ poet }) => (
+  <a className={styles.Poet} href={["/rebbels/@", poet.username].join("")}>
     <div
       className={styles.PoetAvatar}
-      style={{
-        backgroundImage:
-          "url(https://www.thedailyvox.co.za/wp-content/uploads/2016/02/Nelson-Mandela-ballpoint.jpg)",
-      }}
+      style={
+        {
+          // backgroundImage: `url(${poet.display_photo})`,
+        }
+      }
     ></div>
     <div className="PoetDetails">
-      <b className="PoetName">William Shakespeer</b>
-      <span className="PoetPoemsCount">154 Poems</span>
+      <b className={styles.PoetName}>{poet.display_name.split(" ")[0]}</b>
     </div>
-  </Link>
+  </a>
 );
 
 export default Poet;

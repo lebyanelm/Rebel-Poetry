@@ -1,57 +1,64 @@
 @import "../../variables.scss";
 
-.NewPoemInputContainer {
-  padding: $PADDING 0;
+// NEW POEM PAGE HEADER
+.NewPoemHeaderContainer {
+  display: flex;
+  padding: 180px $PAGE_MARGINS 60px $PAGE_MARGINS;
+  width: 100%;
+  background: $TEXT_COLOR_DARK;
 }
 
-.NewPoemInput {
-  margin-bottom: 10px;
-  position: relative;
+.NewPoemHeaderContainer * {
+  color: $TEXT_COLOR_LIGHT;
 }
 
-.NewPoemInput:hover .NewPoemInputButton {
-  opacity: 1;
+.NewPoemHeaderContainer a:hover {
+  color: $SECONDARY_COLOR;
 }
 
-.NewPoemInput textarea {
-  background-color: transparent;
-  padding: 0 20px;
-  border: none;
-  height: auto;
-}
-
-.NewPoemInput .NewPoemTitle {
-  font-size: 50px;
-  font-family: "GD-Sage", $FONT_FAMILY;
-  height: auto;
-  color: $PRIMARY_COLOR;
-}
-
-.NewPoemInput .NewPoemBody {
-  font-style: italic;
-}
-
-.NewPoemInput .NewPoemInputButton {
-  height: 35px;
-  width: 35px;
+.NewPoemImageSelector {
   display: grid;
   place-items: center;
-  border: 1px solid $TEXT_COLOR_DARK;
-  border-radius: 100px;
-  position: absolute;
-  left: -12px;
-  top: 30px;
-  transform: translateX(-50%) translateY(-50%);
-  opacity: 0;
-
-  &:hover {
-    background: $PRIMARY_COLOR;
-    color: $TEXT_COLOR_LIGHT;
-    cursor: pointer;
-  }
+  height: 250px;
+  width: 250px;
+  border: 2.5px solid $SECONDARY_COLOR;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.NewPoemInput .NewPoemInputButton svg {
-  height: 25px;
-  transform: translate(-20%, -15%);
+.NewPoemImageSelector svg {
+  height: 60px;
+  transform: translateY(-30px) translateX(-20px);
+  transition: transform 300ms ease;
+}
+
+.NewPoemImageSelector:hover svg {
+  transform: translateY(-30px) translateX(-20px) scale(1.1);
+}
+
+.NewPoemHeaderContainer .NewPoemDetails {
+  margin-left: 40px;
+}
+
+.NewPoemHeaderContainer .NewPoemDetails .NewPoemTitle {
+  text-indent: 0;
+  padding: 0;
+  border: none;
+  font-size: 50px;
+  font-family: "GD-Sage", $FONT_FAMILY;
+  color: $SECONDARY_COLOR;
+}
+
+// NEW POEM CONTENTS CONTAINER
+.NewPoemContentsContainer {
+  padding: 40px $PAGE_MARGINS;
+}
+
+.NewPoemContentsContainer textarea {
+  border: none;
+  font-family: "Baskerville Old Face", "Times New Roman", serif;
+  background: $TEXT_COLOR_LIGHT;
+  font-size: 20px;
 }

@@ -1,15 +1,15 @@
 import React from "react";
-import PropTypes from "prop-types";
-import styles from "./SignInPage.module.scss";
 import { Link, useHistory } from "react-router-dom";
 import * as superagent from "superagent";
 import { useSession } from "../../providers/SessionContext";
+import { useStorage } from "../../providers/StorageContext";
 import { Storage } from "../../services/Storage";
 
 const SignInPage = () => {
   // Response error
   const [responseError, setResponseError] = React.useState("");
-  const { userSession, setUserSession } = useSession();
+  const { setUserSession } = useSession();
+  const { setUserToken } = useStorage();
   const [signInData, setSignInData] = React.useState({
     username: "",
     password: "",
@@ -36,14 +36,20 @@ const SignInPage = () => {
 
       // Send the authentication request
       superagent
-        .get([process.env.REACT_APP_API_ENDPOINT, "authentication"].join("/"))
+        .get(
+          [process.env.REACT_APP_API_ENDPOINT, "rebbels/authentication"].join(
+            "/"
+          )
+        )
         .set("Authorization", credentialsData)
         .end((_, response) => {
           if (response) {
+            alert(response.statusCode);
             if (response.statusCode === 200) {
               // Set the token to be saved
               Storage.set("AUTH_TOKEN", response.body.data.token);
               setUserSession(response.body.data);
+              setUserToken(response.body.data.token);
               router.push("/");
             } else {
               setResponseError(
@@ -69,11 +75,11 @@ const SignInPage = () => {
     <React.Fragment>
       <div className="page-container">
         <form action="" className="form" onSubmit={onFormSubmit}>
-          <h1>Welcome Back</h1>
+          <h1>Login</h1>
           {responseError && <p className="danger">{responseError}</p>}
           <input
             type="text"
-            placeholder="Your Email Address or Username"
+            placeholder="Your email or username"
             name="username"
             onKeyUp={onInputKeyup}
           />
@@ -96,9 +102,5 @@ const SignInPage = () => {
     </React.Fragment>
   );
 };
-
-SignInPage.propTypes = {};
-
-SignInPage.defaultProps = {};
 
 export default SignInPage;

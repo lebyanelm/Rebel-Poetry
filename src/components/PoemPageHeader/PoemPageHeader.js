@@ -6,13 +6,7 @@ import { Link } from "react-router-dom";
 const PoemPageHeader = () => {
   return (
     <>
-      <div
-        className={styles.PoemPageHeader}
-        style={{
-          backgroundImage:
-            "url(https://www.thedailyvox.co.za/wp-content/uploads/2016/02/Nelson-Mandela-ballpoint.jpg)",
-        }}
-      >
+      <div className={styles.PoemPageHeader}>
         <div className={styles.BackgroundDiffuser}>
           <div className={styles.PoemInformationContainer}>
             <div>
@@ -27,17 +21,10 @@ const PoemPageHeader = () => {
               </div>
             </div>
             <div className={styles.PoemDetailsContainer}>
-              <h2 className={styles.PoemTitle}>Chernobyl</h2>
+              <h2 className={styles.PoemTitle}>An Ordinary Man</h2>
               <div className={styles.PoemAuthor}>
-                Written and Curated by <Link>Thabiso Mohare</Link>
+                Written and Curated by <Link>Anonymous</Link>
               </div>
-
-              {/* Description of the poem */}
-              <p className={styles.PoemDescription}>
-                In rememberence of the late first Black President, Nelson
-                Mandela. This praise is meant to remind South Africans about the
-                unity of one.
-              </p>
 
               <table className={styles.PoemMetadataItems}>
                 <tbody>

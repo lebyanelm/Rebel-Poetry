@@ -21,7 +21,7 @@
 .PoemActions .Action span {
   margin-left: 10px;
   font-size: small;
-  font-weight: bolder;
+  font-weight: 900;
 }
 
 .PoemActions .Action svg {
@@ -42,5 +42,6 @@
 }
 
 .PoemActions .Action[data-like]:hover span {
-  stroke: orangered;
+  color: orangered;
+  font-weight: 900 !important;
 }

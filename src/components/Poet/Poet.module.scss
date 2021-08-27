@@ -2,30 +2,44 @@
 
 .Poet {
   border: $BORDER;
-  border-left-color: transparent;
-  border-top-color: transparent;
+  // border-left-color: transparent;
+  // border-top-color: transparent;
   text-align: center;
   padding: 10px;
+  text-decoration: none !important;
+  transition: background 300ms ease, color 300ms ease;
+}
+
+.Poet:hover {
+  background: $TEXT_COLOR_DARK;
+  color: $TEXT_COLOR_LIGHT;
+}
+
+.Poet:hover .PoetAvatar {
+  background: $TEXT_COLOR_LIGHT;
 }
 
 .PoetAvatar {
   display: block;
   height: 200px;
   width: 200px;
-  border: 1px solid $TEXT_COLOR_DARK;
+  border: 2px solid $TEXT_COLOR_DARK;
   border-radius: 100px;
   background-color: $TERTIARY_COLOR;
   background-size: cover;
   background-position: center center;
   margin: 0 auto 10px auto;
+  transition: background 300ms ease;
 }
 
 .PoetName {
   font-weight: bolder;
+  font-size: 40px;
+  font-weight: 500;
 }
 
 .Poet span {
-  display: block;
+  display: none;
   margin: 10px 0;
   color: lighten($TEXT_COLOR_DARK, 0.5);
   font-weight: normal !important;

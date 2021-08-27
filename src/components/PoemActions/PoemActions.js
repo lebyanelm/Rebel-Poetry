@@ -6,7 +6,7 @@ const PoemActions = () => (
   <div className={styles.PoemActions}>
     <section className="flex">
       <div className={styles.Action} data-like="true">
-        <IonIcon name="heart-outline"></IonIcon>
+        <IonIcon name="flame-outline"></IonIcon>
         <span>11</span>
       </div>
       <div className={styles.Action}>
@@ -20,8 +20,8 @@ const PoemActions = () => (
     </section>
     <section className="flex">
       <div className={styles.Action}>
-        <IonIcon name="bookmark-outline"></IonIcon>
-        <span>120</span>
+        <IonIcon name="bookmark"></IonIcon>
+        {/* <span>120</span> */}
       </div>
     </section>
   </div>

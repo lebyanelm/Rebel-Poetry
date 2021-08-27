@@ -5,7 +5,7 @@ const SessionContext = React.createContext({});
 
 // Session Context Provider
 const SessionContextProvider = ({ children }) => {
-  const [userSession, setUserSession] = React.useState(null);
+  const [userSession, setUserSession] = React.useState();
 
   return (
     <SessionContext.Provider value={{ userSession, setUserSession }}>

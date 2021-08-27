@@ -1,45 +1,50 @@
-.NewPoemInputContainer {
-  padding: 20px 0; }
+.NewPoemHeaderContainer {
+  display: flex;
+  padding: 180px 180px 60px 180px;
+  width: 100%;
+  background: #000000; }
 
-.NewPoemInput {
-  margin-bottom: 10px;
-  position: relative; }
+.NewPoemHeaderContainer * {
+  color: #ffffff; }
 
-.NewPoemInput:hover .NewPoemInputButton {
-  opacity: 1; }
+.NewPoemHeaderContainer a:hover {
+  color: #ebc952; }
 
-.NewPoemInput textarea {
-  background-color: transparent;
-  padding: 0 20px;
-  border: none;
-  height: auto; }
-
-.NewPoemInput .NewPoemTitle {
-  font-size: 50px;
-  font-family: "GD-Sage", "Helvetica Neue", sans-serif;
-  height: auto;
-  color: #1436ad; }
-
-.NewPoemInput .NewPoemBody {
-  font-style: italic; }
-
-.NewPoemInput .NewPoemInputButton {
-  height: 35px;
-  width: 35px;
+.NewPoemImageSelector {
   display: grid;
   place-items: center;
-  border: 1px solid #000000;
-  border-radius: 100px;
-  position: absolute;
-  left: -12px;
-  top: 30px;
-  transform: translateX(-50%) translateY(-50%);
-  opacity: 0; }
-  .NewPoemInput .NewPoemInputButton:hover {
-    background: #1436ad;
-    color: #ffffff;
-    cursor: pointer; }
+  height: 250px;
+  width: 250px;
+  border: 2.5px solid #ebc952;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; }
 
-.NewPoemInput .NewPoemInputButton svg {
-  height: 25px;
-  transform: translate(-20%, -15%); }
+.NewPoemImageSelector svg {
+  height: 60px;
+  transform: translateY(-30px) translateX(-20px);
+  transition: transform 300ms ease; }
+
+.NewPoemImageSelector:hover svg {
+  transform: translateY(-30px) translateX(-20px) scale(1.1); }
+
+.NewPoemHeaderContainer .NewPoemDetails {
+  margin-left: 40px; }
+
+.NewPoemHeaderContainer .NewPoemDetails .NewPoemTitle {
+  text-indent: 0;
+  padding: 0;
+  border: none;
+  font-size: 50px;
+  font-family: "GD-Sage", "Helvetica Neue", sans-serif;
+  color: #ebc952; }
+
+.NewPoemContentsContainer {
+  padding: 40px 180px; }
+
+.NewPoemContentsContainer textarea {
+  border: none;
+  font-family: "Baskerville Old Face", "Times New Roman", serif;
+  background: #ffffff;
+  font-size: 20px; }

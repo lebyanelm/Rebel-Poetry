@@ -30,6 +30,11 @@ a {
   cursor: pointer;
 }
 
+a[data-isactive="true"] {
+  text-decoration: underline;
+  text-decoration-thickness: 5px;
+}
+
 a:hover {
   color: $PRIMARY_COLOR;
   text-decoration: underline;
@@ -53,6 +58,7 @@ h6 {
 
 h1 {
   font-size: 70px;
+  padding-left: 0;
 }
 
 h2 {
@@ -88,11 +94,18 @@ p.success {
 input,
 .input,
 textarea {
-  border: $BORDER;
-  border-bottom: 4px solid $TEXT_COLOR_DARK;
-  background: $TEXT_COLOR_LIGHT;
+  border: 4px solid $TEXT_COLOR_DARK;
+  border-bottom: none;
+  background: transparent;
   padding: 10px;
   transition: border-color 300ms ease;
+  font-weight: 500;
+}
+
+input:first-child,
+.input:first-child,
+textarea:first-child {
+  border-bottom: none;
 }
 
 input:focus,
@@ -109,41 +122,103 @@ button,
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px $PADDING;
-  border-radius: 5px;
+  padding: 15px $PADDING;
+  border-radius: 0;
   border: $BORDER;
+  border-color: transparent;
   background: $PRIMARY_COLOR;
-  border-color: $PRIMARY_COLOR;
   color: $TEXT_COLOR_LIGHT;
   font-size: 14px;
-  font-weight: bold;
+  font-weight: 900;
   transition: background 300ms ease;
   cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 3px;
 }
 
 button span,
 .button span {
   font-size: small;
-  font-weight: bold;
+  font-weight: 900;
 }
 
 button:hover,
 .button:hover {
-  background: $SECONDARY_COLOR;
-  color: $TEXT_COLOR_DARK;
+  background: $TEXT_COLOR_DARK;
+  color: $TEXT_COLOR_LIGHT;
 }
 
 button.outline,
 .button.outline {
-  background-color: $TEXT_COLOR_LIGHT;
+  background-color: transparent;
+  border-color: $TEXT_COLOR_LIGHT;
+}
+
+button.outline:hover,
+.button.outline:hover {
+  background: $TEXT_COLOR_DARK;
+  color: $TEXT_COLOR_LIGHT;
+}
+
+button.transparent,
+.button.transparent {
+  background: transparent;
   border: $BORDER;
-  color: $TEXT_COLOR;
+  border-color: transparent;
+}
+
+button.transparent:hover,
+.button.transparent:hover {
+  border-color: $TEXT_COLOR_LIGHT;
+}
+
+button:disabled .button:disabled {
+  opacity: 0.7;
 }
 
 /* Page container */
 .page-container {
   padding: 140px $PAGE_MARGINS $PADDING $PAGE_MARGINS;
   position: relative;
+}
+
+// PAGE HEADER
+.page-header {
+  display: flex;
+  align-items: center;
+  border-top: $BORDER;
+  border-bottom: $BORDER;
+  padding: 10px 0;
+}
+
+.page-header span {
+  font-size: 60px;
+  font-weight: lighter;
+}
+
+.page-header span.name {
+  font-family: "GD-Sage", $FONT_FAMILY;
+  font-weight: bolder;
+}
+
+// MORE PAGES CONTAINER
+.more-pages {
+  width: 100%;
+  text-align: center;
+  margin-top: $PADDING;
+  padding: $PADDING 0;
+  border-top: $BORDER;
+}
+
+.more-pages .more-pages-title {
+  font-size: 40px;
+  font-weight: bolder;
+}
+
+.more-pages .more-pages-links a {
+  display: inline-block;
+  padding: 10px;
+  font-size: larger;
 }
 
 // BACKLIGHT
@@ -261,8 +336,9 @@ button.outline,
 }
 
 .tags .tag {
+  display: inline-block;
   padding: 5px;
-  float: lef;
+  margin-right: 5px;
   background-color: $SECONDARY_COLOR;
   color: $TEXT_COLOR_DARK;
   font-size: 12px;
@@ -272,24 +348,34 @@ button.outline,
   transition: background-color 300ms ease;
 }
 
+.tags .tag.underline,
+.tags .tag:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 5px;
+}
+
 /* Form container */
 .form {
-  width: 60%;
-  margin: 0 auto;
+  width: 45%;
+  margin: 80px auto 0 auto;
+  text-align: center;
 }
 
 .form h1 {
-  text-align: center;
+  // font-family: "Roboto", "Helvetica Neue", $FONT_FAMILY;
+  font-weight: normal;
+  margin-bottom: $PADDING;
 }
 
 .form button {
   width: 100%;
   display: grid;
   place-items: center;
+  background: $TEXT_COLOR_DARK;
 }
 
-.form input {
-  margin-bottom: 10px;
+.form input:last-child {
+  margin-bottom: 10px !important;
 }
 
 .form input:focus {
@@ -307,12 +393,12 @@ button.outline,
   top: 0;
   left: 0;
   z-index: 2000000000;
-  background: transparentize($TEXT_COLOR_DARK, 0.1);
+  background: transparentize($TEXT_COLOR_LIGHT, 0.1);
   transition: all 300ms ease;
-  pointer-events: none;
+  pointer-events: none !important;
 }
 
-.loader-container[data-isVisible="true"] {
+.loader-container[data-isvisible="true"] {
   opacity: 1;
   pointer-events: none;
 }

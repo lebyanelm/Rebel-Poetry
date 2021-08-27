@@ -1,10 +1,20 @@
 @import "../../variables.scss";
 
+// PAGE TITLE
+.PageTitle {
+  border-bottom: none;
+}
+
 // WILL CONTAIN THE SEARCH INPUT AND BUTTON
 .SearchInputContainer {
   display: grid;
   grid-template-columns: 90% 10%;
   border: $BORDER;
+}
+
+.SearchInputContainer:focus-within,
+SearchInputContainer:hover {
+  border-color: $PRIMARY_COLOR;
 }
 
 .SearchInputContainer .LargeSearchInput {

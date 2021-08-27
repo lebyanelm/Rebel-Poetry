@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./App.css";
 import Header from "./components/Header/Header";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
@@ -16,62 +15,64 @@ import SignInPage from "./pages/SignInPage/SignInPage";
 import RootWrapper from "./components/RootWrapper/RootWrapper";
 
 // Providers
-import { SessionContextProvider } from "./providers/SessionContext";
+import { SessionContextProvider, useSession } from "./providers/SessionContext";
+import { StorageContextProvider } from "./providers/StorageContext";
 import { BacklightContextProvider } from "./providers/BacklightContext";
 
-import {
-  LoaderContextProvider,
-  useLoaderState,
-} from "./providers/LoaderContext";
+import { LoaderContextProvider } from "./providers/LoaderContext";
 import NewPoem from "./pages/NewPoem/NewPoem";
 
 function App() {
+  const { userSession } = useSession();
+
   return (
     <React.Fragment>
-      <SessionContextProvider>
-        <BacklightContextProvider>
-          <LoaderContextProvider>
-            <BrowserRouter>
-              <RootWrapper>
-                <Header />
-                <Switch>
-                  <Route path="/new_poem">
-                    <NewPoem></NewPoem>
-                  </Route>
-                  <Route exact path="/">
-                    <Redirect to="/discover"></Redirect>
-                  </Route>
-                  <Route path="/discover">
-                    <HomePage />
-                  </Route>
-                  <Route exact path="/rebels">
-                    <PoetsPage />
-                  </Route>
-                  <Route path="/rebels/@:poet">
-                    <PoetProfile />
-                  </Route>
-                  <Route path="/poem">
-                    <PoemPage />
-                  </Route>
-                  <Route path="/search">
-                    <SearchPage />
-                  </Route>
-                  <Route path="/sign_up">
-                    <SignUpPage />
-                  </Route>
-                  <Route path="/sign_in">
-                    <SignInPage></SignInPage>
-                  </Route>
-                  <Route path="*">
-                    <NotFoundPage />
-                  </Route>
-                </Switch>
-                <Footer />
-              </RootWrapper>
-            </BrowserRouter>
-          </LoaderContextProvider>
-        </BacklightContextProvider>
-      </SessionContextProvider>
+      <StorageContextProvider>
+        <SessionContextProvider>
+          <BacklightContextProvider>
+            <LoaderContextProvider>
+              <BrowserRouter>
+                <RootWrapper>
+                  <Header />
+                  <Switch>
+                    <Route path="/new_poem">
+                      <NewPoem userSession={userSession} />
+                    </Route>
+                    <Route exact path="/">
+                      <Redirect to="/discover"></Redirect>
+                    </Route>
+                    <Route path="/discover">
+                      <HomePage />
+                    </Route>
+                    <Route exact path="/rebbels">
+                      <PoetsPage />
+                    </Route>
+                    <Route path="/rebbels/@:poet">
+                      <PoetProfile />
+                    </Route>
+                    <Route path="/poem">
+                      <PoemPage />
+                    </Route>
+                    <Route path="/search">
+                      <SearchPage />
+                    </Route>
+                    <Route path="/sign_up">
+                      <SignUpPage />
+                    </Route>
+                    <Route path="/sign_in">
+                      <SignInPage></SignInPage>
+                    </Route>
+                    <Route path="*">
+                      <NotFoundPage />
+                    </Route>
+                  </Switch>
+                  <Footer />
+                </RootWrapper>
+              </BrowserRouter>
+            </LoaderContextProvider>
+          </BacklightContextProvider>
+        </SessionContextProvider>
+      </StorageContextProvider>
     </React.Fragment>
   );
 }

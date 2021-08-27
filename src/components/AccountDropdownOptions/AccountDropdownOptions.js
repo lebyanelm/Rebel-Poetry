@@ -23,7 +23,7 @@ const AccountDropdownOptions = ({ userSession, location }) => {
   return (
     <>
       <div className="dropdown-options-backlight"></div>
-      <Link to={location.pathname}>
+      <div className="clickable">
         <div
           className={[
             "navigation-item dropdown flex",
@@ -40,7 +40,7 @@ const AccountDropdownOptions = ({ userSession, location }) => {
                 backgroundImage: `url(${userSession.display_photo})`,
               }}
             ></div>
-            <span>My Account</span>
+            <span>{userSession?.display_name}</span>
             <IonIcon
               style={{ marginLeft: "5px", transform: "translateY(2px)" }}
               name="chevron-down"
@@ -74,7 +74,7 @@ const AccountDropdownOptions = ({ userSession, location }) => {
             </section>
           </div>
         </div>
-      </Link>
+      </div>
     </>
   );
 };

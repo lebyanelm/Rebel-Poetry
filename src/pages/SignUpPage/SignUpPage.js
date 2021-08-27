@@ -6,7 +6,7 @@ import { useSession } from "../../providers/SessionContext";
 import { Link, useHistory } from "react-router-dom";
 
 const SignUpPage = () => {
-  const { userSession, setUserSession } = useSession();
+  const { setUserSession } = useSession();
   const router = useHistory();
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const SignUpPage = () => {
     ) {
       // Send an account create request to the backend
       superagent
-        .post([process.env.REACT_APP_API_ENDPOINT, "accounts"].join("/"))
+        .post([process.env.REACT_APP_API_ENDPOINT, "rebbels"].join("/"))
         .send(requestData)
         .end((_, response) => {
           if (response) {
@@ -81,7 +81,7 @@ const SignUpPage = () => {
     <>
       <div className="page-container">
         <form onSubmit={onFormSubmit} className="form">
-          <h1>Sign Up</h1>
+          <h1>Rebbel</h1>
 
           {responseError ? (
             <p className={[styles.ResponseError, "danger"].join(" ")}>
@@ -94,13 +94,13 @@ const SignUpPage = () => {
 
           <input
             type="text"
-            placeholder="Email Address"
+            placeholder="Email address"
             name="email_address"
             onKeyUp={onInputKeyup}
           />
           <input
             type="text"
-            placeholder="Your Name"
+            placeholder="Your name"
             name="display_name"
             onKeyUp={onInputKeyup}
           />

@@ -13,15 +13,16 @@ const Header = () => {
   return (
     <div className={styles.HeaderContainer}>
       {/* BANNER */}
-      <Link
-        to="https://patreon.com/@rebelpoetry"
+      <a
+        href="https://patreon.com/@rebelpoetry"
         target="_blank"
+        rel="noreferrer"
         className={styles.Banner}
       >
         We need your support to keep the site functional and available &mdash;
         Become a contributor
         <IonIcon name="arrow-forward"></IonIcon>
-      </Link>
+      </a>
 
       {/* HEADER CONTENTS */}
       <div className={styles.Header}>
@@ -29,16 +30,18 @@ const Header = () => {
           <img src={Logo} alt="" />
         </Link>
         <section>
-          <Link to="/new_poem">
-            <div
-              className={[
-                "navigation-item",
-                location.pathname === "/new_poem" ? "active" : "inactive",
-              ].join(" ")}
-            >
-              Publish New
-            </div>
-          </Link>
+          {userSession && (
+            <Link to="/new_poem">
+              <div
+                className={[
+                  "navigation-item",
+                  location.pathname === "/new_poem" ? "active" : "inactive",
+                ].join(" ")}
+              >
+                Publish New
+              </div>
+            </Link>
+          )}
           <Link to="/discover">
             <div
               className={[
@@ -49,14 +52,14 @@ const Header = () => {
               Discover
             </div>
           </Link>
-          <Link to="/rebels">
+          <Link to="/rebbels">
             <div
               className={[
                 "navigation-item",
-                location.pathname.includes("/poets") ? "active" : "inactive",
+                location.pathname.includes("/rebels") ? "active" : "inactive",
               ].join(" ")}
             >
-              Rebel Poets
+              Rebbel Poets
             </div>
           </Link>
 
@@ -125,7 +128,7 @@ const Header = () => {
                     : "inactive",
                 ].join(" ")}
               >
-                Sign Up / Sign
+                Join / Login
               </div>
             </Link>
           )}

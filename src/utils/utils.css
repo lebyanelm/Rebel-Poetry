@@ -9,3 +9,7 @@
 
 .flex-space {
   flex: 5; }
+
+.clickable {
+  cursor: pointer;
+  font-weight: 900; }
