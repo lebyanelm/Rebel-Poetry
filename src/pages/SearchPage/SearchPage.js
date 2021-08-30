@@ -3,14 +3,17 @@ import styles from "./SearchPage.module.scss";
 import IonIcon from "@reacticons/ionicons";
 import { useLoaderState } from "../../providers/LoaderContext";
 import PoemsList from "../../components/PoemsList/PoemsList";
+import { useToast } from "../../providers/ToastContext";
 
 const SearchPage = () => {
   const [searchValue, setSearchValue] = React.useState("");
   const [results, setResults] = React.useState([]);
   const { setIsLoaderVisible } = useLoaderState();
+  const { showToast } = useToast();
 
   const getSearchResults = () => {
     setIsLoaderVisible(true);
+    showToast("Oops. Could not connect.");
     setTimeout(() => setIsLoaderVisible(false), 5000);
     setResults([]);
   };

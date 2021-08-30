@@ -1,15 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './Toast.module.scss';
+import React from "react";
+import PropTypes from "prop-types";
+import styles from "./Toast.module.scss";
 
-const Toast = () => (
+const Toast = ({ text, isShowClose, closeToast }) => (
   <div className={styles.Toast} data-testid="Toast">
-    Toast Component
+    <span>{text}</span>
+    {isShowClose && (
+      <div className={styles.CloseButton} onClick={closeToast}>
+        Close
+      </div>
+    )}
   </div>
 );
-
-Toast.propTypes = {};
-
-Toast.defaultProps = {};
 
 export default Toast;

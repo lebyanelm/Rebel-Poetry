@@ -11,7 +11,7 @@
 .ProfilePage .ProfileAvatar {
   height: 150px;
   width: 150px;
-  border: 2.5px solid #000000;
+  border: 3px solid #000000;
   border-radius: 100px;
   background-size: cover;
   background-position: center; }

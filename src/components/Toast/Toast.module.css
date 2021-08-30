@@ -1,5 +1,3 @@
-@import "../../variables.scss";
-
 .Toast {
   display: flex;
   align-items: center;
@@ -9,15 +7,13 @@
   left: 50%;
   max-width: 50%;
   transform: translateX(-50%);
-  background: $BACKGROUND_COLOR;
-  border: $BORDER;
-  box-shadow: $SHADOW;
+  background: #f6edec;
+  border: 3px solid #000000;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
   font-weight: bold;
-  z-index: 200000000000000000000;
-}
+  z-index: 200000000000000000000; }
 
 .CloseButton {
-  color: $DANGER_COLOR;
+  color: orangered;
   margin-left: 10px;
-  cursor: pointer;
-}
+  cursor: pointer; }

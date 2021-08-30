@@ -45,7 +45,7 @@ a.Banner:hover svg {
   align-items: center; }
 
 .Header {
-  border-bottom: 2.5px solid #000000;
+  border-bottom: 3px solid #000000;
   padding: 10px 180px 15px 180px;
   justify-content: space-between; }
 

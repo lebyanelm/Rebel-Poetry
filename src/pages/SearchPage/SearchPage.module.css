@@ -4,7 +4,7 @@
 .SearchInputContainer {
   display: grid;
   grid-template-columns: 90% 10%;
-  border: 2.5px solid #000000; }
+  border: 3px solid #000000; }
 
 .SearchInputContainer:focus-within,
 SearchInputContainer:hover {
@@ -19,7 +19,7 @@ SearchInputContainer:hover {
 .SearchInputContainer .SearchButton {
   display: grid;
   place-items: center;
-  border-left: 2.5px solid #000000;
+  border-left: 3px solid #000000;
   cursor: pointer; }
 
 .SearchInputContainer .SearchButton svg {
