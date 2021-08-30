@@ -21,58 +21,61 @@ import { BacklightContextProvider } from "./providers/BacklightContext";
 
 import { LoaderContextProvider } from "./providers/LoaderContext";
 import NewPoem from "./pages/NewPoem/NewPoem";
+import { ToastContextProvider } from "./providers/ToastContext";
 
 function App() {
   const { userSession } = useSession();
 
   return (
     <React.Fragment>
-      <StorageContextProvider>
-        <SessionContextProvider>
-          <BacklightContextProvider>
-            <LoaderContextProvider>
-              <BrowserRouter>
-                <RootWrapper>
-                  <Header />
-                  <Switch>
-                    <Route path="/new_poem">
-                      <NewPoem userSession={userSession} />
-                    </Route>
-                    <Route exact path="/">
-                      <Redirect to="/discover"></Redirect>
-                    </Route>
-                    <Route path="/discover">
-                      <HomePage />
-                    </Route>
-                    <Route exact path="/rebbels">
-                      <PoetsPage />
-                    </Route>
-                    <Route path="/rebbels/@:poet">
-                      <PoetProfile />
-                    </Route>
-                    <Route path="/poem">
-                      <PoemPage />
-                    </Route>
-                    <Route path="/search">
-                      <SearchPage />
-                    </Route>
-                    <Route path="/sign_up">
-                      <SignUpPage />
-                    </Route>
-                    <Route path="/sign_in">
-                      <SignInPage></SignInPage>
-                    </Route>
-                    <Route path="*">
-                      <NotFoundPage />
-                    </Route>
-                  </Switch>
-                  <Footer />
-                </RootWrapper>
-              </BrowserRouter>
-            </LoaderContextProvider>
-          </BacklightContextProvider>
-        </SessionContextProvider>
-      </StorageContextProvider>
+      <ToastContextProvider>
+        <StorageContextProvider>
+          <SessionContextProvider>
+            <BacklightContextProvider>
+              <LoaderContextProvider>
+                <BrowserRouter>
+                  <RootWrapper>
+                    <Header />
+                    <Switch>
+                      <Route path="/new_poem">
+                        <NewPoem userSession={userSession} />
+                      </Route>
+                      <Route exact path="/">
+                        <Redirect to="/discover"></Redirect>
+                      </Route>
+                      <Route path="/discover">
+                        <HomePage />
+                      </Route>
+                      <Route exact path="/rebbels">
+                        <PoetsPage />
+                      </Route>
+                      <Route path="/rebbels/@:poet">
+                        <PoetProfile />
+                      </Route>
+                      <Route path="/poem">
+                        <PoemPage />
+                      </Route>
+                      <Route path="/search">
+                        <SearchPage />
+                      </Route>
+                      <Route path="/sign_up">
+                        <SignUpPage />
+                      </Route>
+                      <Route path="/sign_in">
+                        <SignInPage></SignInPage>
+                      </Route>
+                      <Route path="*">
+                        <NotFoundPage />
+                      </Route>
+                    </Switch>
+                    <Footer />
+                  </RootWrapper>
+                </BrowserRouter>
+              </LoaderContextProvider>
+            </BacklightContextProvider>
+          </SessionContextProvider>
+        </StorageContextProvider>
+      </ToastContextProvider>
     </React.Fragment>
   );
 }
