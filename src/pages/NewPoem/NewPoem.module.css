@@ -2,7 +2,19 @@
   display: flex;
   padding: 180px 180px 60px 180px;
   width: 100%;
-  background: #000000; }
+  background: #000000;
+  position: relative; }
+
+.NewPoemHeaderContainer::before {
+  content: "";
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: 1.2; }
 
 .NewPoemHeaderContainer * {
   color: #ffffff; }
@@ -19,25 +31,31 @@
   cursor: pointer;
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat; }
+  position: relative;
+  background-repeat: no-repeat;
+  z-index: 100; }
 
 .NewPoemImageSelector svg {
   height: 60px;
   transform: translateY(-30px) translateX(-20px);
-  transition: transform 300ms ease; }
+  transition: transform 300ms ease;
+  stroke-width: 1px !important; }
 
 .NewPoemImageSelector:hover svg {
   transform: translateY(-30px) translateX(-20px) scale(1.1); }
 
 .NewPoemHeaderContainer .NewPoemDetails {
-  margin-left: 40px; }
+  margin-left: 40px;
+  z-index: 3; }
 
 .NewPoemHeaderContainer .NewPoemDetails .NewPoemTitle {
   text-indent: 0;
   padding: 0;
   border: none;
   font-size: 50px;
-  font-family: "GD-Sage", "Helvetica Neue", sans-serif;
+  font-family: "Programme Alt", "Helvetica Neue", sans-serif;
+  font-weight: 900 !important;
+  text-transform: lowercase;
   color: #ebc952; }
 
 .NewPoemContentsContainer {
@@ -45,6 +63,5 @@
 
 .NewPoemContentsContainer textarea {
   border: none;
-  font-family: "Baskerville Old Face", "Times New Roman", serif;
   background: #ffffff;
   font-size: 20px; }

@@ -81,7 +81,7 @@ const SignUpPage = () => {
     <>
       <div className="page-container">
         <form onSubmit={onFormSubmit} className="form">
-          <h1>Rebbel</h1>
+          <h1>Join Rebbels</h1>
 
           {responseError ? (
             <p className={[styles.ResponseError, "danger"].join(" ")}>

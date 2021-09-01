@@ -1,0 +1,45 @@
+@import "../../variables.scss";
+
+.DraftPreview .DraftTitle {
+  font-size: 40px;
+  font-family: "Programme Alt", $FONT_FAMILY;
+  text-transform: lowercase;
+}
+
+.DraftPreview .DraftSplitSides {
+  display: flex;
+  margin-top: $PADDING;
+  gap: 40px;
+}
+
+.DraftPreview .DraftContents {
+  padding-bottom: 60px;
+}
+
+.DraftPreview .DraftContents img {
+  width: 100%;
+}
+
+.DraftPreview .DraftContents * {
+  margin: 0;
+  font-size: 18px;
+}
+
+.DraftPreview .DraftContents a {
+  text-decoration-thickness: 3px;
+  background: $SECONDARY_COLOR;
+  font-weight: bolder;
+}
+
+.DraftPreview .DraftAnnotations {
+  border-left: $BORDER;
+  padding-left: 20px;
+}
+
+.DraftPreview .BottomButtons {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 20px 0;
+}

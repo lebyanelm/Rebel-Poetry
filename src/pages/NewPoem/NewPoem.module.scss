@@ -6,6 +6,19 @@
   padding: 180px $PAGE_MARGINS 60px $PAGE_MARGINS;
   width: 100%;
   background: $TEXT_COLOR_DARK;
+  position: relative;
+}
+
+.NewPoemHeaderContainer::before {
+  content: "";
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: transparentize($TEXT_COLOR_DARK, 0.3);
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: 1.2;
 }
 
 .NewPoemHeaderContainer * {
@@ -25,13 +38,16 @@
   cursor: pointer;
   background-size: cover;
   background-position: center;
+  position: relative;
   background-repeat: no-repeat;
+  z-index: 100;
 }
 
 .NewPoemImageSelector svg {
   height: 60px;
   transform: translateY(-30px) translateX(-20px);
   transition: transform 300ms ease;
+  stroke-width: 1px !important;
 }
 
 .NewPoemImageSelector:hover svg {
@@ -40,6 +56,7 @@
 
 .NewPoemHeaderContainer .NewPoemDetails {
   margin-left: 40px;
+  z-index: 3;
 }
 
 .NewPoemHeaderContainer .NewPoemDetails .NewPoemTitle {
@@ -47,7 +64,9 @@
   padding: 0;
   border: none;
   font-size: 50px;
-  font-family: "GD-Sage", $FONT_FAMILY;
+  font-family: "Programme Alt", $FONT_FAMILY;
+  font-weight: 900 !important;
+  text-transform: lowercase;
   color: $SECONDARY_COLOR;
 }
 
@@ -58,7 +77,7 @@
 
 .NewPoemContentsContainer textarea {
   border: none;
-  font-family: "Baskerville Old Face", "Times New Roman", serif;
+  // font-family: "Baskerville Old Face", "Times New Roman", serif;
   background: $TEXT_COLOR_LIGHT;
   font-size: 20px;
 }

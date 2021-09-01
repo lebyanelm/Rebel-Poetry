@@ -103,8 +103,8 @@ const Header = () => {
 
         <section>
           {!userSession && (
-            <Link to="/donate">
-              <div className="navigation-item button">Become a Donator</div>
+            <Link to="/sign_up">
+              <div className="navigation-item button">Become a Rebbel</div>
             </Link>
           )}
 
@@ -118,17 +118,14 @@ const Header = () => {
 
           {/* For non-logged in members */}
           {!userSession && (
-            <Link to="/sign_up">
+            <Link to="/sign_in">
               <div
                 className={[
                   "navigation-item",
-                  location.pathname === "/sign_in" ||
-                  location.pathname === "/sign_up"
-                    ? "active"
-                    : "inactive",
+                  location.pathname === "/sign_in" ? "active" : "inactive",
                 ].join(" ")}
               >
-                Join / Login
+                Sign In
               </div>
             </Link>
           )}

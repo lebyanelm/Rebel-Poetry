@@ -1,17 +1,22 @@
 import IonIcon from "@reacticons/ionicons";
 import React from "react";
 import styles from "./NewPoem.module.scss";
-import { PuffLoader } from "react-spinners";
+import ReactModal from "react-modal";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { nanoid } from "nanoid";
 import qs from "qs";
 import { PoemService } from "../../services/Poem";
 import { useLoaderState } from "../../providers/LoaderContext";
 import { useStorage } from "../../providers/StorageContext";
+import { useToast } from "../../providers/ToastContext";
+import DraftPreview from "../../components/DraftPreview/DraftPreview";
 
 function NewPoem() {
   const { userToken } = useStorage();
   const { setIsLoaderVisible } = useLoaderState();
+  const { showToast } = useToast();
+  const [isPreviewOpen, setIsPreviewOpen] = React.useState(false);
+
   const [draftData, setDraftData] = React.useState({
     did: "",
     title: "",
@@ -63,7 +68,9 @@ function NewPoem() {
   const onFieldChange = (ev) => {
     const changes = { name: ev.target.name, value: ev.target.value };
     setDraftData({ ...draftData, [changes.name]: changes.value });
-    PoemService.updateDraft(draftData, userToken);
+    PoemService.updateDraft(draftData, userToken).then(() =>
+      showToast("Draft in sync.")
+    );
     // TODO: Change only on an interval.
   };
 
@@ -93,8 +100,34 @@ function NewPoem() {
 
   return (
     <div className={styles.PageContainer}>
+      {/* When the preview and publish button is pressed */}
+      <ReactModal
+        isOpen={isPreviewOpen}
+        onRequestClose={() => setIsPreviewOpen(false)}
+        style={{
+          overlay: { zIndex: 6000000000000 },
+          content: {
+            width: "50%",
+            margin: "auto",
+            borderRadius: "0px",
+            border: "3px solid black",
+          },
+        }}
+      >
+        <DraftPreview
+          title={draftData.title}
+          body={draftData.body}
+          did={draftData.did}
+        ></DraftPreview>
+      </ReactModal>
+
       {/* New poem header element */}
-      <div className={styles.NewPoemHeaderContainer}>
+      <div
+        className={styles.NewPoemHeaderContainer}
+        style={{
+          backgroundImage: `url(${draftData.thumbnail})`,
+        }}
+      >
         <div className={styles.NewPoemImageContainer}>
           <input
             type="file"
@@ -114,14 +147,15 @@ function NewPoem() {
           </div>
         </div>
         <div className={styles.NewPoemDetails}>
-          <input
+          <textarea
             className={styles.NewPoemTitle}
             autoFocus={true}
             name="title"
+            rows={draftData.title.split("\n").length}
             onChange={onFieldChange}
             value={draftData.title}
             placeholder="Poem title"
-          ></input>
+          ></textarea>
 
           <span>
             Currently syncing edits to{" "}
@@ -174,7 +208,9 @@ function NewPoem() {
             >
               Save Draft
             </button>
-            <button className="outline">Preview and Publish</button>
+            <button className="outline" onClick={() => setIsPreviewOpen(true)}>
+              Preview and Publish
+            </button>
           </div>
         </div>
       </div>

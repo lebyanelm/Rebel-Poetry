@@ -14,7 +14,7 @@ const HomePage = () => {
         {/* <PoemPostInput></PoemPostInput> */}
 
         {/* Listed poems */}
-        <h1>Recommended</h1>
+        <h1>Discover</h1>
         <PoemsList></PoemsList>
       </div>
     </React.Fragment>

@@ -13,7 +13,7 @@ html {
 * {
   outline: none;
   box-sizing: border-box;
-  font-family: "Helvetica Neue", sans-serif;
+  font-family: "Bahnschrift", "Helvetica Neue", sans-serif;
   font-size: 16px; }
 
 *::selection {
@@ -46,7 +46,7 @@ h5,
 h6 {
   display: block;
   padding: 10px 20px 0 20px;
-  font-family: "GD-Sage";
+  font-family: "Programme Alt";
   margin-bottom: 0;
   background-color: #ebc952;
   word-wrap: break-word; }
@@ -139,6 +139,14 @@ button.outline:hover,
   background: #000000;
   color: #ffffff; }
 
+.button.outline.dark {
+  border-color: #000000;
+  color: #000000; }
+
+.button.outline.dark:hover {
+  background: #000000;
+  color: #fff !important; }
+
 button.transparent,
 .button.transparent {
   background: transparent;
@@ -169,7 +177,7 @@ button:disabled .button:disabled {
   font-weight: 400; }
 
 .page-header span.name {
-  font-family: "GD-Sage", "Helvetica Neue", sans-serif;
+  font-family: "Programme Alt", "Helvetica Neue", sans-serif;
   font-weight: bolder; }
 
 .more-pages {
@@ -309,6 +317,7 @@ button:disabled .button:disabled {
 
 .form h1 {
   font-weight: normal;
+  text-align: center;
   margin-bottom: 20px; }
 
 .form button {

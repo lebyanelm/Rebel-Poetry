@@ -17,7 +17,7 @@ html {
 * {
   outline: none;
   box-sizing: border-box;
-  font-family: $FONT_FAMILY;
+  font-family: "Bahnschrift", $FONT_FAMILY;
   font-size: $FONT_SIZE;
 }
 
@@ -55,7 +55,7 @@ h5,
 h6 {
   display: block;
   padding: 10px 20px 0 20px;
-  font-family: "GD-Sage";
+  font-family: "Programme Alt";
   margin-bottom: 0;
   background-color: $SECONDARY_COLOR;
   word-wrap: break-word;
@@ -165,6 +165,16 @@ button.outline:hover,
   color: $TEXT_COLOR_LIGHT;
 }
 
+.button.outline.dark {
+  border-color: $TEXT_COLOR_DARK;
+  color: $TEXT_COLOR_DARK;
+}
+
+.button.outline.dark:hover {
+  background: $TEXT_COLOR_DARK;
+  color: #fff !important;
+}
+
 button.transparent,
 .button.transparent {
   background: transparent;
@@ -202,7 +212,7 @@ button:disabled .button:disabled {
 }
 
 .page-header span.name {
-  font-family: "GD-Sage", $FONT_FAMILY;
+  font-family: "Programme Alt", $FONT_FAMILY;
   font-weight: bolder;
 }
 
@@ -369,6 +379,7 @@ button:disabled .button:disabled {
 .form h1 {
   // font-family: "Roboto", "Helvetica Neue", $FONT_FAMILY;
   font-weight: normal;
+  text-align: center;
   margin-bottom: $PADDING;
 }
 
