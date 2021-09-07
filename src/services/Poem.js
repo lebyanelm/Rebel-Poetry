@@ -37,7 +37,7 @@ export const PoemService = {
         .send({ ...data })
         .set("Authorization", token)
         .end((_, response) => {
-          console.log(response);
+          PoemService.respond(response, resolve, reject);
         });
     });
   },
@@ -58,6 +58,18 @@ export const PoemService = {
         .put([process.env.REACT_APP_API_ENDPOINT, "assets", "upload"].join("/"))
         .set("Authorization", token)
         .attach("file", file)
+        .end((_, response) => {
+          PoemService.respond(response, resolve, reject);
+        });
+    });
+  },
+  // Publishes a poem to the the community for reading
+  publish: (data, tags, token) => {
+    return new Promise((resolve, reject) => {
+      superagent
+        .post([process.env.REACT_APP_API_ENDPOINT, "publish", data.did].join("/"))
+        .set("Authorization", token)
+        .send({ tags: tags.split(","), is_anonymous: data.is_anonymous })
         .end((_, response) => {
           PoemService.respond(response, resolve, reject);
         });

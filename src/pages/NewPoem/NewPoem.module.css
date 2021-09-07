@@ -19,8 +19,9 @@
 .NewPoemHeaderContainer * {
   color: #ffffff; }
 
-.NewPoemHeaderContainer a:hover {
-  color: #ebc952; }
+.NewPoemHeaderContainer a:hover,
+.NewPoemHeaderContainer .link:hover {
+  color: #ebc952 !important; }
 
 .NewPoemImageSelector {
   display: grid;
@@ -64,4 +65,5 @@
 .NewPoemContentsContainer textarea {
   border: none;
   background: #ffffff;
-  font-size: 20px; }
+  font-size: 20px;
+  font-style: italic; }

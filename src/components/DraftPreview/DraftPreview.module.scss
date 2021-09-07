@@ -1,5 +1,9 @@
 @import "../../variables.scss";
 
+.DraftPreview {
+  width: 100%;
+}
+
 .DraftPreview .DraftTitle {
   font-size: 40px;
   font-family: "Programme Alt", $FONT_FAMILY;
@@ -14,6 +18,7 @@
 
 .DraftPreview .DraftContents {
   padding-bottom: 60px;
+  font-style: italic;
 }
 
 .DraftPreview .DraftContents img {
@@ -37,9 +42,15 @@
 }
 
 .DraftPreview .BottomButtons {
-  display: flex;
-  position: fixed;
+  position: absolute;
   bottom: 0;
-  width: 100%;
+  width: 94%;
   padding: 20px 0;
+  // transform: translateY(-50%);
+}
+
+.DraftPreview .BottomButtons input {
+  display: block;
+  border: $BORDER;
+  width: calc(90%);
 }

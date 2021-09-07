@@ -27,7 +27,8 @@
 .PoetName {
   font-weight: bolder;
   font-size: 40px;
-  font-weight: 500; }
+  font-weight: 500;
+  font-family: "Programme Alt"; }
 
 .Poet span {
   display: none;

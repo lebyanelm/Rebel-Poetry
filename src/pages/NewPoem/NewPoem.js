@@ -16,20 +16,20 @@ function NewPoem() {
   const { setIsLoaderVisible } = useLoaderState();
   const { showToast } = useToast();
   const [isPreviewOpen, setIsPreviewOpen] = React.useState(false);
+  const router = useHistory();
 
   const [draftData, setDraftData] = React.useState({
     did: "",
     title: "",
     body: "",
     thumbnail: "",
+    tags: [],
     featured_poets: [],
     is_anonymous: false,
     time_created: new Date().toISOString(),
     is_created: false,
   });
   const [changeInterval, setChangeInterval] = React.useState(null);
-
-  const router = useHistory();
 
   React.useState(() => {
     document.title = [process.env.REACT_APP_NAME, "New Poem"].join(": ");
@@ -68,9 +68,7 @@ function NewPoem() {
   const onFieldChange = (ev) => {
     const changes = { name: ev.target.name, value: ev.target.value };
     setDraftData({ ...draftData, [changes.name]: changes.value });
-    PoemService.updateDraft(draftData, userToken).then(() =>
-      showToast("Draft in sync.")
-    );
+
     // TODO: Change only on an interval.
   };
 
@@ -96,7 +94,7 @@ function NewPoem() {
   };
 
   // To be able to get rid of the change interval listener/timer use an effect clean up
-  React.useEffect(() => {}, []);
+  React.useEffect(() => { }, []);
 
   return (
     <div className={styles.PageContainer}>
@@ -105,7 +103,7 @@ function NewPoem() {
         isOpen={isPreviewOpen}
         onRequestClose={() => setIsPreviewOpen(false)}
         style={{
-          overlay: { zIndex: 6000000000000 },
+          overlay: { zIndex: 60000 },
           content: {
             width: "50%",
             margin: "auto",
@@ -115,9 +113,12 @@ function NewPoem() {
         }}
       >
         <DraftPreview
-          title={draftData.title}
-          body={draftData.body}
-          did={draftData.did}
+          data={draftData}
+          isPublished={(poemId) => {
+            setIsPreviewOpen(false);
+            router.push(["/poem/", poemId].join(""));
+          }}
+          token={userToken}
         ></DraftPreview>
       </ReactModal>
 
@@ -154,7 +155,7 @@ function NewPoem() {
             rows={draftData.title.split("\n").length}
             onChange={onFieldChange}
             value={draftData.title}
-            placeholder="Poem title"
+            placeholder="Poem title v2"
           ></textarea>
 
           <span>
@@ -169,7 +170,7 @@ function NewPoem() {
               <tr>
                 <td>Written by</td>
                 <td>
-                  <Link
+                  <span className="link"
                     onClick={() =>
                       setDraftData({
                         ...draftData,
@@ -178,7 +179,7 @@ function NewPoem() {
                     }
                   >
                     {draftData.is_anonymous ? "Anonymous" : "Yourself"}
-                  </Link>
+                  </span>
                 </td>
               </tr>
               <tr>
@@ -202,13 +203,26 @@ function NewPoem() {
               onClick={() => {
                 setIsLoaderVisible(true);
                 PoemService.updateDraft(draftData, userToken)
-                  .then(() => setIsLoaderVisible(false))
+                  .then(() => {
+                    showToast("Draft saved.");
+                    setIsLoaderVisible(false);
+                  })
                   .catch(() => setIsLoaderVisible(false));
               }}
             >
               Save Draft
             </button>
-            <button className="outline" onClick={() => setIsPreviewOpen(true)}>
+            <button className="outline" onClick={() => {
+              setIsLoaderVisible(true);
+              PoemService.updateDraft(draftData, userToken)
+                .then(() => {
+                  setIsLoaderVisible(false);
+                  setIsPreviewOpen(true);
+                }).catch((error) => {
+                  console.log("Error something went wrong.");
+                  setIsLoaderVisible(false);
+                })
+            }}>
               Preview and Publish
             </button>
           </div>
@@ -218,7 +232,6 @@ function NewPoem() {
       {/* The poem contents */}
       <div className={styles.NewPoemContentsContainer}>
         <textarea
-          // rows={numberOfLines}
           placeholder="Type your poem body here..."
           rows={draftData.body.split("\n").length}
           name="body"
