@@ -7,29 +7,37 @@ export const PoemService = {
       superagent
         .get([process.env.REACT_APP_API_ENDPOINT, "poems", pId].join("/"))
         .end((_, response) => {
-          if (response)
-            if (response.statusCode === 200) resolve(response.body.data);
-            else reject(response.statusCode);
-          else reject(0);
+          PoemService.respond(response, resolve, reject);
         });
     });
   },
 
   // Get the details of a poet
   getPoemAuthors: (authorIds) => {
+    console.log("Retrieving", authorIds)
     return new Promise((resolve, reject) => {
       superagent
         .get(
           [process.env.REACT_APP_API_ENDPOINT, "authors", authorIds].join("/")
         )
         .end((_, response) => {
-          if (response)
-            if (response.statusCode === 200) resolve(response.body.data);
-            else reject(response.statusCode);
-          else reject(0);
+          console.log(response, "authors");
+          PoemService.respond(response, resolve, reject);
         });
     });
   },
+
+  // Gets a list of poems suggested for as a feed
+  getUnauthenticatedFeed: () => {
+    return new Promise((resolve, reject) => {
+      superagent
+        .get([process.env.REACT_APP_API_ENDPOINT, "poems", "feed"].join("/"))
+        .end((_, response) => {
+          PoemService.respond(response, resolve, reject);
+        });
+    });
+  },
+
   updateDraft: (data, token) => {
     return new Promise((resolve, reject) => {
       superagent
@@ -78,7 +86,7 @@ export const PoemService = {
   respond: (response, resolve, reject) => {
     if (response)
       if (response.statusCode === 200) resolve(response.body.data);
-      else reject(response.statusCode);
-    else reject(0);
+      else reject(response.body.reason || "Something went wrong.");
+    else reject("No internet connection. Please connect your device and try again.");
   },
 };

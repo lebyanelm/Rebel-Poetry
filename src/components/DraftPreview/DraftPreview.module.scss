@@ -2,6 +2,7 @@
 
 .DraftPreview {
   width: 100%;
+  position: relative;
 }
 
 .DraftPreview .DraftTitle {
@@ -42,7 +43,7 @@
 }
 
 .DraftPreview .BottomButtons {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 94%;
   padding: 20px 0;
@@ -53,4 +54,5 @@
   display: block;
   border: $BORDER;
   width: calc(90%);
+  background-color: $BACKGROUND_COLOR;
 }

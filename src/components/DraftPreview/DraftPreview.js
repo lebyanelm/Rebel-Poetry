@@ -10,6 +10,7 @@ const DraftPreview = ({ data, token, isPublished }) => {
   const { userToken } = useStorage();
   const { isLoaderVisible, setIsLoaderVisible } = useLoaderState()
 
+  const [draftContainerWidth, setDraftPreviewContainer] = React.useState(0);
   const tagsInput = React.createRef();
 
   const publishDraft = () => {
@@ -21,8 +22,18 @@ const DraftPreview = ({ data, token, isPublished }) => {
       })
   }
 
+  React.useState(() => {
+    // Change the width of the bottom buttons when the width changes
+    const windowResizeListener = window.addEventListener("resize", () => {
+      const draftContainer = document.getElementById("draft-container");
+      if (draftContainer)
+        setDraftPreviewContainer(draftContainer.innerWidth)
+      console.log(draftContainer)
+    });
+  }, []);
+
   return (
-    <div className={styles.DraftPreview} data-testid="DraftPreview">
+    <div className={styles.DraftPreview} id="draft-container">
       <div className={styles.DraftTitle}>
         {data.title || "No title entered yet."} (preview)
       </div>

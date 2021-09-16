@@ -1,17 +1,9 @@
-import React, { useEffect } from 'react';
 import Poem from '../Poem/Poem';
 import styles from './PoemsList.module.scss';
 
-const PoemsList = () => {
-  const poems = [];
-  
-  // Request random trending poems from the API server
-  useEffect(() => {
-    // GET REQUEST
-  }, []);
-  
+const PoemsList = ({ feed }) => {
   return (<div className={styles.PoemsGrid}>
-    {[1].map((poem) => <Poem></Poem>)}
+    {feed.map((poem) => <Poem data={poem}></Poem>)}
   </div>)
 };
 

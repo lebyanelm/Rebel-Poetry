@@ -2,41 +2,48 @@
 
 .Poem {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border: $BORDER;
-}
-
-// POEM THUMBNAIL
-.Poem .PoemThumbnail {
-  flex: 1;
-  height: 100%;
-  background: $TEXT_COLOR_DARK;
   background-size: cover;
-  background-position: center;
-  margin: 0;
+  background-position: top;
+  background: #333;
+  justify-content: flex-end;
 }
 
-.Poem .PoemDetails {
-  padding: 20px;
+// CONTENTS
+.PoemContents {
+  padding: $PADDING;
+  background: linear-gradient(0deg, $TEXT_COLOR_DARK, $TEXT_COLOR_DARK, $TEXT_COLOR_DARK, $TEXT_COLOR_DARK, $TEXT_COLOR_DARK, $TEXT_COLOR_DARK, $TEXT_COLOR_DARK, transparent);
+  color: $TEXT_COLOR_LIGHT;
 }
 
-.Poem .PoemDetails .PoemTitle {
-  display: flex;
-  align-items: center;
-  font-size: 40px;
-  line-height: 35px;
-  margin-bottom: 10px;
-  font-family: "Programme Alt", $FONT_FAMILY;
-}
-
-.Poem .PoemDetails .PoemAuthor,
-.Poem .PoemDetails .PoemDescription {
+// POEM TITLE
+.PoemContents .PoemTitle {
   display: block;
+  font-size: 25px;
+  font-weight: 900;
+  font-family: "Programme Alt", $FONT_FAMILY;
+  opacity: 1 !important;
+  text-transform: capitalize;
 }
 
-.Poem .PoemDetails .PoemDescription {
-  margin: 10px 0 20px 0;
-  color: transparentize($TEXT_COLOR_DARK, 0.5);
-  font-size: small;
+// POEM AUTHOR
+.PoemContents .PoemAuthor {
+  display: block;
+  margin-top: 5px;
+}
+
+.PoemContents a {
+  font-weight: bold;
+  color: $TEXT_COLOR_LIGHT
+}
+
+.PoemContents a:hover {
+  color: $SECONDARY_COLOR;
+}
+
+// POEM SNAPSHOT
+.PoemContents .PoemSnapshot {
+  display: block;
+  margin-top: 10px;
+  // font-style: italic;
+  opacity: 0.7;
 }

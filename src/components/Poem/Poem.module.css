@@ -1,33 +1,35 @@
 .Poem {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border: 3px solid #000000; }
-
-.Poem .PoemThumbnail {
-  flex: 1;
-  height: 100%;
-  background: #000000;
   background-size: cover;
-  background-position: center;
-  margin: 0; }
+  background-position: top;
+  background: #333;
+  justify-content: flex-end; }
 
-.Poem .PoemDetails {
-  padding: 20px; }
+.PoemContents {
+  padding: 20px;
+  background: linear-gradient(0deg, #000000, #000000, #000000, #000000, #000000, #000000, #000000, transparent);
+  color: #ffffff; }
 
-.Poem .PoemDetails .PoemTitle {
-  display: flex;
-  align-items: center;
-  font-size: 40px;
-  line-height: 35px;
-  margin-bottom: 10px;
-  font-family: "Programme Alt", "Helvetica Neue", sans-serif; }
+.PoemContents .PoemTitle {
+  display: block;
+  font-size: 25px;
+  font-weight: 900;
+  font-family: "Programme Alt", "Helvetica Neue", sans-serif;
+  opacity: 1 !important;
+  text-transform: capitalize; }
 
-.Poem .PoemDetails .PoemAuthor,
-.Poem .PoemDetails .PoemDescription {
-  display: block; }
+.PoemContents .PoemAuthor {
+  display: block;
+  margin-top: 5px; }
 
-.Poem .PoemDetails .PoemDescription {
-  margin: 10px 0 20px 0;
-  color: rgba(0, 0, 0, 0.5);
-  font-size: small; }
+.PoemContents a {
+  font-weight: bold;
+  color: #ffffff; }
+
+.PoemContents a:hover {
+  color: #ebc952; }
+
+.PoemContents .PoemSnapshot {
+  display: block;
+  margin-top: 10px;
+  opacity: 0.7; }
