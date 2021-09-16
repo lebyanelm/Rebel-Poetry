@@ -12,6 +12,7 @@ import SearchPage from "./pages/SearchPage/SearchPage";
 import Footer from "./components/Footer/Footer";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import SignInPage from "./pages/SignInPage/SignInPage";
+import DraftsPage from "./pages/DraftsPage/DraftsPage";
 import RootWrapper from "./components/RootWrapper/RootWrapper";
 
 // Providers
@@ -51,6 +52,9 @@ function App() {
                       </Route>
                       <Route path="/rebbels/@:poet">
                         <PoetProfile />
+                      </Route>
+                      <Route path="/your_drafts">
+                        <DraftsPage />
                       </Route>
                       <Route path="/poem">
                         <PoemPage />

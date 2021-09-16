@@ -3,7 +3,7 @@ import styles from "./Poem.module.scss";
 import { Link } from "react-router-dom";
 import { PoemService } from "../../services/Poem";
 
-const Poem = ({ data }) => {
+const Poem = ({ data, isDraft }) => {
   const [poemAuthors, setPoemAuthors] = React.useState([]);
   const reduceDescription = (description) => {
     description = description.split(" ");
@@ -21,15 +21,15 @@ const Poem = ({ data }) => {
           setPoemAuthors([...poemAuthors, ...poets]);
         });
     } else {
-      setPoemAuthors([{ display_name: "Anonymous", username: "anonymous" }])
+      setPoemAuthors([isDraft ? { display_name: "Myself", username: "me" } : { display_name: "Anonymous", username: "anonymous" }])
     }
   }, [])
 
   return (
     <div className={styles.Poem} style={{ backgroundImage: `url(${data.thumbnail})` }}>
       <div className={styles.PoemContents}>
-        <Link className={styles.PoemTitle}>{data.title}</Link>
-        <span className={styles.PoemAuthor}>Written by <Link to={`/rebbels/@${(poemAuthors.length && poemAuthors[0].username)}`}>{poemAuthors.length ? poemAuthors[0].display_name : "Loading..."}</Link></span>
+        <Link className={styles.PoemTitle} to={isDraft ? `/new_poem?draft_id=${data.did}` : `/poem/${data._id}`}>{data.title}</Link>
+        <span className={styles.PoemAuthor}>Written by <Link to={`/rebbels/@me`}>{poemAuthors.length ? poemAuthors[0].display_name : "Loading..."}</Link></span>
 
         <span className={styles.PoemSnapshot}>{reduceDescription(data.description ? data.description : data.body)}</span>
 

@@ -52,7 +52,7 @@ function NewPoem() {
             title: draft.title,
             body: draft.body,
             featured_poets: draft.featured_poets,
-            time_created: draft.time_created,
+            time_created: draft.time_created.toString(),
             is_anonymous: draft.is_anonymous,
             is_created: true,
           });
@@ -155,7 +155,7 @@ function NewPoem() {
             rows={draftData.title.split("\n").length}
             onChange={onFieldChange}
             value={draftData.title}
-            placeholder="Poem title v2"
+            placeholder="Poem title"
           ></textarea>
 
           <span>
