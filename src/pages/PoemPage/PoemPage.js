@@ -62,6 +62,7 @@ const PoemPage = () => {
         if (response) {
           if (response.status === 200) {
             setPoemData(response.body.data);
+            document.title = [process.env.REACT_APP_NAME, ": ", response.body.data.title].join("");
           } else {
             showToast(response.body.reason || "Something went wrong.");
             setPoemData(null);
