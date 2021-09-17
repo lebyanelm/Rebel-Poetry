@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/rebbelpoetry/static/css/main.1e0ff40c.chunk.css",
+    "main.js": "/rebbelpoetry/static/js/main.0e58c294.chunk.js",
+    "main.js.map": "/rebbelpoetry/static/js/main.0e58c294.chunk.js.map",
+    "runtime-main.js": "/rebbelpoetry/static/js/runtime-main.2e15acac.js",
+    "runtime-main.js.map": "/rebbelpoetry/static/js/runtime-main.2e15acac.js.map",
+    "static/js/2.635ccb8e.chunk.js": "/rebbelpoetry/static/js/2.635ccb8e.chunk.js",
+    "static/js/2.635ccb8e.chunk.js.map": "/rebbelpoetry/static/js/2.635ccb8e.chunk.js.map",
+    "index.html": "/rebbelpoetry/index.html",
+    "static/css/main.1e0ff40c.chunk.css.map": "/rebbelpoetry/static/css/main.1e0ff40c.chunk.css.map",
+    "static/js/2.635ccb8e.chunk.js.LICENSE.txt": "/rebbelpoetry/static/js/2.635ccb8e.chunk.js.LICENSE.txt",
+    "static/media/logo.6597611f.svg": "/rebbelpoetry/static/media/logo.6597611f.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2e15acac.js",
+    "static/js/2.635ccb8e.chunk.js",
+    "static/css/main.1e0ff40c.chunk.css",
+    "static/js/main.0e58c294.chunk.js"
+  ]
+}
