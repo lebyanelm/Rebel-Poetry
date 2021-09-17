@@ -13,6 +13,7 @@ import Footer from "./components/Footer/Footer";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import SignInPage from "./pages/SignInPage/SignInPage";
 import DraftsPage from "./pages/DraftsPage/DraftsPage";
+import FeelingLuckyPage from "./pages/FeelingLuckyPage/FeelingLuckyPage";
 import RootWrapper from "./components/RootWrapper/RootWrapper";
 
 // Providers
@@ -56,7 +57,10 @@ function App() {
                       <Route path="/your_drafts">
                         <DraftsPage />
                       </Route>
-                      <Route path="/poem">
+                      <Route path="/feeling_lucky">
+                        <FeelingLuckyPage />
+                      </Route>
+                      <Route path="/poem/:poemId">
                         <PoemPage />
                       </Route>
                       <Route path="/search">

@@ -14,14 +14,13 @@ export const PoemService = {
 
   // Get the details of a poet
   getPoemAuthors: (authorIds) => {
-    console.log("Retrieving", authorIds)
     return new Promise((resolve, reject) => {
       superagent
         .get(
           [process.env.REACT_APP_API_ENDPOINT, "authors", authorIds].join("/")
         )
         .end((_, response) => {
-          console.log(response, "authors");
+          console.log("response", response);
           PoemService.respond(response, resolve, reject);
         });
     });
@@ -55,7 +54,6 @@ export const PoemService = {
         .get([process.env.REACT_APP_API_ENDPOINT, "drafts", did].join("/"))
         .set("Authorization", token)
         .end((_, response) => {
-          console.log(response);
           PoemService.respond(response, resolve, reject);
         });
     });

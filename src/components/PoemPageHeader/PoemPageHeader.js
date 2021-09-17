@@ -2,8 +2,26 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./PoemPageHeader.module.scss";
 import { Link } from "react-router-dom";
+import { PoemService } from "../../services/Poem";
 
-const PoemPageHeader = () => {
+const PoemPageHeader = ({ poemData }) => {
+  // Retrieve the authors in the poem from the backend
+  const [poemAuthors, setPoemAuthors] = React.useState([]);
+  React.useEffect(() => {
+    // Get information of the poets
+    if (poemData) {
+      if (poemData.author !== undefined) {
+        PoemService.getPoemAuthors([poemData.author, ...poemData.featured_poets])
+          .then((poets) => {
+            console.log(poets)
+            setPoemAuthors(poets);
+          });
+      } else {
+        setPoemAuthors([{ display_name: "Anonymous", username: "anonymous" }])
+      }
+    }
+  }, [poemData]);
+
   return (
     <>
       <div className={styles.PoemPageHeader}>
@@ -14,31 +32,36 @@ const PoemPageHeader = () => {
                 className={styles.PoemThumbnailImage}
                 style={{
                   backgroundImage:
-                    "url(https://www.thedailyvox.co.za/wp-content/uploads/2016/02/Nelson-Mandela-ballpoint.jpg)",
+                    `url(${poemData.thumbnail})`,
                 }}
               >
                 <div className={styles.PlayPauseButton}></div>
               </div>
             </div>
             <div className={styles.PoemDetailsContainer}>
-              <h2 className={styles.PoemTitle}>An Ordinary Man</h2>
+              <h2 className={styles.PoemTitle}>{poemData?.title}</h2>
               <div className={styles.PoemAuthor}>
-                Written and Curated by <Link>Anonymous</Link>
+                Written by <Link to={`/rebbels/@${poemAuthors[0]?.username}`}>{poemAuthors[0]?.display_name}</Link>
               </div>
 
               <table className={styles.PoemMetadataItems}>
                 <tbody>
                   <tr>
-                    <td>Featuring</td>
+                    <td>Read time</td>
                     <td>
-                      <Link>Keorapetsi Kgositsile</Link> ,{" "}
-                      <Link>Antjie Krog</Link> and <Link>Ingrid Jonker</Link>
+                      <Link>{poemData?.read_time}</Link>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Word count</td>
+                    <td>
+                      {poemData?.body?.split(" ").length || 0} words
                     </td>
                   </tr>
                   <tr>
                     <td>Published on</td>
                     <td>
-                      <Link>Sun 08 Aug, 2021</Link>
+                      <Link>{poemData?.time_created?.day}</Link>
                     </td>
                   </tr>
                 </tbody>
@@ -56,9 +79,5 @@ const PoemPageHeader = () => {
     </>
   );
 };
-
-PoemPageHeader.propTypes = {};
-
-PoemPageHeader.defaultProps = {};
 
 export default PoemPageHeader;

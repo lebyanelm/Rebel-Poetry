@@ -1,10 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import PoemPageHeader from "../../components/PoemPageHeader/PoemPageHeader";
 import IonIcon from "@reacticons/ionicons";
 import styles from "./PoemPage.module.scss";
+import * as superagent from "superagent";
+import { useLoaderState } from "../../providers/LoaderContext"
+import { useToast } from "../../providers/ToastContext"
 
 const PoemPage = () => {
+  const { setIsLoaderVisible } = useLoaderState();
+  const { showToast } = useLoaderState();
+
   // Reference of the poem text container, to easily calculate annotation position
   const poemTextContainer = React.useRef();
   const scrollButtonsContainer = React.useRef();
@@ -43,6 +49,30 @@ const PoemPage = () => {
     ].join("");
   };
 
+  // Get the poem data when the page is opened
+  const params = useParams();
+  const [poemData, setPoemData] = React.useState({});
+  React.useEffect(() => {
+    setIsLoaderVisible(true);
+    superagent
+      .get([process.env.REACT_APP_API_ENDPOINT, "poems", params.poemId].join("/"))
+      .end((_, response) => {
+        setIsLoaderVisible(false);
+
+        if (response) {
+          if (response.status === 200) {
+            setPoemData(response.body.data);
+          } else {
+            showToast(response.body.reason || "Something went wrong.");
+            setPoemData(null);
+          }
+        } else {
+          showToast("You're not connected with the internet.");
+          setPoemData(null);
+        }
+      });
+  }, []);
+
   // Toggle the poem action buttons as sticky or absolute as page is being scrolled
   React.useEffect(() => {
     let windowScrollListener = window.addEventListener("scroll", (event) => {
@@ -67,99 +97,40 @@ const PoemPage = () => {
     });
 
     return () => window.removeEventListener("scroll", windowScrollListener);
-  }, []);
+  }, [poemData]);
 
   return (
     <>
       <div className={styles.PoemPageContainer}>
-        <PoemPageHeader></PoemPageHeader>
+        <PoemPageHeader poemData={poemData}></PoemPageHeader>
+
         <div className={styles.PoemContents}>
           <div className={styles.PoemSplitSides}>
             {/* The top of the poem text area */}
             <div className={styles.SideButtons} ref={scrollButtonsContainer}>
               <button title="Users currently reading this poem.">
                 <IonIcon name="eye-outline"></IonIcon>
-                <span className="count">1.2M</span>
+                <span className="count">{poemData.views_count}</span>
               </button>
 
               <button className={styles.Bookmark}>
                 <IonIcon name="bookmark-outline"></IonIcon>
-                <span className="count">490K</span>
+                <span className="count">{poemData.bookmarks_count}</span>
               </button>
 
               <button className={styles.Heart}>
                 <IonIcon name="flame"></IonIcon>
-                <span className="count">19M</span>
+                <span className="count">{poemData.likes_count}</span>
               </button>
 
               <button className={styles.Share}>
                 <IonIcon name="share-outline"></IonIcon>
-                <span className="count">190K</span>
+                <span className="count">{poemData.shares_count}</span>
               </button>
             </div>
 
             <div className={styles.PoemTextContainer} ref={poemTextContainer}>
-              In the end he died an ordinary man<br></br>
-              Only rich in wrinkles from where the spirit had been<br></br>
-              It would be the saddest days<br></br>
-              And we watched the world weep<br></br>
-              <a
-                onClick={(event) =>
-                  positionAnnotationContainer(
-                    "He was referred as the biggest leader to have existed. As he has freed a nation, a president a slave to make other's lives better now free.",
-                    event
-                  )
-                }
-              >
-                For a giant bigger than myths<br></br>A life owned by many
-                <br></br>
-                Now free as the gods<br></br>
-                <br></br>
-              </a>
-              Some cried as though tomorrow was lost<br></br>
-              Some celebrated, questioned freedom and its cost<br></br>
-              Some seized the chance to stand on his shoulders<br></br>
-              While others cursed his grave and scorned wisdom of the elders
-              <br></br>
-              <br></br>
-              <a
-                onClick={(event) =>
-                  positionAnnotationContainer(
-                    "Poeple were too many, there was no order.",
-                    event
-                  )
-                }
-              >
-                Stadiums were littered
-              </a>
-              <br></br>
-              And those in the know spoke their fill<br></br>
-              Mourners paid tribute<br></br>
-              Monarch to President made the bill<br></br>
-              <a
-                onClick={(event) =>
-                  positionAnnotationContainer(
-                    "In rememberence of the late first Black President, Nelson Mandela. This praise is meant to remind South Africans about the unity of one.",
-                    event
-                  )
-                }
-              >
-                But still Where do I we begin
-              </a>
-              <br></br>
-              In telling our children where these old bones have been<br></br>
-              And that we as next of kin<br></br>
-              Have inherited his struggle<br></br>
-              <a
-                onClick={(event) =>
-                  positionAnnotationContainer(
-                    "In rememberence of the late first Black President, Nelson Mandela. This praise is meant to remind South Africans about the unity of one. In rememberence of the late first Black President, Nelson Mandela.",
-                    event
-                  )
-                }
-              >
-                And he forever lives through our skin<br></br>
-              </a>
+              {poemData.body}
             </div>
 
             {/* Annotations container */}
