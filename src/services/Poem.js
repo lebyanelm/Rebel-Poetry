@@ -20,7 +20,6 @@ export const PoemService = {
           [process.env.REACT_APP_API_ENDPOINT, "authors", authorIds].join("/")
         )
         .end((_, response) => {
-          console.log("response", response);
           PoemService.respond(response, resolve, reject);
         });
     });

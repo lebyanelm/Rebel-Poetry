@@ -25,6 +25,8 @@ import { LoaderContextProvider } from "./providers/LoaderContext";
 import NewPoem from "./pages/NewPoem/NewPoem";
 import { ToastContextProvider } from "./providers/ToastContext";
 
+console.log(process.env)
+
 function App() {
   const { userSession } = useSession();
 
@@ -35,7 +37,7 @@ function App() {
           <SessionContextProvider>
             <BacklightContextProvider>
               <LoaderContextProvider>
-                <BrowserRouter basename={process.env.PUBLIC_URL}>
+                <BrowserRouter basename={process.env.NODE_ENV === "production" ? process.env.PUBLIC_URL : ""}>
                   <RootWrapper>
                     <Header />
                     <Switch>

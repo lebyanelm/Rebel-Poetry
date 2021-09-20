@@ -26,6 +26,12 @@ const HomePage = () => {
           setIsLoaderVisible(false);
           setFeed([...feed, ...poems]);
         });
+    } else {
+      PoemService.getUnauthenticatedFeed()
+        .then((poems) => {
+          setIsLoaderVisible(false);
+          setFeed([...feed, ...poems]);
+        });
     }
   }, []);
 
