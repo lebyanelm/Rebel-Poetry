@@ -35,7 +35,7 @@ function App() {
           <SessionContextProvider>
             <BacklightContextProvider>
               <LoaderContextProvider>
-                <BrowserRouter>
+                <BrowserRouter basename={process.env.PUBLIC_URL}>
                   <RootWrapper>
                     <Header />
                     <Switch>
