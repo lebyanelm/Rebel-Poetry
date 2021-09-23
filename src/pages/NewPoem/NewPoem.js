@@ -31,6 +31,8 @@ function NewPoem() {
   });
   const [changeInterval, setChangeInterval] = React.useState(null);
 
+  const titleInputRef = React.createRef();
+
   React.useState(() => {
     document.title = [process.env.REACT_APP_NAME, "New Poem"].join(": ");
 
@@ -68,6 +70,9 @@ function NewPoem() {
   const onFieldChange = (ev) => {
     const changes = { name: ev.target.name, value: ev.target.value };
     setDraftData({ ...draftData, [changes.name]: changes.value });
+
+    if (ev.target.name === "title")
+      titleInputRef.current.style.height = titleInputRef.current.scrollHeight + "px";
 
     // TODO: Change only on an interval.
   };
@@ -153,8 +158,9 @@ function NewPoem() {
             autoFocus={true}
             name="title"
             rows={draftData.title.split("\n").length}
-            onChange={onFieldChange}
             value={draftData.title}
+            ref={titleInputRef}
+            onChange={onFieldChange}
             placeholder="Poem title"
           ></textarea>
 

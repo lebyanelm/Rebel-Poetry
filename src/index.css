@@ -4,7 +4,7 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f6edec; }
+  background-color: #ffffff; }
 
 body,
 html {
@@ -13,7 +13,7 @@ html {
 * {
   outline: none;
   box-sizing: border-box;
-  font-family: "Bahnschrift", "Helvetica Neue", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 16px; }
 
 *::selection {
@@ -51,12 +51,13 @@ h6 {
   padding: 10px 20px 0 20px;
   font-family: "Programme Alt";
   margin-bottom: 0;
-  background-color: #ebc952;
   word-wrap: break-word; }
 
 h1 {
   font-size: 70px;
-  padding-left: 0; }
+  padding-left: 0;
+  border-top: 3px solid #000000;
+  border-bottom: 3px solid #000000; }
 
 h2 {
   font-size: 50px; }
@@ -74,10 +75,12 @@ h5 {
 p {
   color: #404040; }
 
-*.danger {
+*.danger,
+*.color-danger {
   color: orangered !important; }
 
-p.success {
+*.success,
+*.color-success {
   color: green; }
 
 /* Inputs */
@@ -165,9 +168,15 @@ button.transparent:hover,
 button[disabled] .button.disabled {
   opacity: 0.7; }
 
+/* Markdown formatting */
+code {
+  background: #eee;
+  padding: 10px;
+  width: 100%; }
+
 /* Page container */
 .page-container {
-  padding: 140px 180px 20px 180px;
+  padding: 130px 180px 20px 180px;
   position: relative; }
 
 .page-header {
@@ -182,7 +191,7 @@ button[disabled] .button.disabled {
   font-weight: 400; }
 
 .page-header span.name {
-  font-family: "Programme Alt", "Helvetica Neue", sans-serif;
+  font-family: "Programme Alt", "Roboto", sans-serif;
   font-weight: bolder; }
 
 .more-pages {

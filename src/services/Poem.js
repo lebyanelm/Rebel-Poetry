@@ -47,6 +47,17 @@ export const PoemService = {
         });
     });
   },
+  updatePoem: (data, pId, token) => {
+    return new Promise((resolve, reject) => {
+      superagent
+        .patch([process.env.REACT_APP_API_ENDPOINT, "poems", pId].join("/"))
+        .send(data)
+        .set("Authorization", token)
+        .end((_, response) => {
+          PoemService.respond(response, resolve, reject);
+        });
+    });
+  },
   getDraft: (did, token) => {
     return new Promise((resolve, reject) => {
       superagent
@@ -72,7 +83,9 @@ export const PoemService = {
   publish: (data, tags, token) => {
     return new Promise((resolve, reject) => {
       superagent
-        .post([process.env.REACT_APP_API_ENDPOINT, "publish", data.did].join("/"))
+        .post(
+          [process.env.REACT_APP_API_ENDPOINT, "publish", data.did].join("/")
+        )
         .set("Authorization", token)
         .send({ tags: tags.split(","), is_anonymous: data.is_anonymous })
         .end((_, response) => {
@@ -84,6 +97,9 @@ export const PoemService = {
     if (response)
       if (response.statusCode === 200) resolve(response.body.data);
       else reject(response.body.reason || "Something went wrong.");
-    else reject("No internet connection. Please connect your device and try again.");
+    else
+      reject(
+        "No internet connection. Please connect your device and try again."
+      );
   },
 };

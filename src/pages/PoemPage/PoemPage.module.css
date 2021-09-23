@@ -1,5 +1,5 @@
 .PoemPageContainer {
-  padding: 118px 0; }
+  padding: 100px 0; }
 
 .PoemContents {
   padding: 40px 180px; }
@@ -9,18 +9,22 @@
   grid-template-columns: 1fr 0.5fr;
   position: relative; }
 
+.PoemContents .PoemTextContainer.is-guide {
+  background: transparent !important; }
+
 .PoemContents .PoemTextContainer,
 .PoemContents .PoemTextContainer * {
-  font-size: 20px;
-  font-weight: 500; }
+  font-size: 16px; }
+
+.PoemContents .PoemTextContainer *,
+.PoemContents .PoemSplitSides .AnnotationsContainer {
+  font-family: "Roboto"; }
 
 .PoemContents .PoemSplitSides .AnnotationsContainer {
   padding: 10px 20px;
   border-left: 4px solid #1436ad;
   height: fit-content;
   font-weight: 600;
-  font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
-  font-style: italic;
   transition: transform 300ms ease;
   position: relative;
   background: rgba(0, 0, 0, 0.05); }
@@ -51,7 +55,7 @@
   transform: translateY(-5px); }
 
 .PoemContents .SideButtons button svg {
-  height: 30px;
+  height: 28px;
   fill: #000000;
   stroke: #000000;
   transition: transform 300ms ease; }
@@ -69,18 +73,16 @@
   font-size: 15px;
   margin-top: 5px;
   text-align: center;
-  transform: translateX(6px);
+  transform: translateX(5px);
   letter-spacing: 0; }
 
 .PoemContents .PoemTextContainer {
-  padding: 20px;
-  background: #fff;
-  font-family: "Baskerville Old Face", "Times New Roman", serif; }
+  padding: 0 20px;
+  background: #fff; }
 
 .PoemContents .PoemTextContainer a {
   text-decoration-thickness: 3px;
-  background: #ebc952;
-  font-family: "Baskerville Old Face", "Times New Roman", serif; }
+  background: #ebc952; }
 
 .PoemContents .PoemInformation {
   padding: 0 20px; }
@@ -88,7 +90,8 @@
 .PoemContents .PoemTags {
   display: flex;
   gap: 10px;
-  margin-top: 20px; }
+  margin-top: 20px;
+  padding-left: 20px; }
 
 .PoemContents .PoemTags a {
   display: inline-block;
@@ -96,10 +99,48 @@
   background: #ebc952;
   text-decoration-thickness: 4px; }
 
-h1 {
+.PoemContents .PoemTextContainer h1,
+.PoemContents .PoemTextContainer h2,
+.PoemContents .PoemTextContainer h3,
+.PoemContents .PoemTextContainer h4,
+.PoemContents .PoemTextContainer h5,
+.PoemContents .PoemTextContainer h6 {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  font-weight: 900; }
+
+.PoemContents .PoemTextContainer h1 {
+  font-size: 40px;
   background-color: transparent;
   color: #ffffff;
-  border-top: 3px solid #000000;
-  border-bottom: 3px solid #000000;
   text-indent: 0;
   color: #000000; }
+
+.PoemContents .PoemTextContainer h2 {
+  font-size: 30px; }
+
+.PoemContents .PoemTextContainer h3 {
+  font-size: 25px; }
+
+.PoemContents .PoemTextContainer a {
+  font-weight: bold; }
+
+.PoemActions a {
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  user-select: none !important; }
+
+.CommentsSection .CommentsSectionHeader {
+  display: flex;
+  padding-bottom: 10px;
+  align-items: center;
+  justify-content: space-between;
+  background: #000000; }
+
+.CommentsSection .CommentsSectionHeader span {
+  font-family: "Programme Alt", "Roboto", sans-serif; }
+
+.CommentsSection .CommentsSectionHeader span.Name {
+  font-size: 30px; }

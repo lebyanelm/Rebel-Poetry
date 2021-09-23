@@ -1,15 +1,28 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import PoemPageHeader from "../../components/PoemPageHeader/PoemPageHeader";
+import CommentsSection from "../../components/CommentsSection/CommentsSection";
+import { PoemService } from "../../services/Poem";
 import IonIcon from "@reacticons/ionicons";
 import styles from "./PoemPage.module.scss";
 import * as superagent from "superagent";
-import { useLoaderState } from "../../providers/LoaderContext"
-import { useToast } from "../../providers/ToastContext"
+import { useLoaderState } from "../../providers/LoaderContext";
+import { useStorage } from "../../providers/StorageContext";
+import { useSession } from "../../providers/SessionContext";
+import { useToast } from "../../providers/ToastContext";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const PoemPage = () => {
   const { setIsLoaderVisible } = useLoaderState();
-  const { showToast } = useLoaderState();
+  const { userToken } = useStorage();
+  const { userSession } = useSession();
+  const { showToast } = useToast();
+
+  // Toggling the editing mode of the poem
+  const [isEditMode, setIsEditMode] = React.useState(false);
+  const editableTextContentRef = React.createRef();
 
   // Reference of the poem text container, to easily calculate annotation position
   const poemTextContainer = React.useRef();
@@ -55,14 +68,20 @@ const PoemPage = () => {
   React.useEffect(() => {
     setIsLoaderVisible(true);
     superagent
-      .get([process.env.REACT_APP_API_ENDPOINT, "poems", params.poemId].join("/"))
+      .get(
+        [process.env.REACT_APP_API_ENDPOINT, "poems", params.poemId].join("/")
+      )
       .end((_, response) => {
         setIsLoaderVisible(false);
 
         if (response) {
           if (response.status === 200) {
             setPoemData(response.body.data);
-            document.title = [process.env.REACT_APP_NAME, ": ", response.body.data.title].join("");
+            document.title = [
+              process.env.REACT_APP_NAME,
+              ": ",
+              response.body.data.title,
+            ].join("");
           } else {
             showToast(response.body.reason || "Something went wrong.");
             setPoemData(null);
@@ -76,6 +95,13 @@ const PoemPage = () => {
 
   // Toggle the poem action buttons as sticky or absolute as page is being scrolled
   React.useEffect(() => {
+    // Determine whether or not if this is a guide page
+    if (poemData.title) {
+      if (poemData.title.includes("Guides: ")) {
+        poemTextContainer.current.classList.add("is-guide");
+      }
+    }
+
     let windowScrollListener = window.addEventListener("scroll", (event) => {
       const scrollY = window.scrollY;
 
@@ -96,8 +122,6 @@ const PoemPage = () => {
         scrollButtonsContainer.current.style.opacity = 1;
       }
     });
-
-    return () => window.removeEventListener("scroll", windowScrollListener);
   }, [poemData]);
 
   return (
@@ -109,6 +133,11 @@ const PoemPage = () => {
           <div className={styles.PoemSplitSides}>
             {/* The top of the poem text area */}
             <div className={styles.SideButtons} ref={scrollButtonsContainer}>
+              <button className={styles.Heart}>
+                <IonIcon name="flame"></IonIcon>
+                <span className="count">{poemData.likes_count}</span>
+              </button>
+
               <button title="Users currently reading this poem.">
                 <IonIcon name="eye-outline"></IonIcon>
                 <span className="count">{poemData.views_count}</span>
@@ -119,11 +148,6 @@ const PoemPage = () => {
                 <span className="count">{poemData.bookmarks_count}</span>
               </button>
 
-              <button className={styles.Heart}>
-                <IonIcon name="flame"></IonIcon>
-                <span className="count">{poemData.likes_count}</span>
-              </button>
-
               <button className={styles.Share}>
                 <IonIcon name="share-outline"></IonIcon>
                 <span className="count">{poemData.shares_count}</span>
@@ -131,7 +155,71 @@ const PoemPage = () => {
             </div>
 
             <div className={styles.PoemTextContainer} ref={poemTextContainer}>
-              {poemData.body}
+              {userSession && userSession._id === poemData.author && (
+                <div className={styles.PoemActions}>
+                  <a
+                    onClick={() => {
+                      const state = !isEditMode;
+                      setIsEditMode(state);
+                      if (state) {
+                        editableTextContentRef.current.innerText =
+                          poemData.body;
+                      } else {
+                        editableTextContentRef.current.innerText = "";
+                        PoemService.updatePoem(
+                          { body: poemData.body },
+                          poemData._id,
+                          userToken
+                        );
+                      }
+                    }}
+                  >
+                    {isEditMode ? "Update" : "Edit"}
+                  </a>
+
+                  {isEditMode ? (
+                    <a
+                      className="color-danger"
+                      onClick={() => setIsEditMode(false)}
+                    >
+                      Cancel
+                    </a>
+                  ) : (
+                    <a className="color-danger">Delete</a>
+                  )}
+                  <div
+                    ref={editableTextContentRef}
+                    onKeyUp={() =>
+                      setPoemData({
+                        ...poemData,
+                        body: editableTextContentRef.current.innerText,
+                      })
+                    }
+                    contentEditable="true"
+                    style={{
+                      borderBottom: isEditMode ? "3px solid black" : "none",
+                      paddingBottom: isEditMode ? "20px" : "0",
+                    }}
+                  ></div>
+
+                  {isEditMode && (
+                    <>
+                      <br></br>
+                      <h5>Resulting Changes:</h5>
+                      <br></br>
+                    </>
+                  )}
+                </div>
+              )}
+
+              <ReactMarkdown
+                children={poemData.body}
+                plugins={[remarkGfm]}
+                style={{
+                  opacity: isEditMode ? "0" : "1",
+                  position: isEditMode ? "absolute" : "relative",
+                }}
+              ></ReactMarkdown>
             </div>
 
             {/* Annotations container */}
@@ -164,8 +252,19 @@ const PoemPage = () => {
           </div>
 
           {/* Poem statistics and Author details */}
-          <div className={styles.RecommendedPoems}>
-            <h1>Discover More</h1>
+          <div className={styles.CommentsSection}>
+            <h4 className={styles.CommentsSectionHeader}>
+              <span className={styles.Name}>Comments</span>
+              <span className={styles.Count}>
+                {poemData.comments?.length
+                  ? [poemData.comments.length, "Comments"].join(" ")
+                  : "No comments"}{" "}
+                posted
+              </span>
+            </h4>
+
+            {/* The comments section */}
+            <CommentsSection commentIds={poemData.comments} />
           </div>
         </div>
       </div>

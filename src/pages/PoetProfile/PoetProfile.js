@@ -1,10 +1,11 @@
 import React from "react";
 import styles from "./PoetProfile.module.scss";
 import { Link, useParams } from "react-router-dom";
-import Poem from "../../components/Poem/Poem";
+import PoemsList from "../../components/PoemsList/PoemsList";
 import { useSession } from "../../providers/SessionContext";
 import * as superagent from "superagent";
 import { useLoaderState } from "../../providers/LoaderContext";
+import { PoemService } from "../../services/Poem";
 
 const PoetProfile = () => {
   // Get the username of the profile being browsed
@@ -13,7 +14,9 @@ const PoetProfile = () => {
   // Read from the the user session if any to check if there's a need to reach the server to get data
   const { userSession } = useSession();
   const { setIsLoaderVisible } = useLoaderState();
+
   const [profileData, setProfileData] = React.useState(null);
+  const [feed, setFeed] = React.useState([]);
 
   // Contact the server to get the profile data from the backend.
   const getProfileData = React.useCallback(() => {
@@ -44,13 +47,18 @@ const PoetProfile = () => {
     // document.title = process.env.REACT_APP_NAME + ": " + name;
     getProfileData().then((data) => {
       setProfileData(data);
-      console.log(data);
+      data.poems.forEach((poemId) => PoemService.getPoemData(poemId)
+        .then(poem => {
+          const poems = feed;
+          poems.push(poem)
+          setFeed(poems)
+        }))
     });
   }, []);
 
   return (
     profileData && (
-      <div className="page-container">
+      <div style={{ width: "100%" }} className="page-container">
         <div className={styles.ProfilePage}>
           <div className={styles.ProfileAvatarContainer}>
             <div
@@ -79,34 +87,34 @@ const PoetProfile = () => {
                     Edit
                   </Link>
                 ) : (
-                  <Link
-                    className={styles.ProfileBiographyEditButton}
-                    style={{ transform: "translateX(-20px)" }}
-                  >
-                    Add a biography
+                    <Link
+                      className={styles.ProfileBiographyEditButton}
+                      style={{ transform: "translateX(-20px)" }}
+                    >
+                      Add a biography
                   </Link>
-                )
+                  )
               ) : (
-                ""
-              )}
+                  ""
+                )}
             </div>
 
             <div className={styles.ProfileHeaderButtons}>
               {userSession && userSession.username === profileData.username ? (
                 ""
               ) : (
-                <button className="outline">Follow Rebbel</button>
-              )}
+                  <button style={{ backgroundColor: "black" }}>Follow Rebbel</button>
+                )}
               {userSession && userSession.username === profileData.username ? (
-                <button className="outline">Share your profile</button>
+                <button>Share your profile</button>
               ) : (
-                <button className="outline">Share Profile</button>
-              )}
+                  <button>Share Profile</button>
+                )}
               {userSession && userSession.username === profileData.username ? (
                 ""
               ) : (
-                <button className="outline">Collaborate</button>
-              )}
+                  <button>Collaborate</button>
+                )}
             </div>
 
             <div className={styles.ProfileStats}>
@@ -124,12 +132,12 @@ const PoetProfile = () => {
         </div>
 
         {/* The contents of the profile */}
-        <div className={styles.PoetProfileContents}>
+        <div style={{ width: "100%" }}>
           {profileData.poems.length ? (
-            profileData.poems.map((poemId) => <Poem poemId={poemId} />)
+            <PoemsList feed={feed} />
           ) : (
-            <h1>{profileData.display_name} has not published any poems yet.</h1>
-          )}
+              <h1>{profileData.display_name} has not published any poems yet.</h1>
+            )}
         </div>
       </div>
     )

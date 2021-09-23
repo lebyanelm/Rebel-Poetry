@@ -11,13 +11,15 @@ const PoemPageHeader = ({ poemData }) => {
     // Get information of the poets
     if (poemData) {
       if (poemData.author !== undefined) {
-        PoemService.getPoemAuthors([poemData.author, ...poemData.featured_poets])
-          .then((poets) => {
-            console.log(poets)
-            setPoemAuthors(poets);
-          });
+        PoemService.getPoemAuthors([
+          poemData.author,
+          ...poemData.featured_poets,
+        ]).then((poets) => {
+          console.log(poets);
+          setPoemAuthors(poets);
+        });
       } else {
-        setPoemAuthors([{ display_name: "Anonymous", username: "anonymous" }])
+        setPoemAuthors([{ display_name: "Anonymous", username: "anonymous" }]);
       }
     }
   }, [poemData]);
@@ -31,8 +33,7 @@ const PoemPageHeader = ({ poemData }) => {
               <div
                 className={styles.PoemThumbnailImage}
                 style={{
-                  backgroundImage:
-                    `url(${poemData.thumbnail})`,
+                  backgroundImage: `url(${poemData.thumbnail})`,
                 }}
               >
                 <div className={styles.PlayPauseButton}></div>
@@ -41,7 +42,10 @@ const PoemPageHeader = ({ poemData }) => {
             <div className={styles.PoemDetailsContainer}>
               <h2 className={styles.PoemTitle}>{poemData?.title}</h2>
               <div className={styles.PoemAuthor}>
-                Written by <Link to={`/rebbels/@${poemAuthors[0]?.username}`}>{poemAuthors[0]?.display_name}</Link>
+                Written by{" "}
+                <Link to={`/rebbels/@${poemAuthors[0]?.username}`}>
+                  {poemAuthors[0]?.display_name}
+                </Link>
               </div>
 
               <table className={styles.PoemMetadataItems}>
@@ -54,9 +58,7 @@ const PoemPageHeader = ({ poemData }) => {
                   </tr>
                   <tr>
                     <td>Word count</td>
-                    <td>
-                      {poemData?.body?.split(" ").length || 0} words
-                    </td>
+                    <td>{poemData?.body?.split(" ").length || 0} words</td>
                   </tr>
                   <tr>
                     <td>Published on</td>

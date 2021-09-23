@@ -6,7 +6,7 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: $BACKGROUND_COLOR;
+  background-color: #ffffff;
 }
 
 body,
@@ -17,7 +17,7 @@ html {
 * {
   outline: none;
   box-sizing: border-box;
-  font-family: "Bahnschrift", $FONT_FAMILY;
+  font-family: $FONT_FAMILY;
   font-size: $FONT_SIZE;
 }
 
@@ -60,13 +60,14 @@ h6 {
   padding: 10px 20px 0 20px;
   font-family: "Programme Alt";
   margin-bottom: 0;
-  background-color: $SECONDARY_COLOR;
   word-wrap: break-word;
 }
 
 h1 {
   font-size: 70px;
   padding-left: 0;
+  border-top: $BORDER;
+  border-bottom: $BORDER;
 }
 
 h2 {
@@ -90,11 +91,13 @@ p {
   color: lighten($TEXT_COLOR_DARK, 25%);
 }
 
-*.danger {
+*.danger,
+*.color-danger {
   color: $DANGER_COLOR !important;
 }
 
-p.success {
+*.success,
+*.color-success {
   color: $SUCCESS_COLOR;
 }
 
@@ -172,7 +175,7 @@ button.primary,
 .button.primary {
   border-color: $TEXT_COLOR_DARK;
   color: $TEXT_COLOR_LIGHT;
-  background: $TEXT_COLOR_DARK!important;
+  background: $TEXT_COLOR_DARK !important;
 }
 
 .button.outline.dark:hover {
@@ -196,9 +199,16 @@ button[disabled] .button.disabled {
   opacity: 0.7;
 }
 
+/* Markdown formatting */
+code {
+  background: #eee;
+  padding: 10px;
+  width: 100%;
+}
+
 /* Page container */
 .page-container {
-  padding: 140px $PAGE_MARGINS $PADDING $PAGE_MARGINS;
+  padding: 130px $PAGE_MARGINS $PADDING $PAGE_MARGINS;
   position: relative;
 }
 
