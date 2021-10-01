@@ -37,7 +37,7 @@ function App() {
           <SessionContextProvider>
             <BacklightContextProvider>
               <LoaderContextProvider>
-                <BrowserRouter basename={process.env.NODE_ENV === "production" ? process.env.PUBLIC_URL : ""}>
+                <BrowserRouter>
                   <RootWrapper>
                     <Header />
                     <Switch>
