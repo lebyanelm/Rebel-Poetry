@@ -1,0 +1,83 @@
+@import "../../variables.scss";
+
+.Comment {
+  display: flex;
+  border-bottom: 1px solid darkgrey;
+  padding: 10px 0;
+}
+
+.Comment .CommentBody {
+  width: 100%;
+}
+
+// COMMENT ACTION BUTTONS
+.CommentActions {
+  display: flex;
+  gap: 10px;
+}
+
+.CommentActionButtons {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  transform: translateY(-3px);
+}
+
+.CommentActionButtons > div {
+  // margin-bottom: 5px;
+  height: 20px;
+  user-select: none !important;
+}
+
+.CommentActionButtons svg:hover {
+  cursor: pointer;
+}
+
+.CommentActionButtons .Like svg {
+  height: 22px;
+}
+
+.CommentActionButtons .Like[data-isliked="true"] svg {
+  fill: $PRIMARY_COLOR;
+}
+
+.CommentActionButtons .Like:hover svg {
+  fill: $PRIMARY_COLOR;
+}
+
+.CommentActionButtons .Flag svg {
+  transform: translateY(2px) translateX(2.5px);
+}
+
+.CommentActionButtons .Flag:hover svg {
+  fill: $DANGER_COLOR;
+}
+
+// COMMENT MORE ACTIONS
+.CommentMoreActions {
+  margin-top: 10px;
+}
+
+.CommentMoreActions a {
+  margin: 0 5px;
+}
+
+// COMMENTOR DETAILS
+.CommentorNameDate {
+  display: inline-block;
+}
+
+.CommentorNameDate a {
+  font-weight: 900;
+  color: $PRIMARY_COLOR;
+}
+
+// EDITING COMMENT
+.Comment textarea {
+  width: 100%;
+  border-bottom: $BORDER;
+}
+
+.Comment textarea:focus {
+  border-color: $SECONDARY_COLOR;
+}
