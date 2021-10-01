@@ -15,6 +15,7 @@ import SignInPage from "./pages/SignInPage/SignInPage";
 import DraftsPage from "./pages/DraftsPage/DraftsPage";
 import FeelingLuckyPage from "./pages/FeelingLuckyPage/FeelingLuckyPage";
 import RootWrapper from "./components/RootWrapper/RootWrapper";
+import config from "./config";
 
 // Providers
 import { SessionContextProvider, useSession } from "./providers/SessionContext";
@@ -25,7 +26,7 @@ import { LoaderContextProvider } from "./providers/LoaderContext";
 import NewPoem from "./pages/NewPoem/NewPoem";
 import { ToastContextProvider } from "./providers/ToastContext";
 
-console.log("Backend URL: ", process.env.REACT_APP_API_ENDPOINT);
+console.log("Backend URL: ", process.env.NODE_ENV, config);
 
 function App() {
   const { userSession } = useSession();
