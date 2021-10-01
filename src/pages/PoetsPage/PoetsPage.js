@@ -27,8 +27,6 @@ const PoetsPage = () => {
   // For when an error occurs when retrieving the rebbels
   const [responseError, setResponseError] = React.useState("");
 
-  console.log("Request URI:", process.env.REACT_APP_API_ENDPOINT, process.env.REACT_APP_ENV)
-
   // Getting rebbel poets from the backend
   const getRebbelPoets = React.useCallback(() => {
     setIsLoaderVisible(true);
