@@ -27,8 +27,7 @@ const PoetsPage = () => {
   // For when an error occurs when retrieving the rebbels
   const [responseError, setResponseError] = React.useState("");
 
-  console.log("Request URI:", [process.env.REACT_APP_API_ENDPOINT,
-          "rebbels?limit=10&start=" + queryParameters.index].join("/"))
+  console.log("Request URI:", process.env.REACT_APP_API_ENDPOINT)
 
   // Getting rebbel poets from the backend
   const getRebbelPoets = React.useCallback(() => {
