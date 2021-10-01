@@ -35,6 +35,54 @@ export const CommentsService = {
         });
     });
   },
+  react: (cId, token) => {
+    console.log(cId, token);
+    return new Promise((resolve, reject) => {
+      superagent
+        .post(
+          [
+            process.env.REACT_APP_API_ENDPOINT,
+            "poems",
+            "comments",
+            cId,
+            "react",
+          ].join("/")
+        )
+        .set("Authorization", token)
+        .end((_, response) => {
+          CommentsService.respond(response, resolve, reject);
+        });
+    });
+  },
+  update: (body, cId, token) => {
+    return new Promise((resolve, reject) => {
+      superagent
+        .patch(
+          [process.env.REACT_APP_API_ENDPOINT, "poems", "comments", cId].join(
+            "/"
+          )
+        )
+        .set("Authorization", token)
+        .send({ body })
+        .end((_, response) => {
+          CommentsService.respond(response, resolve, reject);
+        });
+    });
+  },
+  delete: (cId, token) => {
+    return new Promise((resolve, reject) => {
+      superagent
+        .delete(
+          [process.env.REACT_APP_API_ENDPOINT, "poems", "comments", cId].join(
+            "/"
+          )
+        )
+        .set("Authorization", token)
+        .end((_, response) => {
+          CommentsService.respond(response, resolve, reject);
+        });
+    });
+  },
   respond: (response, resolve, reject) => {
     if (response)
       if (response.statusCode === 200) resolve(response.body.data);

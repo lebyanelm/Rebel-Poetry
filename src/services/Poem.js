@@ -58,6 +58,16 @@ export const PoemService = {
         });
     });
   },
+  deletePoem: (pId, token) => {
+    return new Promise((resolve, reject) => {
+      superagent
+        .delete([process.env.REACT_APP_API_ENDPOINT, "poems", pId].join("/"))
+        .set("Authorization", token)
+        .end((_, response) => {
+          PoemService.respond(response, resolve, reject);
+        });
+    });
+  },
   getDraft: (did, token) => {
     return new Promise((resolve, reject) => {
       superagent

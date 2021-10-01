@@ -6,6 +6,8 @@ import { Link, useParams } from "react-router-dom";
 import { CommentsService } from "../../services/Comments";
 import { useLoaderState } from "../../providers/LoaderContext";
 import { useStorage } from "../../providers/StorageContext";
+import Linkify from "react-linkify";
+import Comment from "../../components/Comment/Comment";
 
 const CommentsSection = () => {
   const { setIsLoaderVisible } = useLoaderState();
@@ -50,38 +52,21 @@ const CommentsSection = () => {
     <section className={styles.CommentsSection} data-testid="CommentsSection">
       {comments.map((comment) => {
         return (
-          <div className={styles.Comment}>
-            <div className={styles.CommentActions}>
-              <div className={styles.CommentLikesCount}>
-                {comment?.likes_count}
-              </div>
-              <div className={styles.CommentActionButtons}>
-                <div className={styles.Like}>
-                  <IonIcon name="caret-up-sharp" />
-                </div>
-                <div className={styles.Flag}>
-                  <IonIcon name="flag-sharp" />
-                </div>
-              </div>
-            </div>
-            <div className={styles.CommentBody}>
-              <span>{comment?.body}</span>
-
-              <span className={styles.CommentorNameDate}>
-                &mdash; By <Link>JPG</Link> on{" "}
-                <strong>
-                  {comment.time_created?.day} at {comment?.time_created?.time}
-                </strong>
-              </span>
-
-              <div className={styles.CommentMoreActions}>
-                <a href="">Edit</a>
-                <a href="">Share</a>
-                <a href="">Bookmark</a>
-                <a href="">Report</a>
-              </div>
-            </div>
-          </div>
+          <Comment
+            comment={comment}
+            update={(update, reference) => {
+              const cIndex = comments.findIndex((c) => c._id === reference);
+              if (cIndex > -1) {
+                const _comments = [...comments];
+                if (!update) {
+                  _comments.splice(cIndex, 1);
+                } else {
+                  _comments[cIndex] = update;
+                }
+                setComments(_comments);
+              }
+            }}
+          />
         );
       })}
       <div className={styles.PostCommentField}>

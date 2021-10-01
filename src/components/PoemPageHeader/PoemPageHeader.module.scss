@@ -38,6 +38,7 @@
 .PoemPageHeader .PoemDetailsContainer .PoemTitle {
   background-color: transparent;
   color: $SECONDARY_COLOR;
+  text-transform: capitalize;
   padding: 0;
   margin: 0;
 }

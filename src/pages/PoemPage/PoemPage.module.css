@@ -20,6 +20,9 @@
 .PoemContents .PoemSplitSides .AnnotationsContainer {
   font-family: "Roboto"; }
 
+.PoemContents p {
+  color: #000000 !important; }
+
 .PoemContents .PoemSplitSides .AnnotationsContainer {
   padding: 10px 20px;
   border-left: 4px solid #1436ad;
@@ -77,8 +80,9 @@
   letter-spacing: 0; }
 
 .PoemContents .PoemTextContainer {
-  padding: 0 20px;
-  background: #fff; }
+  padding: 20px;
+  color: #000;
+  background: #eee; }
 
 .PoemContents .PoemTextContainer a {
   text-decoration-thickness: 3px;
@@ -113,7 +117,6 @@
 .PoemContents .PoemTextContainer h1 {
   font-size: 40px;
   background-color: transparent;
-  color: #ffffff;
   text-indent: 0;
   color: #000000; }
 

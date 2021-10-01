@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import PoemPageHeader from "../../components/PoemPageHeader/PoemPageHeader";
 import CommentsSection from "../../components/CommentsSection/CommentsSection";
 import { PoemService } from "../../services/Poem";
@@ -19,6 +19,7 @@ const PoemPage = () => {
   const { userToken } = useStorage();
   const { userSession } = useSession();
   const { showToast } = useToast();
+  const history = useHistory();
 
   // Toggling the editing mode of the poem
   const [isEditMode, setIsEditMode] = React.useState(false);
@@ -60,6 +61,15 @@ const PoemPage = () => {
       targetPosition,
       "px)",
     ].join("");
+  };
+
+  const deletePoem = () => {
+    PoemService.deletePoem(poemData._id, userToken)
+      .then(() => {
+        showToast("Poem deleted.");
+        history.push("/discover");
+      })
+      .catch((error) => console.log("ERRRROR:", error));
   };
 
   // Get the poem data when the page is opened
@@ -185,7 +195,9 @@ const PoemPage = () => {
                       Cancel
                     </a>
                   ) : (
-                    <a className="color-danger">Delete</a>
+                    <a className="color-danger" onClick={deletePoem}>
+                      Delete
+                    </a>
                   )}
                   <div
                     ref={editableTextContentRef}
