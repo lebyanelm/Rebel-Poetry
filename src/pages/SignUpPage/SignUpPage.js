@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./SignUpPage.module.scss";
 import * as superagent from "superagent";
+import config from "./config";
 import { Storage } from "../../services/Storage";
 import { useSession } from "../../providers/SessionContext";
 import { Link, useHistory } from "react-router-dom";
@@ -46,7 +47,7 @@ const SignUpPage = () => {
     ) {
       // Send an account create request to the backend
       superagent
-        .post([process.env.REACT_APP_API_ENDPOINT, "rebbels"].join("/"))
+        .post([config.BACKEND, "rebbels"].join("/"))
         .send(requestData)
         .end((_, response) => {
           if (response) {

@@ -7,6 +7,7 @@ import { PoemService } from "../../services/Poem";
 import IonIcon from "@reacticons/ionicons";
 import styles from "./PoemPage.module.scss";
 import * as superagent from "superagent";
+import config from "./config";
 import { useLoaderState } from "../../providers/LoaderContext";
 import { useStorage } from "../../providers/StorageContext";
 import { useSession } from "../../providers/SessionContext";
@@ -78,9 +79,7 @@ const PoemPage = () => {
   React.useEffect(() => {
     setIsLoaderVisible(true);
     superagent
-      .get(
-        [process.env.REACT_APP_API_ENDPOINT, "poems", params.poemId].join("/")
-      )
+      .get([config.BACKEND, "poems", params.poemId].join("/"))
       .end((_, response) => {
         setIsLoaderVisible(false);
 

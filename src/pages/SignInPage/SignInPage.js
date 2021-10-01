@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import * as superagent from "superagent";
+import config from "./config";
 import { useSession } from "../../providers/SessionContext";
 import { useStorage } from "../../providers/StorageContext";
 import { Storage } from "../../services/Storage";
@@ -36,11 +37,7 @@ const SignInPage = () => {
 
       // Send the authentication request
       superagent
-        .get(
-          [process.env.REACT_APP_API_ENDPOINT, "rebbels/authentication"].join(
-            "/"
-          )
-        )
+        .get([config.BACKEND, "rebbels/authentication"].join("/"))
         .set("Authorization", credentialsData)
         .end((_, response) => {
           if (response) {

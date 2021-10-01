@@ -1,11 +1,12 @@
 import * as superagent from "superagent";
+import config from "./config";
 
 export const PoemService = {
   // Gets poem data from the backend
   getPoemData: (pId) => {
     return new Promise((resolve, reject) => {
       superagent
-        .get([process.env.REACT_APP_API_ENDPOINT, "poems", pId].join("/"))
+        .get([config.BACKEND, "poems", pId].join("/"))
         .end((_, response) => {
           PoemService.respond(response, resolve, reject);
         });
@@ -16,9 +17,7 @@ export const PoemService = {
   getPoemAuthors: (authorIds) => {
     return new Promise((resolve, reject) => {
       superagent
-        .get(
-          [process.env.REACT_APP_API_ENDPOINT, "authors", authorIds].join("/")
-        )
+        .get([config.BACKEND, "authors", authorIds].join("/"))
         .end((_, response) => {
           PoemService.respond(response, resolve, reject);
         });
@@ -29,7 +28,7 @@ export const PoemService = {
   getUnauthenticatedFeed: () => {
     return new Promise((resolve, reject) => {
       superagent
-        .get([process.env.REACT_APP_API_ENDPOINT, "poems", "feed"].join("/"))
+        .get([config.BACKEND, "poems", "feed"].join("/"))
         .end((_, response) => {
           PoemService.respond(response, resolve, reject);
         });
@@ -39,7 +38,7 @@ export const PoemService = {
   updateDraft: (data, token) => {
     return new Promise((resolve, reject) => {
       superagent
-        .post([process.env.REACT_APP_API_ENDPOINT, "drafts"].join("/"))
+        .post([config.BACKEND, "drafts"].join("/"))
         .send({ ...data })
         .set("Authorization", token)
         .end((_, response) => {
@@ -50,7 +49,7 @@ export const PoemService = {
   updatePoem: (data, pId, token) => {
     return new Promise((resolve, reject) => {
       superagent
-        .patch([process.env.REACT_APP_API_ENDPOINT, "poems", pId].join("/"))
+        .patch([config.BACKEND, "poems", pId].join("/"))
         .send(data)
         .set("Authorization", token)
         .end((_, response) => {
@@ -61,7 +60,7 @@ export const PoemService = {
   deletePoem: (pId, token) => {
     return new Promise((resolve, reject) => {
       superagent
-        .delete([process.env.REACT_APP_API_ENDPOINT, "poems", pId].join("/"))
+        .delete([config.BACKEND, "poems", pId].join("/"))
         .set("Authorization", token)
         .end((_, response) => {
           PoemService.respond(response, resolve, reject);
@@ -71,7 +70,7 @@ export const PoemService = {
   getDraft: (did, token) => {
     return new Promise((resolve, reject) => {
       superagent
-        .get([process.env.REACT_APP_API_ENDPOINT, "drafts", did].join("/"))
+        .get([config.BACKEND, "drafts", did].join("/"))
         .set("Authorization", token)
         .end((_, response) => {
           PoemService.respond(response, resolve, reject);
@@ -81,7 +80,7 @@ export const PoemService = {
   uploadThumbnail: (file, token) => {
     return new Promise((resolve, reject) => {
       superagent
-        .put([process.env.REACT_APP_API_ENDPOINT, "assets", "upload"].join("/"))
+        .put([config.BACKEND, "assets", "upload"].join("/"))
         .set("Authorization", token)
         .attach("file", file)
         .end((_, response) => {
@@ -93,9 +92,7 @@ export const PoemService = {
   publish: (data, tags, token) => {
     return new Promise((resolve, reject) => {
       superagent
-        .post(
-          [process.env.REACT_APP_API_ENDPOINT, "publish", data.did].join("/")
-        )
+        .post([config.BACKEND, "publish", data.did].join("/"))
         .set("Authorization", token)
         .send({ tags: tags.split(","), is_anonymous: data.is_anonymous })
         .end((_, response) => {

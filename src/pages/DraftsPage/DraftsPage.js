@@ -1,8 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './DraftsPage.module.scss';
-import * as superagent from 'superagent';
-import { useStorage } from '../../providers/StorageContext';
+import React from "react";
+import PropTypes from "prop-types";
+import styles from "./DraftsPage.module.scss";
+import * as superagent from "superagent";
+import config from "./config";
+import { useStorage } from "../../providers/StorageContext";
 import { useToast } from "../../providers/ToastContext";
 import PoemsList from "../../components/PoemsList/PoemsList";
 
@@ -14,7 +15,7 @@ const DraftsPage = () => {
   // Retrieve the drafts from the backend
   React.useEffect(() => {
     superagent
-      .get([process.env.REACT_APP_API_ENDPOINT, "drafts"].join("/"))
+      .get([config.BACKEND, "drafts"].join("/"))
       .set("Authorization", storage.userToken)
       .end((_, response) => {
         if (response) {
@@ -32,24 +33,25 @@ const DraftsPage = () => {
 
   return (
     <div className="page-container" data-testid="DraftsPage">
-      {
-        drafts === null &&
+      {drafts === null && (
         <div>
           <section>
             <h1>Something happened while retrieving your drafts.</h1>
-            <p>If this error persists, please contact us and let us know about the issue.</p>
+            <p>
+              If this error persists, please contact us and let us know about
+              the issue.
+            </p>
           </section>
         </div>
-      }
-      {
-        drafts !== null &&
+      )}
+      {drafts !== null && (
         <div>
           <h1>All Your Drafts</h1>
-          <PoemsList feed={drafts} isDrafts={true}/>
-            </div>
-      }
+          <PoemsList feed={drafts} isDrafts={true} />
+        </div>
+      )}
     </div>
-          )
+  );
 };
 
-          export default DraftsPage;
+export default DraftsPage;

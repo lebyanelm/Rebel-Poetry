@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import PoemsList from "../../components/PoemsList/PoemsList";
 import { useSession } from "../../providers/SessionContext";
 import * as superagent from "superagent";
+import config from "./config";
 import { useLoaderState } from "../../providers/LoaderContext";
 import { PoemService } from "../../services/Poem";
 
@@ -26,11 +27,7 @@ const PoetProfile = () => {
         setIsLoaderVisible(true);
 
         superagent
-          .get(
-            [process.env.REACT_APP_API_ENDPOINT, "rebbels", params.poet].join(
-              "/"
-            )
-          )
+          .get([config.BACKEND, "rebbels", params.poet].join("/"))
           .end((_, response) => {
             setIsLoaderVisible(false);
             if (response) {
@@ -47,12 +44,13 @@ const PoetProfile = () => {
     // document.title = process.env.REACT_APP_NAME + ": " + name;
     getProfileData().then((data) => {
       setProfileData(data);
-      data.poems.forEach((poemId) => PoemService.getPoemData(poemId)
-        .then(poem => {
+      data.poems.forEach((poemId) =>
+        PoemService.getPoemData(poemId).then((poem) => {
           const poems = feed;
-          poems.push(poem)
-          setFeed(poems)
-        }))
+          poems.push(poem);
+          setFeed(poems);
+        })
+      );
     });
   }, []);
 
@@ -87,34 +85,36 @@ const PoetProfile = () => {
                     Edit
                   </Link>
                 ) : (
-                    <Link
-                      className={styles.ProfileBiographyEditButton}
-                      style={{ transform: "translateX(-20px)" }}
-                    >
-                      Add a biography
+                  <Link
+                    className={styles.ProfileBiographyEditButton}
+                    style={{ transform: "translateX(-20px)" }}
+                  >
+                    Add a biography
                   </Link>
-                  )
+                )
               ) : (
-                  ""
-                )}
+                ""
+              )}
             </div>
 
             <div className={styles.ProfileHeaderButtons}>
               {userSession && userSession.username === profileData.username ? (
                 ""
               ) : (
-                  <button style={{ backgroundColor: "black" }}>Follow Rebbel</button>
-                )}
+                <button style={{ backgroundColor: "black" }}>
+                  Follow Rebbel
+                </button>
+              )}
               {userSession && userSession.username === profileData.username ? (
                 <button>Share your profile</button>
               ) : (
-                  <button>Share Profile</button>
-                )}
+                <button>Share Profile</button>
+              )}
               {userSession && userSession.username === profileData.username ? (
                 ""
               ) : (
-                  <button>Collaborate</button>
-                )}
+                <button>Collaborate</button>
+              )}
             </div>
 
             <div className={styles.ProfileStats}>
@@ -136,8 +136,8 @@ const PoetProfile = () => {
           {profileData.poems.length ? (
             <PoemsList feed={feed} />
           ) : (
-              <h1>{profileData.display_name} has not published any poems yet.</h1>
-            )}
+            <h1>{profileData.display_name} has not published any poems yet.</h1>
+          )}
         </div>
       </div>
     )

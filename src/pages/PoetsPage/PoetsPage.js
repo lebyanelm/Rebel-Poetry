@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Poet from "../../components/Poet/Poet";
 import styles from "./PoetsPage.module.scss";
 import * as superagent from "superagent";
+import config from "./config";
 import { useSession } from "../../providers/SessionContext";
 import { useLoaderState } from "../../providers/LoaderContext";
 import { useHistory } from "react-router";
@@ -34,7 +35,7 @@ const PoetsPage = () => {
     superagent
       .get(
         [
-          process.env.REACT_APP_API_ENDPOINT,
+          config.BACKEND,
           "rebbels?limit=10&start=" + queryParameters.index,
         ].join("/")
       )

@@ -1,17 +1,11 @@
 import * as superagent from "superagent";
+import config from "./config";
 
 export const CommentsService = {
   comment: (data, token) => {
     return new Promise((resolve, reject) => {
       superagent
-        .post(
-          [
-            process.env.REACT_APP_API_ENDPOINT,
-            "poems",
-            data.pId,
-            "comments",
-          ].join("/")
-        )
+        .post([config.BACKEND, "poems", data.pId, "comments"].join("/"))
         .set("Authorization", token)
         .send(data)
         .end((_, response) => {
@@ -23,12 +17,7 @@ export const CommentsService = {
     return new Promise((resolve, reject) => {
       superagent
         .get(
-          [
-            process.env.REACT_APP_API_ENDPOINT,
-            "poems",
-            pId,
-            "comments?start=0&limit=20",
-          ].join("/")
+          [config.BACKEND, "poems", pId, "comments?start=0&limit=20"].join("/")
         )
         .end((_, response) => {
           CommentsService.respond(response, resolve, reject);
@@ -39,15 +28,7 @@ export const CommentsService = {
     console.log(cId, token);
     return new Promise((resolve, reject) => {
       superagent
-        .post(
-          [
-            process.env.REACT_APP_API_ENDPOINT,
-            "poems",
-            "comments",
-            cId,
-            "react",
-          ].join("/")
-        )
+        .post([config.BACKEND, "poems", "comments", cId, "react"].join("/"))
         .set("Authorization", token)
         .end((_, response) => {
           CommentsService.respond(response, resolve, reject);
@@ -57,11 +38,7 @@ export const CommentsService = {
   update: (body, cId, token) => {
     return new Promise((resolve, reject) => {
       superagent
-        .patch(
-          [process.env.REACT_APP_API_ENDPOINT, "poems", "comments", cId].join(
-            "/"
-          )
-        )
+        .patch([config.BACKEND, "poems", "comments", cId].join("/"))
         .set("Authorization", token)
         .send({ body })
         .end((_, response) => {
@@ -72,11 +49,7 @@ export const CommentsService = {
   delete: (cId, token) => {
     return new Promise((resolve, reject) => {
       superagent
-        .delete(
-          [process.env.REACT_APP_API_ENDPOINT, "poems", "comments", cId].join(
-            "/"
-          )
-        )
+        .delete([config.BACKEND, "poems", "comments", cId].join("/"))
         .set("Authorization", token)
         .end((_, response) => {
           CommentsService.respond(response, resolve, reject);

@@ -4,6 +4,7 @@ import styles from "./RootWrapper.module.scss";
 import { useSession } from "../../providers/SessionContext";
 import { useHistory } from "react-router-dom";
 import * as superagent from "superagent";
+import config from "./config";
 import { Storage } from "../../services/Storage";
 import { useLoaderState } from "../../providers/LoaderContext";
 import { useStorage } from "../../providers/StorageContext";
@@ -20,13 +21,7 @@ const RootWrapper = ({ children }) => {
     if (userToken) {
       // Send a get data request to the backend
       superagent
-        .get(
-          [
-            process.env.REACT_APP_API_ENDPOINT,
-            "rebbels",
-            "reauthenticate",
-          ].join("/")
-        )
+        .get([config.BACKEND, "rebbels", "reauthenticate"].join("/"))
         .set("Authorization", userToken)
         .end((_, response) => {
           // At first the loader will be shown for the page to fully load, hide it after page has fully loaded

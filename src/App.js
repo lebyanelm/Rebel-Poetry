@@ -26,8 +26,6 @@ import { LoaderContextProvider } from "./providers/LoaderContext";
 import NewPoem from "./pages/NewPoem/NewPoem";
 import { ToastContextProvider } from "./providers/ToastContext";
 
-console.log("Backend URL: ", process.env.NODE_ENV, config);
-
 function App() {
   const { userSession } = useSession();
 

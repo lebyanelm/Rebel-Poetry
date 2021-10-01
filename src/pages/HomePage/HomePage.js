@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import PoemPostInput from "../../components/PoemPostInput/PoemPostInput";
 import PoemsList from "../../components/PoemsList/PoemsList";
 import * as superagent from "superagent";
+import config from "./config";
 import { useStorage } from "../../providers/StorageContext";
 import { useLoaderState } from "../../providers/LoaderContext";
 import { useToast } from "../../providers/ToastContext";
@@ -21,17 +22,15 @@ const HomePage = () => {
     // Retrieve a feed listing from the backend
     setIsLoaderVisible(true);
     if (userToken) {
-      PoemService.getUnauthenticatedFeed()
-        .then((poems) => {
-          setIsLoaderVisible(false);
-          setFeed([...feed, ...poems]);
-        });
+      PoemService.getUnauthenticatedFeed().then((poems) => {
+        setIsLoaderVisible(false);
+        setFeed([...feed, ...poems]);
+      });
     } else {
-      PoemService.getUnauthenticatedFeed()
-        .then((poems) => {
-          setIsLoaderVisible(false);
-          setFeed([...feed, ...poems]);
-        });
+      PoemService.getUnauthenticatedFeed().then((poems) => {
+        setIsLoaderVisible(false);
+        setFeed([...feed, ...poems]);
+      });
     }
   }, []);
 
