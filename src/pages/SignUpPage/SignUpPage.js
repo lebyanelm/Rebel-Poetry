@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./SignUpPage.module.scss";
 import * as superagent from "superagent";
-import config from "./config";
+import config from "../../config";
 import { Storage } from "../../services/Storage";
 import { useSession } from "../../providers/SessionContext";
 import { Link, useHistory } from "react-router-dom";

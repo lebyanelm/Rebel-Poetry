@@ -1,5 +1,5 @@
 import * as superagent from "superagent";
-import config from "./config";
+import config from "../config";
 
 export const PoemService = {
   // Gets poem data from the backend

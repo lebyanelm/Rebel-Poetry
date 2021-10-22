@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import PoemPostInput from "../../components/PoemPostInput/PoemPostInput";
 import PoemsList from "../../components/PoemsList/PoemsList";
 import * as superagent from "superagent";
-import config from "./config";
+import config from "../../config";
 import { useStorage } from "../../providers/StorageContext";
 import { useLoaderState } from "../../providers/LoaderContext";
 import { useToast } from "../../providers/ToastContext";

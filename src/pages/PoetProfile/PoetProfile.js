@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import PoemsList from "../../components/PoemsList/PoemsList";
 import { useSession } from "../../providers/SessionContext";
 import * as superagent from "superagent";
-import config from "./config";
+import config from "../../config";
 import { useLoaderState } from "../../providers/LoaderContext";
 import { PoemService } from "../../services/Poem";
 

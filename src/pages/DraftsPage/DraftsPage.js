@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./DraftsPage.module.scss";
 import * as superagent from "superagent";
-import config from "./config";
+import config from "../../config";
 import { useStorage } from "../../providers/StorageContext";
 import { useToast } from "../../providers/ToastContext";
 import PoemsList from "../../components/PoemsList/PoemsList";

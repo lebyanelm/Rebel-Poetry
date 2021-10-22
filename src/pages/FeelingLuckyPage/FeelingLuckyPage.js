@@ -4,7 +4,7 @@ import { useToast } from "../../providers/ToastContext";
 import Loader from "../../components/Loader/Loader";
 import styles from "./FeelingLuckyPage.module.scss";
 import * as superagent from "superagent";
-import config from "./config";
+import config from "../../config";
 
 const FeelingLuckyPage = () => {
   const history = useHistory();

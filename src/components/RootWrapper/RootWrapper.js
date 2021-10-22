@@ -4,7 +4,7 @@ import styles from "./RootWrapper.module.scss";
 import { useSession } from "../../providers/SessionContext";
 import { useHistory } from "react-router-dom";
 import * as superagent from "superagent";
-import config from "./config";
+import config from "../../config";
 import { Storage } from "../../services/Storage";
 import { useLoaderState } from "../../providers/LoaderContext";
 import { useStorage } from "../../providers/StorageContext";

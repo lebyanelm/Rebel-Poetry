@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import * as superagent from "superagent";
-import config from "./config";
+import config from "../../config";
 import { useSession } from "../../providers/SessionContext";
 import { useStorage } from "../../providers/StorageContext";
 import { Storage } from "../../services/Storage";
