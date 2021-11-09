@@ -1,49 +1,79 @@
 @import "../../variables.scss";
 
+// THE MAIN POEM CONTAINER
 .Poem {
-  display: flex;
+  padding: $PADDING $PADDING;
+  border-left: 2px solid #DDD;
+  border-top: 3px solid #DDD;
+}
+
+.Poem:nth-child(3n) {
+  border-right: 2px solid #DDD;
+}
+
+.Poem:hover {
+  border-top-color: $PRIMARY_COLOR;
+}
+
+// THE POEM'S THUMBNAIL
+.Poem .PoemThumbnail {
+  display: block;
+  height: 150px;
+  width: 100%;
+  background: #EEE;
   background-size: cover;
-  background-position: top;
-  background: #333;
-  justify-content: flex-end;
+  background-position: center center;
+  margin-bottom: 20px;
 }
 
-// CONTENTS
-.PoemContents {
-  padding: $PADDING;
-  background: linear-gradient(0deg, $TEXT_COLOR_DARK, $TEXT_COLOR_DARK, $TEXT_COLOR_DARK, $TEXT_COLOR_DARK, $TEXT_COLOR_DARK, $TEXT_COLOR_DARK, $TEXT_COLOR_DARK, transparent);
+.Poem .PoemThumbnail::before {
+  content: attr(data-liked);
+  display: block;
+  padding: 5px;
+  margin-bottom: 10px;
+  background: $TEXT_COLOR_DARK;
   color: $TEXT_COLOR_LIGHT;
-}
-
-// POEM TITLE
-.PoemContents .PoemTitle {
-  display: block;
-  font-size: 25px;
-  font-weight: 900;
-  font-family: "Programme Alt", $FONT_FAMILY;
-  opacity: 1 !important;
-  text-transform: capitalize;
-}
-
-// POEM AUTHOR
-.PoemContents .PoemAuthor {
-  display: block;
-  margin-top: 5px;
-}
-
-.PoemContents a {
+  font-size: small;
   font-weight: bold;
-  color: $TEXT_COLOR_LIGHT
+  float: left;
 }
 
-.PoemContents a:hover {
+// THE POEM READ TIME INDICATION
+.Poem .PoemReadTime {
+  display: block;
+  text-transform: uppercase;
+  font-size: small;
+  opacity: .6;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+// THE POEM'S TITLE
+.Poem .PoemTitle {
+  font-size: 30px;
+  font-weight: 900;
+  margin-bottom: 20px;
+  // font-family: "Programme Alt", $FONT_FAMILY;
+}
+
+// THE POEM'S AUTHOR AND DATE PUBLISHED
+.Poem .PoemDetails .PoemAuthorTime {
+  color: #777;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.Poem .PoemDetails .PoemAuthorTime span {
   color: $SECONDARY_COLOR;
 }
 
-// POEM SNAPSHOT
-.PoemContents .PoemSnapshot {
-  display: block;
-  margin-top: 10px;
-  // font-style: italic;
-  opacity: 0.7;
+// PREVENT SOME NATURE OF OTHER ELEMENTS ON THE DESCRIPTION
+.Poem .PoemDescription  {
+  * {
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  h1, h2, h3,
+  h4, h5, h6 {
+    font-size: $FONT_SIZE !important;
+  }
 }

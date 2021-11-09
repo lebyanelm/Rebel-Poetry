@@ -2,6 +2,8 @@ import React from "react";
 import styles from "./Poem.module.scss";
 import { Link } from "react-router-dom";
 import { PoemService } from "../../services/Poem";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const Poem = ({ data, isDraft }) => {
   const [poemAuthors, setPoemAuthors] = React.useState([]);
@@ -26,13 +28,19 @@ const Poem = ({ data, isDraft }) => {
   }, [])
 
   return (
-    <div className={styles.Poem} style={{ backgroundImage: `url(${data.thumbnail})` }}>
-      <div className={styles.PoemContents}>
-        <Link className={styles.PoemTitle} to={isDraft ? `/new_poem?draft_id=${data.did}` : `/poem/${data._id}`}>{data.title}</Link>
-        <span className={styles.PoemAuthor}>Written by <Link to={`/rebbels/${poemAuthors.length ? "@" + poemAuthors[0].username : ""}`}>{poemAuthors.length ? poemAuthors[0].display_name : "Loading..."}</Link></span>
-
-        <span className={styles.PoemSnapshot}>{reduceDescription(data.description ? data.description : data.body)}</span>
-
+    <div className={styles.Poem}>
+      {data.thumbnail ? <div
+        className={styles.PoemThumbnail}
+        style={{ backgroundImage: `url(${data.thumbnail})` }}
+        data-text="Bookmarked and Liked"></div> :
+        <div
+          className={styles.PoemThumbnail}
+          style={{ backgroundImage: `url(${[process.env.REACT_APP_API_ENDPOINT, "uploads", "default-background.png"].join("/")})` }}
+          data-text="Bookmarked and Liked"></div>}
+      <div className={styles.PoemReadTime}>{data.read_time}</div>
+      <div className={styles.PoemDetails}>
+        <a className={styles.PoemTitle} href={["/poem", data._id].join("/")}>{data.title}</a>
+        <div className={styles.PoemAuthorTime}>By <a href={["/"].join("")}>{poemAuthors[0]?.display_name}</a> <span>|</span> Published on {data?.time_created.day}</div>
       </div>
     </div>
   )
