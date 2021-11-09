@@ -19,6 +19,10 @@
 section.LeftSection {
   max-width: 400px; }
 
+section.LeftSection img {
+  border-radius: 10px;
+  margin-bottom: 20px; }
+
 section .SectionName {
   margin-bottom: 20px; }
 
