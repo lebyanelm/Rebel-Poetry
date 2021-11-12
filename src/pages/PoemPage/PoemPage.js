@@ -3,6 +3,7 @@ import React from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import PoemPageHeader from "../../components/PoemPageHeader/PoemPageHeader";
 import CommentsSection from "../../components/CommentsSection/CommentsSection";
+import PoemShareContents from "../../components/PoemShareContents/PoemShareContents";
 import { PoemService } from "../../services/Poem";
 import IonIcon from "@reacticons/ionicons";
 import styles from "./PoemPage.module.scss";
@@ -14,17 +15,21 @@ import { useSession } from "../../providers/SessionContext";
 import { useToast } from "../../providers/ToastContext";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import ReactModal from "react-modal";
 
 const PoemPage = () => {
   const { setIsLoaderVisible } = useLoaderState();
   const { userToken } = useStorage();
-  const { userSession } = useSession();
+  const { userSession, setUserSession } = useSession();
   const { showToast } = useToast();
   const history = useHistory();
 
   // Toggling the editing mode of the poem
   const [isEditMode, setIsEditMode] = React.useState(false);
   const editableTextContentRef = React.createRef();
+
+  // Toggling the share modal
+  const [isShareModalOpen, setShareModal] = React.useState(false);
 
   // Reference of the poem text container, to easily calculate annotation position
   const poemTextContainer = React.useRef();
@@ -136,14 +141,39 @@ const PoemPage = () => {
   return (
     <>
       <div className={styles.PoemPageContainer}>
+      <ReactModal
+        isOpen={isShareModalOpen}
+        onRequestClose={() => setShareModal(false)}
+        style={{
+          overlay: { zIndex: 60000 },
+          content: {
+            width: "40%",
+            height: "300px",
+            margin: "auto",
+            position: "absolute",
+            bottom: "20px",
+            borderRadius: "0px",
+            border: "3px solid black",
+          },
+        }}
+      >
+        <PoemShareContents pId={poemData?._id} pTitle={poemData?.title}/>
+      </ReactModal>
+        
         <PoemPageHeader poemData={poemData}></PoemPageHeader>
 
         <div className={styles.PoemContents}>
           <div className={styles.PoemSplitSides}>
             {/* The top of the poem text area */}
             <div className={styles.SideButtons} ref={scrollButtonsContainer}>
-              <button className={styles.Heart}>
-                <IonIcon name="flame"></IonIcon>
+              <button className={styles.Heart} data-isLiked={poemData.likes?.includes(userSession?._id)} onClick={() => {
+                PoemService.likePoem(poemData._id, userToken)
+                  .then((data) => {
+                    // Update the number of likes on the poem data
+                    setPoemData({ ...poemData, likes_count: data.likes_count, likes: data.likes });
+                  })
+              }}>
+                {poemData.likes?.includes(userSession?._id) ? <IonIcon name="flame"></IonIcon> : <IonIcon name="flame-outline"></IonIcon>}
                 <span className="count">{poemData.likes_count}</span>
               </button>
 
@@ -152,14 +182,41 @@ const PoemPage = () => {
                 <span className="count">{poemData.views_count}</span>
               </button>
 
-              <button className={styles.Bookmark}>
-                <IonIcon name="bookmark-outline"></IonIcon>
+              <button className={styles.Bookmark} data-isBookmarked={userSession?.bookmarked_poems.includes(poemData._id)} onClick={() => {
+                // First check if there's a session in place
+                if (userToken) {
+                  // Update the bookmarks of the user
+                  PoemService.bookmarkPoem(poemData._id, userToken)
+                    .then((data) => {
+                      // Update the number of likes on the poem data
+                      setPoemData({ ...poemData, bookmarks_count: data.bookmarks_count })
+                      if (data.is_bookmark) {
+                        setUserSession({ ...userSession, bookmarked_poems: [...userSession.bookmarked_poems, poemData._id] })
+                      } else {
+                        // Remove the poem ID from the bookmarks
+                        const bookmarkedPoems = userSession.bookmarked_poems;
+                        const bookmarkedPoemIndex = bookmarkedPoems.indexOf(poemData._id);
+                        if (bookmarkedPoemIndex > -1) {
+                          bookmarkedPoems.splice(bookmarkedPoemIndex, 1);
+                          setUserSession({ ...userSession, bookmarked_poems: bookmarkedPoems })
+                        }
+                      }
+
+                      console.log("User session", userSession);
+                    })
+                } else {
+                  showToast("You are not logged in. Sign in to bookmark this poem.");
+                }
+              }}>
+                {userSession?.bookmarked_poems.includes(poemData._id) ? <IonIcon name="bookmark-sharp"></IonIcon> : <IonIcon name="bookmark-outline"></IonIcon>}
                 <span className="count">{poemData.bookmarks_count}</span>
               </button>
 
-              <button className={styles.Share}>
+              <button className={styles.Share} onClick={() => {
+                setShareModal(!isShareModalOpen)
+              }}>
                 <IonIcon name="share-outline"></IonIcon>
-                <span className="count">{poemData.shares_count}</span>
+                <span className="count">Share</span>
               </button>
             </div>
 

@@ -57,6 +57,31 @@ export const PoemService = {
         });
     });
   },
+  likePoem: (pId, token) => {
+    console.log(pId, token)
+    return new Promise((resolve, reject) => {
+      superagent
+        .post([config.BACKEND, "poems", pId, "react"].join("/"))
+        .set("Authorization", token)
+        .end((_, response) => {
+          // Response will bring back a number of likes that are synced with the server.
+          PoemService.respond(response, resolve, reject);
+        });
+    });
+  },
+  bookmarkPoem: (pId, token) => {
+    console.log(pId, token)
+    return new Promise((resolve, reject) => {
+      superagent
+        .post([config.BACKEND, "poems", "bookmark"].join("/"))
+        .set("Authorization", token)
+        .send({ pId })
+        .end((_, response) => {
+          // Response returns synced bookmarks numbers of the poem
+          PoemService.respond(response, resolve, reject);
+        });
+    });
+  },
   deletePoem: (pId, token) => {
     return new Promise((resolve, reject) => {
       superagent

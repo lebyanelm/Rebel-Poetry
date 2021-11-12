@@ -64,12 +64,20 @@
   transition: transform 300ms ease; }
 
 .PoemContents .SideButtons button.Heart svg {
+  fill: transparent;
+  stroke: black; }
+
+.PoemContents .SideButtons button.Heart[data-isliked=true] svg {
   fill: orangered;
   stroke: orangered; }
 
+.PoemContents .SideButtons button.Heart
 .PoemContents .SideButtons button.Bookmark svg {
   fill: black;
   stroke: black; }
+
+.PoemContents .SideButtons button.Bookmark[data-isbookmarked=true] svg {
+  fill: black !important; }
 
 .PoemContents .SideButtons button span {
   display: block;
