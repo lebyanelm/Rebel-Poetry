@@ -1,8 +1,0 @@
-.CommentsSection .PostCommentField {
-  margin-top: 10px; }
-
-.CommentsSection .PostCommentField textarea {
-  border-bottom: 3px solid #000000 !important; }
-
-.CommentsSection .PostCommentField textarea:focus {
-  border-color: #ebc952 !important; }

@@ -1,5 +1,0 @@
-.PoemsGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  margin-top: 40px;
-  border-bottom: 2px solid #DDD; }
