@@ -16,10 +16,6 @@
 .PoemContents .PoemTextContainer * {
   font-size: 16px; }
 
-.PoemContents .PoemTextContainer *,
-.PoemContents .PoemSplitSides .AnnotationsContainer {
-  font-family: "Roboto"; }
-
 .PoemContents p {
   color: #000000 !important; }
 
@@ -36,6 +32,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  padding-top: 20px;
   gap: 20px; }
 
 .PoemContents .SideButtons {
@@ -67,8 +64,8 @@
   stroke: black; }
 
 .PoemContents .SideButtons button.Heart[data-isliked=true] svg {
-  fill: orangered;
-  stroke: orangered; }
+  fill: red;
+  stroke: red; }
 
 .PoemContents .SideButtons button.Heart
 .PoemContents .SideButtons button.Bookmark svg {
@@ -88,23 +85,35 @@
 
 .PoemContents .PoemTextContainer {
   padding: 20px;
-  color: #000;
-  font-style: italic; }
+  color: #000; }
 
-.PoemContents .PoemTextContainer * {
+.PoemContents * {
   font-size: 18px; }
 
 .PoemContents .PoemTextContainer p {
-  line-height: 1.5em; }
+  line-height: 30px;
+  margin-bottom: 5px; }
 
 .PoemContents .PoemTextContainer a {
-  text-decoration: underline;
   text-decoration-thickness: 1px;
-  background: #EEE;
+  font-weight: 600 !important;
+  background: #e9e9e9;
   padding: 5px 0; }
 
+.PoemContents .PoemTextContainer a[data-isactive=true],
 .PoemContents .PoemTextContainer a:hover {
-  background: #ebc952; }
+  background: #000000;
+  color: #ffffff; }
+
+.PoemContents .PoemTextContainer a[data-isactive=true]::before {
+  content: "";
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: #000000;
+  z-index: -2;
+  margin-bottom: 0;
+  line-height: 0; }
 
 .PoemContents .PoemInformation {
   padding: 0 20px; }
@@ -114,6 +123,9 @@
   gap: 10px;
   margin-top: 20px;
   padding-left: 20px; }
+
+.PoemContents .PoemTags * {
+  font-size: 15px; }
 
 .PoemContents .PoemTags a {
   display: inline-block;
@@ -164,7 +176,7 @@
   background: #000000; }
 
 .CommentsSection .CommentsSectionHeader span {
-  font-family: "Programme Alt", "Roboto", sans-serif; }
+  font-family: "Programme Alt", Programme, "Roboto", Arial, sans-serif; }
 
 .CommentsSection .CommentsSectionHeader span.Name {
   font-size: 30px; }

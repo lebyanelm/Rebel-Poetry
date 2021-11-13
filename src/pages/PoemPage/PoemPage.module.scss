@@ -23,11 +23,6 @@
   font-size: 16px;
 }
 
-.PoemContents .PoemTextContainer *,
-.PoemContents .PoemSplitSides .AnnotationsContainer {
-  font-family: "Roboto";
-}
-
 .PoemContents p {
   color: $TEXT_COLOR !important;
 }
@@ -35,7 +30,6 @@
 // ANNOTATIONS CONTAINER
 .PoemContents .PoemSplitSides .AnnotationsContainer {
   padding: 10px $PADDING;
-  // border-left: 4px solid $PRIMARY_COLOR;
   height: fit-content;
   transition: transform 300ms ease;
   position: relative;
@@ -49,6 +43,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  padding-top: $PADDING;
   gap: 20px;
 }
 
@@ -87,8 +82,8 @@
 }
 
 .PoemContents .SideButtons button.Heart[data-isliked=true] svg {
-  fill: orangered;
-  stroke: orangered;
+  fill: red;
+  stroke: red;
 }
 
 .PoemContents .SideButtons button.Heart
@@ -111,29 +106,51 @@
   letter-spacing: 0;
 }
 
+.PoemContents .AnnotationsContainer {
+  // font-style: italic;
+}
+
 .PoemContents .PoemTextContainer {
   padding: 20px;
   color: #000;
-  font-style: italic;
 }
 
-.PoemContents .PoemTextContainer * {
+.PoemContents * {
   font-size: 18px;
 }
 
 .PoemContents .PoemTextContainer p {
-  line-height: 1.5em;
+  line-height: 30px;
+  margin-bottom: 5px;
 }
 
 .PoemContents .PoemTextContainer a {
-  text-decoration: underline;
   text-decoration-thickness: 1px;
-  background: #EEE;
+  font-weight: 600 !important;
+  background: #e9e9e9;
   padding: 5px 0;
 }
 
+
+.PoemContents .PoemTextContainer a[data-isactive=true],
 .PoemContents .PoemTextContainer a:hover {
-  background: $SECONDARY_COLOR;
+  background: $TEXT_COLOR_DARK;
+  color: $TEXT_COLOR_LIGHT;
+}
+
+// .PoemContents .PoemTextContainer a[data-isactive=true] {
+//   color: $PRIMARY_COLOR !important;
+// }
+
+.PoemContents .PoemTextContainer a[data-isactive=true]::before {
+  content: "";
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: $TEXT_COLOR_DARK;
+  z-index: -2;
+  margin-bottom: 0;
+  line-height: 0;
 }
 
 .PoemContents .PoemInformation {
@@ -146,6 +163,10 @@
   gap: 10px;
   margin-top: $PADDING;
   padding-left: $PADDING;
+}
+
+.PoemContents .PoemTags * {
+  font-size: $FONT_SIZE;
 }
 
 .PoemContents .PoemTags a {

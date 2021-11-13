@@ -40,6 +40,9 @@ const PoemPage = () => {
   const [annotationPosition, setAnnotationPosition] = React.useState(0);
   const annotationContainer = React.useRef();
 
+  // When an annotation is active
+  const [activeIndex, setActiveIndex] = React.useState(-1);
+
   // Tags of the poem
   const [poemTags, setPoemTags] = React.useState([]);
 
@@ -95,7 +98,8 @@ const PoemPage = () => {
           console.log(_text, annotation)
           result.push(<a onClick={(event) => {
             positionAnnotationContainer(annotation, event);
-          }}>{_text}</a>)
+            setActiveIndex(index);
+          }} data-index={index} data-isactive={index === activeIndex}>{_text}</a>)
         } else {
           result.push(<span>{splitText[index]}</span>)
         }
@@ -218,7 +222,7 @@ const PoemPage = () => {
                     setPoemData({ ...poemData, likes_count: data.likes_count, likes: data.likes });
                   })
               }}>
-                {poemData.likes?.includes(userSession?._id) ? <IonIcon name="flame"></IonIcon> : <IonIcon name="flame-outline"></IonIcon>}
+                {poemData.likes?.includes(userSession?._id) ? <IonIcon name="heart"></IonIcon> : <IonIcon name="heart-outline"></IonIcon>}
                 <span className="count">{poemData.likes_count}</span>
               </button>
 
@@ -351,7 +355,7 @@ const PoemPage = () => {
           {poemTags.length > 0 && <div className={styles.PoemTags}>
             <span>Tags</span>
             {poemTags.map((tag) => (
-              <a href={["/search?keyword=", tag.name.split(" ").join("+")].join("")} className="tag">
+              <a href={["/search?keyword=", tag.name.toLowerCase().split(" ").join("+")].join("")} className="tag">
                 {tag.name}
               </a>
             ))}
