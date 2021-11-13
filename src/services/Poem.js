@@ -102,6 +102,16 @@ export const PoemService = {
         });
     });
   },
+  getTags: (tagIds, userId) => {
+    return new Promise((resolve, reject) => {
+      superagent
+        .get([config.BACKEND, "tags", tagIds.join()].join("/"))
+        .set("User-Track", userId)
+        .end((_, response) => {
+          PoemService.respond(response, resolve, reject);
+        });
+    });
+  },
   uploadThumbnail: (file, token) => {
     return new Promise((resolve, reject) => {
       superagent

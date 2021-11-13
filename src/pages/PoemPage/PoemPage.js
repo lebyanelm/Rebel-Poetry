@@ -39,6 +39,9 @@ const PoemPage = () => {
   const [annotationPosition, setAnnotationPosition] = React.useState(0);
   const annotationContainer = React.useRef();
 
+  // Tags of the poem
+  const [poemTags, setPoemTags] = React.useState([]);
+
   const positionAnnotationContainer = (annotation, event) => {
     const targetElement = event.target;
     const targetRect = targetElement.getBoundingClientRect();
@@ -91,6 +94,11 @@ const PoemPage = () => {
         if (response) {
           if (response.status === 200) {
             setPoemData(response.body.data);
+            // Get the poem tags data
+            PoemService.getTags(response.body.data.tags, userToken)
+              .then((tags) => {
+                setPoemTags(tags);
+              });
             document.title = [
               process.env.REACT_APP_NAME,
               ": ",
@@ -306,21 +314,14 @@ const PoemPage = () => {
           </div>
 
           {/* Tags that have been given to the poem */}
-          <div className={styles.PoemTags}>
+          {poemTags.length > 0 && <div className={styles.PoemTags}>
             <span>Tags</span>
-            <a href="#tag" className="tag">
-              African Struggle
-            </a>
-            <a href="#tag" className="tag">
-              Black
-            </a>
-            <a href="#tag" className="tag">
-              Apartheid
-            </a>
-            <a href="#tag" className="tag">
-              Wisdom
-            </a>
-          </div>
+            {poemTags.map((tag) => (
+              <a href={["/search?keyword=", tag.name.split(" ").join("+")].join("")} className="tag">
+                {tag.name}
+              </a>
+            ))}
+          </div>}
 
           {/* Poem statistics and Author details */}
           <div className={styles.CommentsSection}>
