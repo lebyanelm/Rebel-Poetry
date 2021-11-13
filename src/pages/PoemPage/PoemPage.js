@@ -120,20 +120,23 @@ const PoemPage = () => {
       const scrollY = window.scrollY;
 
       // Get the distance between the scroll and buttons container and if < 20 make buttons sticky
-      const poemContentRect = poemTextContainer.current.getBoundingClientRect();
-      const scrollDifference = poemContentRect.y - scrollY;
-      if (scrollDifference <= 0) {
-        scrollButtonsContainer.current.style.position = "fixed";
-        scrollButtonsContainer.current.style.top = "200px";
-      } else {
-        scrollButtonsContainer.current.style.position = "absolute";
-        scrollButtonsContainer.current.style.top = "0px";
-      }
+      const poemContent = poemTextContainer.current;
+      if (poemContent) {
+        const poemContentRect = poemContent.getBoundingClientRect()
+        const scrollDifference = poemContentRect.y - scrollY;
+        if (scrollDifference <= 0) {
+          scrollButtonsContainer.current.style.position = "fixed";
+          scrollButtonsContainer.current.style.top = "200px";
+        } else {
+          scrollButtonsContainer.current.style.position = "absolute";
+          scrollButtonsContainer.current.style.top = "0px";
+        }
 
-      if (scrollY > poemContentRect.bottom + 200) {
-        scrollButtonsContainer.current.style.opacity = 0;
-      } else {
-        scrollButtonsContainer.current.style.opacity = 1;
+        if (scrollY > poemContentRect.bottom + 200) {
+          scrollButtonsContainer.current.style.opacity = 0;
+        } else {
+          scrollButtonsContainer.current.style.opacity = 1;
+        }
       }
     });
   }, [poemData]);
