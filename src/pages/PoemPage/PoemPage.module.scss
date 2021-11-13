@@ -10,7 +10,7 @@
 
 .PoemContents .PoemSplitSides {
   display: grid;
-  grid-template-columns: 1fr 0.5fr;
+  grid-template-columns: 1fr 1fr;
   position: relative;
 }
 
@@ -35,11 +35,11 @@
 // ANNOTATIONS CONTAINER
 .PoemContents .PoemSplitSides .AnnotationsContainer {
   padding: 10px $PADDING;
-  border-left: 4px solid $PRIMARY_COLOR;
+  // border-left: 4px solid $PRIMARY_COLOR;
   height: fit-content;
-  font-weight: 600;
   transition: transform 300ms ease;
   position: relative;
+  font-size: 20px;
   background: transparentize($TEXT_COLOR_DARK, 0.95);
 }
 
@@ -114,11 +114,25 @@
 .PoemContents .PoemTextContainer {
   padding: 20px;
   color: #000;
-  background: #eee;
+  font-style: italic;
+}
+
+.PoemContents .PoemTextContainer * {
+  font-size: 18px;
+}
+
+.PoemContents .PoemTextContainer p {
+  line-height: 1.5em;
 }
 
 .PoemContents .PoemTextContainer a {
-  text-decoration-thickness: 3px;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  background: #EEE;
+  padding: 5px 0;
+}
+
+.PoemContents .PoemTextContainer a:hover {
   background: $SECONDARY_COLOR;
 }
 
@@ -172,10 +186,14 @@
   font-weight: bold;
 }
 
+.PoemActions {
+  border-bottom: 1px solid #DDD
+}
+
 .PoemActions a {
   display: inline-block;
   margin-right: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   user-select: none !important;
 }
 

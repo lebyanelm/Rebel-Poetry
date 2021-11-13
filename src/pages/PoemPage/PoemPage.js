@@ -17,6 +17,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import ReactModal from "react-modal";
 
+
 const PoemPage = () => {
   const { setIsLoaderVisible } = useLoaderState();
   const { userToken } = useStorage();
@@ -43,34 +44,67 @@ const PoemPage = () => {
   const [poemTags, setPoemTags] = React.useState([]);
 
   const positionAnnotationContainer = (annotation, event) => {
-    const targetElement = event.target;
-    const targetRect = targetElement.getBoundingClientRect();
-    const textContainerRect = poemTextContainer.current.getBoundingClientRect();
+    if (event) {
+      const targetElement = event.target;
+      const targetRect = targetElement.getBoundingClientRect();
+      const textContainerRect = poemTextContainer.current.getBoundingClientRect();
 
-    let targetPosition = targetRect.y - textContainerRect.y;
+      let targetPosition = targetRect.y - textContainerRect.y;
 
-    // Set the contents of the annotations to the annotations container
-    annotationContainer.current.innerHTML = annotation;
 
-    // Check if the the annotation container exceeds the bottom of the poem to bring it back up
-    const annotationContainerRect =
-      annotationContainer.current.getBoundingClientRect();
-    const annotationTotalSpace =
-      targetPosition + annotationContainerRect.height;
+      // Set the contents of the annotations to the annotations container
+      annotationContainer.current.style.display = "block";
+      annotationContainer.current.innerHTML = annotation;
 
-    if (textContainerRect.height - annotationTotalSpace < 0) {
-      targetPosition =
-        textContainerRect.height - annotationContainerRect.height;
+      // Check if the the annotation container exceeds the bottom of the poem to bring it back up
+      const annotationContainerRect =
+        annotationContainer.current.getBoundingClientRect();
+      const annotationTotalSpace =
+        targetPosition + annotationContainerRect.height;
+
+      if (textContainerRect.height - annotationTotalSpace < 0) {
+        targetPosition =
+          textContainerRect.height - annotationContainerRect.height;
+      }
+
+      setAnnotationPosition(targetPosition);
+      // Set the position of the annotation container
+      annotationContainer.current.style.transform = [
+        "translateY(",
+        targetPosition,
+        "px)",
+      ].join("");
+    } else {
+      setAnnotationPosition(0);
+      annotationContainer.current.style.display = "block";
     }
-
-    setAnnotationPosition(targetPosition);
-    // Set the position of the annotation container
-    annotationContainer.current.style.transform = [
-      "translateY(",
-      targetPosition,
-      "px)",
-    ].join("");
   };
+
+  const parseAnnotations = (text) => {
+    if (text) {
+      // Split the text using the "|" pipes
+      const splitText = text.split("|");
+      const result = [];
+      for (let index = 0; index < splitText.length; index++) {
+        // Check if the split text has format |<TEXT>=<ANNOTATION>|
+        console.log(splitText[index])
+        if (splitText[index].includes("=")) {
+          const splitAnnotations = splitText[index].split("="),
+                _text = splitAnnotations[0],
+                annotation = splitAnnotations[1];
+          console.log(_text, annotation)
+          result.push(<a onClick={(event) => {
+            positionAnnotationContainer(annotation, event);
+          }}>{_text}</a>)
+        } else {
+          result.push(<span>{splitText[index]}</span>)
+        }
+      }
+      return result
+    } else {
+      return <span>Loading...</span>
+    }
+  }
 
   const deletePoem = () => {
     PoemService.deletePoem(poemData._id, userToken)
@@ -291,14 +325,18 @@ const PoemPage = () => {
                 </div>
               )}
 
-              <ReactMarkdown
-                children={poemData.body}
+              {/* <ReactMarkdown
                 plugins={[remarkGfm]}
+                allowedElements={["span", "div", "a"]}
                 style={{
                   opacity: isEditMode ? "0" : "1",
                   position: isEditMode ? "absolute" : "relative",
                 }}
-              ></ReactMarkdown>
+              ></ReactMarkdown> */}
+
+              <p style={{whiteSpace: "pre-wrap"}} children={parseAnnotations(poemData.body)}>
+              
+              </p>
             </div>
 
             {/* Annotations container */}
@@ -306,11 +344,7 @@ const PoemPage = () => {
               className={styles.AnnotationsContainer}
               style={{ translate: `translateY(${annotationPosition}px)` }}
               ref={annotationContainer}
-            >
-              In rememberence of the late first Black President, Nelson Mandela.
-              This praise is meant to remind South Africans about the unity of
-              one.
-            </div>
+            ><i>Click on an annotation to read more about it's text.</i></div>
           </div>
 
           {/* Tags that have been given to the poem */}

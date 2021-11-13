@@ -6,7 +6,7 @@
 
 .PoemContents .PoemSplitSides {
   display: grid;
-  grid-template-columns: 1fr 0.5fr;
+  grid-template-columns: 1fr 1fr;
   position: relative; }
 
 .PoemContents .PoemTextContainer.is-guide {
@@ -25,11 +25,10 @@
 
 .PoemContents .PoemSplitSides .AnnotationsContainer {
   padding: 10px 20px;
-  border-left: 4px solid #1436ad;
   height: fit-content;
-  font-weight: 600;
   transition: transform 300ms ease;
   position: relative;
+  font-size: 20px;
   background: rgba(0, 0, 0, 0.05); }
 
 .PoemContents .SideButtons {
@@ -90,10 +89,21 @@
 .PoemContents .PoemTextContainer {
   padding: 20px;
   color: #000;
-  background: #eee; }
+  font-style: italic; }
+
+.PoemContents .PoemTextContainer * {
+  font-size: 18px; }
+
+.PoemContents .PoemTextContainer p {
+  line-height: 1.5em; }
 
 .PoemContents .PoemTextContainer a {
-  text-decoration-thickness: 3px;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  background: #EEE;
+  padding: 5px 0; }
+
+.PoemContents .PoemTextContainer a:hover {
   background: #ebc952; }
 
 .PoemContents .PoemInformation {
@@ -137,10 +147,13 @@
 .PoemContents .PoemTextContainer a {
   font-weight: bold; }
 
+.PoemActions {
+  border-bottom: 1px solid #DDD; }
+
 .PoemActions a {
   display: inline-block;
   margin-right: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   user-select: none !important; }
 
 .CommentsSection .CommentsSectionHeader {
