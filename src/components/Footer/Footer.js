@@ -4,7 +4,7 @@ import Logo from "../../logo.svg";
 import { Link } from "react-router-dom";
 
 const Footer = () => (
-  <>
+  <div className={styles.FooterContainer}>
     <div className={styles.Footer}>
       {/* RIGHT SECTION */}
       <section className={styles.LeftSection}>
@@ -56,9 +56,9 @@ const Footer = () => (
     </div>
 
     <div className={styles.Attribution}>
-      Rebel Poets (Pty) Ltd. Copyright (c) 2020. All right reserved.
+      Rebbel Poetry (Pty) Ltd. Copyright &copy; {new Date().getFullYear()}. All right reserved.
     </div>
-  </>
+  </div>
 );
 
 export default Footer;

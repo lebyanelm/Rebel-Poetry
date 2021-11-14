@@ -36,7 +36,7 @@ a.Banner:hover svg {
 .HeaderContainer {
   position: fixed;
   width: 100%;
-  background-color: #f6edec;
+  background-color: #EEE;
   z-index: 10000; }
 
 .Header,
@@ -45,7 +45,6 @@ a.Banner:hover svg {
   align-items: center; }
 
 .Header {
-  border-bottom: 3px solid #000000;
   padding: 0px 180px 5px 180px;
   justify-content: space-between; }
 

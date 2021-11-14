@@ -245,7 +245,7 @@ code {
   position: absolute;
   bottom: -15px;
   left: 50%;
-  background: #f6edec;
+  background: #EEE;
   transform: translateY(100%) translateX(-50%);
   width: 200px;
   font-weight: normal;
@@ -271,7 +271,7 @@ code {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  background: #f6edec; }
+  background: #EEE; }
 
 .navigation-item.dropdown .dropdown-options section,
 .navigation-item.dropdown .dropdown-options section a {
