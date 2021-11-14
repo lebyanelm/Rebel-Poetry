@@ -25,7 +25,6 @@ export const CommentsService = {
     });
   },
   react: (cId, token) => {
-    console.log(cId, token);
     return new Promise((resolve, reject) => {
       superagent
         .post([config.BACKEND, "poems", "comments", cId, "react"].join("/"))

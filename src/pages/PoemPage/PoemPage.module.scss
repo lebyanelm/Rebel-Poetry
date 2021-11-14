@@ -227,9 +227,11 @@
 }
 
 .CommentsSection .CommentsSectionHeader span {
-  font-family: "Programme Alt", $FONT_FAMILY;
+  font-family: $FONT_FAMILY;
+  font-weight: 200;
 }
 
 .CommentsSection .CommentsSectionHeader span.Name {
   font-size: 30px;
+  color: $TEXT_COLOR_LIGHT !important;
 }

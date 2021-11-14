@@ -7,8 +7,15 @@
 
 .CommentsSection .PostCommentField textarea {
   border-bottom: $BORDER !important;
+  font-size: $FONT_SIZE;
 }
 
 .CommentsSection .PostCommentField textarea:focus {
   border-color: $SECONDARY_COLOR !important;
+}
+
+.CommentsSection button {
+  letter-spacing: normal;
+  font-size: small;
+  margin-top: 10px;
 }

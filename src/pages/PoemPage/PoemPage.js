@@ -90,12 +90,10 @@ const PoemPage = () => {
       const result = [];
       for (let index = 0; index < splitText.length; index++) {
         // Check if the split text has format |<TEXT>=<ANNOTATION>|
-        console.log(splitText[index])
         if (splitText[index].includes("=")) {
           const splitAnnotations = splitText[index].split("="),
-                _text = splitAnnotations[0],
-                annotation = splitAnnotations[1];
-          console.log(_text, annotation)
+            _text = splitAnnotations[0],
+            annotation = splitAnnotations[1];
           result.push(<a onClick={(event) => {
             positionAnnotationContainer(annotation, event);
             setActiveIndex(index);
@@ -190,25 +188,25 @@ const PoemPage = () => {
   return (
     <>
       <div className={styles.PoemPageContainer}>
-      <ReactModal
-        isOpen={isShareModalOpen}
-        onRequestClose={() => setShareModal(false)}
-        style={{
-          overlay: { zIndex: 60000 },
-          content: {
-            width: "40%",
-            height: "300px",
-            margin: "auto",
-            position: "absolute",
-            bottom: "20px",
-            borderRadius: "0px",
-            border: "3px solid black",
-          },
-        }}
-      >
-        <PoemShareContents pId={poemData?._id} pTitle={poemData?.title}/>
-      </ReactModal>
-        
+        <ReactModal
+          isOpen={isShareModalOpen}
+          onRequestClose={() => setShareModal(false)}
+          style={{
+            overlay: { zIndex: 60000 },
+            content: {
+              width: "40%",
+              height: "300px",
+              margin: "auto",
+              position: "absolute",
+              bottom: "20px",
+              borderRadius: "0px",
+              border: "3px solid black",
+            },
+          }}
+        >
+          <PoemShareContents pId={poemData?._id} pTitle={poemData?.title} />
+        </ReactModal>
+
         <PoemPageHeader poemData={poemData}></PoemPageHeader>
 
         <div className={styles.PoemContents}>
@@ -338,8 +336,8 @@ const PoemPage = () => {
                 }}
               ></ReactMarkdown> */}
 
-              <p style={{whiteSpace: "pre-wrap"}} children={parseAnnotations(poemData.body)}>
-              
+              <p style={{ whiteSpace: "pre-wrap" }} children={parseAnnotations(poemData.body)}>
+
               </p>
             </div>
 
@@ -364,7 +362,7 @@ const PoemPage = () => {
           {/* Poem statistics and Author details */}
           <div className={styles.CommentsSection}>
             <h4 className={styles.CommentsSectionHeader}>
-              <span className={styles.Name}>Comments</span>
+              <span className={styles.Name}>Community Commentations</span>
               <span className={styles.Count}>
                 {poemData.comments?.length
                   ? [poemData.comments.length, "Comments"].join(" ")
