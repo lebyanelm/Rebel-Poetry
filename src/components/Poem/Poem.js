@@ -39,7 +39,7 @@ const Poem = ({ data, isDraft }) => {
           data-text="Bookmarked and Liked"></div>}
       <div className={styles.PoemReadTime}>{data.read_time}</div>
       <div className={styles.PoemDetails}>
-        <a className={styles.PoemTitle} href={["/poem", data._id].join("/")}>{data.title}</a>
+        <a className={styles.PoemTitle} href={isDraft ? ["/new_poem?draft_id=", data.did].join("") : ["/poem", data._id].join("/")}>{data.title}</a>
         <div className={styles.PoemAuthorTime}>By <a href={["/"].join("")}>{poemAuthors[0]?.display_name}</a> <span>|</span> Published on {data?.time_created.day}</div>
       </div>
     </div>
