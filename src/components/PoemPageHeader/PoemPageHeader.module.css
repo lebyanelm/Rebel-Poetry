@@ -14,13 +14,13 @@
 .PoemPageHeader .PoemInformationContainer {
   display: flex;
   width: 100%;
-  color: #f6edec;
+  color: #EEE;
   z-index: 2; }
 
 .PoemPageHeader .PoemThumbnailImage {
   height: 250px;
   width: 250px;
-  border: 2.5px solid #f6edec;
+  border: 2.5px solid #EEE;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat; }
@@ -39,7 +39,7 @@
   color: rgba(255, 255, 255, 0.7); }
 
 .PoemPageHeader a {
-  color: #f6edec; }
+  color: #EEE; }
 
 .PoemPageHeader a:hover {
   color: #ebc952; }

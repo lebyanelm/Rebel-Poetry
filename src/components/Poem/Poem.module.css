@@ -1,35 +1,57 @@
 .Poem {
-  display: flex;
+  padding: 20px 20px;
+  border-left: 2px solid #DDD;
+  border-top: 3px solid #DDD; }
+
+.Poem:nth-child(3n) {
+  border-right: 2px solid #DDD; }
+
+.Poem:hover {
+  border-top-color: #1436ad; }
+
+.Poem .PoemThumbnail {
+  display: block;
+  height: 150px;
+  width: 100%;
+  background: #EEE;
   background-size: cover;
-  background-position: top;
-  background: #333;
-  justify-content: flex-end; }
+  background-position: center center;
+  margin-bottom: 20px; }
 
-.PoemContents {
-  padding: 20px;
-  background: linear-gradient(0deg, #000000, #000000, #000000, #000000, #000000, #000000, #000000, transparent);
-  color: #ffffff; }
-
-.PoemContents .PoemTitle {
+.Poem .PoemThumbnail::before {
+  content: attr(data-liked);
   display: block;
-  font-size: 25px;
-  font-weight: 900;
-  font-family: "Programme Alt", "Roboto", sans-serif;
-  opacity: 1 !important;
-  text-transform: capitalize; }
-
-.PoemContents .PoemAuthor {
-  display: block;
-  margin-top: 5px; }
-
-.PoemContents a {
+  padding: 5px;
+  margin-bottom: 10px;
+  background: #000000;
+  color: #ffffff;
+  font-size: small;
   font-weight: bold;
-  color: #ffffff; }
+  float: left; }
 
-.PoemContents a:hover {
+.Poem .PoemReadTime {
+  display: block;
+  text-transform: uppercase;
+  font-size: small;
+  opacity: .6;
+  font-weight: bold;
+  margin-bottom: 5px; }
+
+.Poem .PoemTitle {
+  font-size: 30px;
+  font-weight: 900;
+  margin-bottom: 20px; }
+
+.Poem .PoemDetails .PoemAuthorTime {
+  color: #777;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+.Poem .PoemDetails .PoemAuthorTime span {
   color: #ebc952; }
 
-.PoemContents .PoemSnapshot {
-  display: block;
-  margin-top: 10px;
-  opacity: 0.7; }
+.Poem .PoemDescription * {
+  font-family: 'Courier New', Courier, monospace; }
+
+.Poem .PoemDescription h1, .Poem .PoemDescription h2, .Poem .PoemDescription h3,
+.Poem .PoemDescription h4, .Poem .PoemDescription h5, .Poem .PoemDescription h6 {
+  font-size: 15px !important; }

@@ -6,8 +6,19 @@
   padding: 10px 0;
 }
 
+.Comment .CommentBody,
+.Comment .Like,
+.Comment .Flag,
+.Comment textarea,
+.Comment .CommentorNameDate,
+.Comment .CommentorNameDate *,
+.Comment a {
+  font-size: $FONT_SIZE !important;
+}
+
 .Comment .CommentBody {
   width: 100%;
+  font-weight: 200;
 }
 
 // COMMENT ACTION BUTTONS
@@ -20,7 +31,7 @@
   display: flex;
   flex-direction: column;
   margin-right: 20px;
-  transform: translateY(-3px);
+  transform: translateY(-1px);
 }
 
 .CommentActionButtons > div {
@@ -37,8 +48,9 @@
   height: 22px;
 }
 
-.CommentActionButtons .Like[data-isliked="true"] svg {
-  fill: $PRIMARY_COLOR;
+.CommentActionButtons .Like[data-isliked="true"] svg,
+.CommentActionButtons .Like:hover  svg {
+  fill: red !important;
 }
 
 .CommentActionButtons .Like:hover svg {
@@ -50,16 +62,19 @@
 }
 
 .CommentActionButtons .Flag:hover svg {
-  fill: $DANGER_COLOR;
+  fill: $PRIMARY_COLOR;
 }
 
 // COMMENT MORE ACTIONS
 .CommentMoreActions {
-  margin-top: 10px;
+  margin-top: 5px;
+  display: flex;
+  gap: 5px;
 }
 
 .CommentMoreActions a {
-  margin: 0 5px;
+  // margin: 0 5px;
+  font-weight: 900;
 }
 
 // COMMENTOR DETAILS

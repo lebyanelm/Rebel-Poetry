@@ -20,8 +20,8 @@ const Comment = ({ comment, update }) => {
 
   // Get the comments as soon as the page loads up
   React.useEffect(() => {
-    PoemService.getPoemAuthors([comment.commenter]).then((commenters) => {
-      if (commenter.length) {
+    PoemService.getPoemAuthors([comment.commenter, "61353484137f33dd6430333c"]).then((commenters) => {
+      if (commenters.length) {
         setCommenter(commenters[0]);
       }
     });
@@ -36,29 +36,22 @@ const Comment = ({ comment, update }) => {
             className={styles.Like}
             data-isliked={comment.likes.includes(userSession?._id)}
             onClick={() =>
-              CommentsService.react(comment._id, storage.userToken).then(() => {
-                if (comment.likes.includes(userSession?._id)) {
+              CommentsService.react(comment._id, storage.userToken).then((data) => {
+                if (!data.is_like) {
                   comment.likes.splice(
-                    comment.likes.indexOf(userSession?._id),
-                    1
-                  );
+                    comment.likes.indexOf(userSession?._id), 1);
                 } else {
                   comment.likes.push(userSession?._id);
                 }
 
-                comment.likes_count = comment.likes.length;
-                update(comment);
+                comment.likes_count = data.likes_count;
+                update(comment, comment._id);
               })
             }
           >
-            <IonIcon name="caret-up-sharp" />
+            <IonIcon name="heart-sharp" />
           </div>
-          <div
-            className={styles.Flag}
-            onClick={() => CommentsService.flag(comment._id, storage.userToken)}
-          >
-            <IonIcon name="flag-sharp" />
-          </div>
+
         </div>
       </div>
       <div className={styles.CommentBody}>
@@ -70,14 +63,14 @@ const Comment = ({ comment, update }) => {
           <textarea
             rows="2"
             placeholder="Type your comment..."
-            value={comment.body}
+            defaultValue={comment.body}
             ref={editPoemTextarea}
           ></textarea>
         )}
 
         <span className={styles.CommentorNameDate}>
           &mdash; By{" "}
-          <Link to={`/rebbels/@${commenter._id}`}>
+          <Link to={`/rebbels/@${commenter.username}`}>
             {commenter?.display_name}
           </Link>{" "}
           on{" "}
@@ -90,9 +83,9 @@ const Comment = ({ comment, update }) => {
           <a
             onClick={() => {
               if (isEditMode) {
-                CommentsService.update(comment._id, storage.userToken).then(
+                CommentsService.update(editPoemTextarea.current.value, comment._id, storage.userToken).then(
                   () => {
-                    console.log(editPoemTextarea);
+                    update({ ...comment, body: editPoemTextarea.current.value }, comment._id);
                     setEditMode(!isEditMode);
                   }
                 );
@@ -114,15 +107,10 @@ const Comment = ({ comment, update }) => {
           >
             Delete
           </a>
-          <a>Report</a>
         </div>
       </div>
     </div>
   );
 };
-
-Comment.propTypes = {};
-
-Comment.defaultProps = {};
 
 export default Comment;

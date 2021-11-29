@@ -13,8 +13,8 @@ html {
 * {
   outline: none;
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
-  font-size: 16px; }
+  font-family: Programme, "Roboto", Arial, sans-serif;
+  font-size: 15px; }
 
 *::selection {
   background-color: #1436ad;
@@ -26,7 +26,7 @@ a,
   text-decoration: none;
   color: #000000;
   transition: color 300ms ease;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer; }
 
 a[data-isactive="true"],
@@ -191,7 +191,7 @@ code {
   font-weight: 400; }
 
 .page-header span.name {
-  font-family: "Programme Alt", "Roboto", sans-serif;
+  font-family: "Programme Alt", Programme, "Roboto", Arial, sans-serif;
   font-weight: bolder; }
 
 .more-pages {
@@ -245,7 +245,7 @@ code {
   position: absolute;
   bottom: -15px;
   left: 50%;
-  background: #f6edec;
+  background: #EEE;
   transform: translateY(100%) translateX(-50%);
   width: 200px;
   font-weight: normal;
@@ -271,7 +271,7 @@ code {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  background: #f6edec; }
+  background: #EEE; }
 
 .navigation-item.dropdown .dropdown-options section,
 .navigation-item.dropdown .dropdown-options section a {

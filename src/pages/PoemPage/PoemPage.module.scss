@@ -10,7 +10,7 @@
 
 .PoemContents .PoemSplitSides {
   display: grid;
-  grid-template-columns: 1fr 0.5fr;
+  grid-template-columns: 1fr 1fr;
   position: relative;
 }
 
@@ -23,11 +23,6 @@
   font-size: 16px;
 }
 
-.PoemContents .PoemTextContainer *,
-.PoemContents .PoemSplitSides .AnnotationsContainer {
-  font-family: "Roboto";
-}
-
 .PoemContents p {
   color: $TEXT_COLOR !important;
 }
@@ -35,11 +30,10 @@
 // ANNOTATIONS CONTAINER
 .PoemContents .PoemSplitSides .AnnotationsContainer {
   padding: 10px $PADDING;
-  border-left: 4px solid $PRIMARY_COLOR;
   height: fit-content;
-  font-weight: 600;
   transition: transform 300ms ease;
   position: relative;
+  font-size: 20px;
   background: transparentize($TEXT_COLOR_DARK, 0.95);
 }
 
@@ -49,6 +43,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  padding-top: $PADDING;
   gap: 20px;
 }
 
@@ -82,13 +77,24 @@
 
 // SIDE BUTTON ICONS
 .PoemContents .SideButtons button.Heart svg {
-  fill: orangered;
-  stroke: orangered;
+  fill: transparent;
+  stroke: black;
 }
+
+.PoemContents .SideButtons button.Heart[data-isliked=true] svg {
+  fill: red;
+  stroke: red;
+}
+
+.PoemContents .SideButtons button.Heart
 
 .PoemContents .SideButtons button.Bookmark svg {
   fill: black;
   stroke: black;
+}
+
+.PoemContents .SideButtons button.Bookmark[data-isbookmarked=true] svg {
+  fill: black !important;
 }
 
 .PoemContents .SideButtons button span {
@@ -100,15 +106,51 @@
   letter-spacing: 0;
 }
 
+.PoemContents .AnnotationsContainer {
+  // font-style: italic;
+}
+
 .PoemContents .PoemTextContainer {
   padding: 20px;
   color: #000;
-  background: #eee;
+}
+
+.PoemContents * {
+  font-size: 18px;
+}
+
+.PoemContents .PoemTextContainer p {
+  line-height: 30px;
+  margin-bottom: 5px;
 }
 
 .PoemContents .PoemTextContainer a {
-  text-decoration-thickness: 3px;
-  background: $SECONDARY_COLOR;
+  text-decoration-thickness: 1px;
+  font-weight: 600 !important;
+  background: #e9e9e9;
+  padding: 5px 0;
+}
+
+
+.PoemContents .PoemTextContainer a[data-isactive=true],
+.PoemContents .PoemTextContainer a:hover {
+  background: $TEXT_COLOR_DARK;
+  color: $TEXT_COLOR_LIGHT;
+}
+
+// .PoemContents .PoemTextContainer a[data-isactive=true] {
+//   color: $PRIMARY_COLOR !important;
+// }
+
+.PoemContents .PoemTextContainer a[data-isactive=true]::before {
+  content: "";
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: $TEXT_COLOR_DARK;
+  z-index: -2;
+  margin-bottom: 0;
+  line-height: 0;
 }
 
 .PoemContents .PoemInformation {
@@ -121,6 +163,10 @@
   gap: 10px;
   margin-top: $PADDING;
   padding-left: $PADDING;
+}
+
+.PoemContents .PoemTags * {
+  font-size: $FONT_SIZE;
 }
 
 .PoemContents .PoemTags a {
@@ -161,10 +207,14 @@
   font-weight: bold;
 }
 
+.PoemActions {
+  border-bottom: 1px solid #DDD
+}
+
 .PoemActions a {
   display: inline-block;
   margin-right: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   user-select: none !important;
 }
 
@@ -177,9 +227,11 @@
 }
 
 .CommentsSection .CommentsSectionHeader span {
-  font-family: "Programme Alt", $FONT_FAMILY;
+  font-family: $FONT_FAMILY;
+  font-weight: 200;
 }
 
 .CommentsSection .CommentsSectionHeader span.Name {
   font-size: 30px;
+  color: $TEXT_COLOR_LIGHT !important;
 }

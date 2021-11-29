@@ -2,7 +2,13 @@
   margin-top: 10px; }
 
 .CommentsSection .PostCommentField textarea {
-  border-bottom: 3px solid #000000 !important; }
+  border-bottom: 3px solid #000000 !important;
+  font-size: 15px; }
 
 .CommentsSection .PostCommentField textarea:focus {
   border-color: #ebc952 !important; }
+
+.CommentsSection button {
+  letter-spacing: normal;
+  font-size: small;
+  margin-top: 10px; }

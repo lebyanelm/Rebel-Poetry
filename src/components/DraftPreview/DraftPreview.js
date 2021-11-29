@@ -13,6 +13,11 @@ const DraftPreview = ({ data, token, isPublished }) => {
   const [draftContainerWidth, setDraftPreviewContainer] = React.useState(0);
   const tagsInput = React.createRef();
 
+  // Where all the annotations will be displayed
+  const annotationText = React.createRef();
+  
+  const [activeIndex, setActiveIndex] = React.useState(-1);
+
   const publishDraft = () => {
     setIsLoaderVisible(true)
     PoemService.publish(data, tagsInput.current.value, userToken)
@@ -20,6 +25,39 @@ const DraftPreview = ({ data, token, isPublished }) => {
         setIsLoaderVisible(false);
         isPublished(poemId.toUpperCase());
       })
+  }
+
+  const positionAnnotationContainer = (annotation, event) => {
+    if (annotationText.current) {
+      annotationText.current.innerText = annotation;
+    }
+  }
+
+  const parseAnnotations = (text) => {
+    if (text) {
+      // Split the text using the "|" pipes
+      const splitText = text.split("|");
+      const result = [];
+      for (let index = 0; index < splitText.length; index++) {
+        // Check if the split text has format |<TEXT>=<ANNOTATION>|
+        console.log(splitText[index])
+        if (splitText[index].includes("=")) {
+          const splitAnnotations = splitText[index].split("="),
+                _text = splitAnnotations[0],
+                annotation = splitAnnotations[1];
+          console.log(_text, annotation)
+          result.push(<a onClick={(event) => {
+            positionAnnotationContainer(annotation, event);
+            setActiveIndex(index);
+          }} data-index={index} data-isactive={index === activeIndex}>{_text}</a>)
+        } else {
+          result.push(<span>{splitText[index]}</span>)
+        }
+      }
+      return result
+    } else {
+      return <span>Loading...</span>
+    }
   }
 
   React.useState(() => {
@@ -33,17 +71,19 @@ const DraftPreview = ({ data, token, isPublished }) => {
   }, []);
 
   return (
-    <div className={styles.DraftPreview} id="draft-container">
+    <div className={styles.DraftPreview} id="draft-container" onScroll={(event) => {console.log(event)}}>
       <div className={styles.DraftTitle}>
         {data.title || "No title entered yet."} (preview)
       </div>
 
       <div className={styles.DraftSplitSides}>
         <div className={styles.DraftContents}>
-          <ReactMarkdown children={data.body} plugins={[remarkGfm]}></ReactMarkdown>
+          <p className={styles.DraftAnnotationsText} style={{whiteSpace: "pre-wrap"}} children={parseAnnotations(data.body) || "Click on an annotation to read it's description"}></p>
+
+          {/* <ReactMarkdown children={data.body} plugins={[remarkGfm]}></ReactMarkdown> */}
         </div>
         <div className={styles.DraftAnnotations}>
-          Click on an annotation to read it's description
+          <div className={styles.DraftAnnotationsText} ref={annotationText}>Click on an annotation to read it's description</div>
         </div>
       </div>
 

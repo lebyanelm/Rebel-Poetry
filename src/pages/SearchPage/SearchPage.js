@@ -12,14 +12,14 @@ import qs from "qs";
 
 
 const SearchPage = () => {
-  const [searchValue, setSearchValue] = React.useState("");
+  const [searchValue, setSearchValue] = React.useState(null);
   const [results, setResults] = React.useState({});
   const { setIsLoaderVisible } = useLoaderState();
   const { showToast } = useToast();
   const history = useHistory();
   console.log(history)
 
-  const getSearchResults = () => {
+  const getSearchResults = (optionalKeyword) => {
     history.push([history.location.pathname, "?keyword=", searchValue].join(""));
     
     // Reset the results
@@ -27,7 +27,7 @@ const SearchPage = () => {
 
     setIsLoaderVisible(true);
     superagent
-      .get([config.BACKEND, ["search?keyword=", searchValue.split(" ").join("+")].join("")].join("/"))
+      .get([config.BACKEND, ["search?keyword=", (searchValue || optionalKeyword).split(" ").join("+")].join("")].join("/"))
       .end((_, response) => {
         setIsLoaderVisible(false);
         if (response) {
@@ -50,14 +50,9 @@ const SearchPage = () => {
 
     if (params.keyword) {
       setSearchValue(params.keyword);
-      const counter = setInterval(() => {
-        if (searchValue) {
-          getSearchResults();
-          console.log("Searching for pre-state")
-          clearInterval(counter);
-        }
-      }, 100);
+      getSearchResults(params.keyword);
     }
+
   }, []);
 
   return (

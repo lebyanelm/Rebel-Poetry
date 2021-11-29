@@ -53,7 +53,7 @@ const PoemPageHeader = ({ poemData }) => {
                   <tr>
                     <td>Read time</td>
                     <td>
-                      <Link>{poemData?.read_time}</Link>
+                      <a href={["/search?keyword=", poemData?.read_time?.split(" ").join("+")].join("")}>{poemData?.read_time}</a>
                     </td>
                   </tr>
                   <tr>
@@ -63,7 +63,7 @@ const PoemPageHeader = ({ poemData }) => {
                   <tr>
                     <td>Published on</td>
                     <td>
-                      <Link>{poemData?.time_created?.day}</Link>
+                      <a href={["/search?keyword=", poemData?.time_created?.day?.split(" ").join("+")].join("")}>{poemData?.time_created?.day}</a>
                     </td>
                   </tr>
                 </tbody>

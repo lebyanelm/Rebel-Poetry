@@ -1,11 +1,16 @@
 @import "../../variables.scss";
 
+.FooterContainer {
+  background: #000;
+}
+
 .Footer {
   display: flex;
   justify-content: space-between;
   margin-top: 50px;
   padding: 30px $PAGE_MARGINS 40px $PAGE_MARGINS;
-  border-top: $BORDER;
+  background: #EEE;
+  border-top: 1px solid #DDD;
 }
 
 .Footer .BrandName {
@@ -26,14 +31,23 @@ section.LeftSection {
   max-width: 400px;
 }
 
+section.LeftSection img {
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
 section .SectionName {
   margin-bottom: 20px;
+  text-transform: uppercase;
+  font-size: small;
 }
 
 .Attribution {
   width: 100%;
-  margin: 20px;
+  padding: 20px;
   text-align: center;
   font-size: small;
-  opacity: 0.5;
+  font-weight: bold;
+  background: $TEXT_COLOR_DARK;
+  color: $TEXT_COLOR_LIGHT;
 }

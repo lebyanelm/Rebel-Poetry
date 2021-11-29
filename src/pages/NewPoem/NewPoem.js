@@ -110,7 +110,7 @@ function NewPoem() {
         style={{
           overlay: { zIndex: 60000 },
           content: {
-            width: "50%",
+            width: "80%",
             margin: "auto",
             borderRadius: "0px",
             border: "3px solid black",

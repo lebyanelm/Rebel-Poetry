@@ -3,6 +3,7 @@ import React from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import PoemPageHeader from "../../components/PoemPageHeader/PoemPageHeader";
 import CommentsSection from "../../components/CommentsSection/CommentsSection";
+import PoemShareContents from "../../components/PoemShareContents/PoemShareContents";
 import { PoemService } from "../../services/Poem";
 import IonIcon from "@reacticons/ionicons";
 import styles from "./PoemPage.module.scss";
@@ -14,17 +15,22 @@ import { useSession } from "../../providers/SessionContext";
 import { useToast } from "../../providers/ToastContext";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import ReactModal from "react-modal";
+
 
 const PoemPage = () => {
   const { setIsLoaderVisible } = useLoaderState();
   const { userToken } = useStorage();
-  const { userSession } = useSession();
+  const { userSession, setUserSession } = useSession();
   const { showToast } = useToast();
   const history = useHistory();
 
   // Toggling the editing mode of the poem
   const [isEditMode, setIsEditMode] = React.useState(false);
   const editableTextContentRef = React.createRef();
+
+  // Toggling the share modal
+  const [isShareModalOpen, setShareModal] = React.useState(false);
 
   // Reference of the poem text container, to easily calculate annotation position
   const poemTextContainer = React.useRef();
@@ -34,35 +40,73 @@ const PoemPage = () => {
   const [annotationPosition, setAnnotationPosition] = React.useState(0);
   const annotationContainer = React.useRef();
 
+  // When an annotation is active
+  const [activeIndex, setActiveIndex] = React.useState(-1);
+
+  // Tags of the poem
+  const [poemTags, setPoemTags] = React.useState([]);
+
   const positionAnnotationContainer = (annotation, event) => {
-    const targetElement = event.target;
-    const targetRect = targetElement.getBoundingClientRect();
-    const textContainerRect = poemTextContainer.current.getBoundingClientRect();
+    if (event) {
+      const targetElement = event.target;
+      const targetRect = targetElement.getBoundingClientRect();
+      const textContainerRect = poemTextContainer.current.getBoundingClientRect();
 
-    let targetPosition = targetRect.y - textContainerRect.y;
+      let targetPosition = targetRect.y - textContainerRect.y;
 
-    // Set the contents of the annotations to the annotations container
-    annotationContainer.current.innerHTML = annotation;
 
-    // Check if the the annotation container exceeds the bottom of the poem to bring it back up
-    const annotationContainerRect =
-      annotationContainer.current.getBoundingClientRect();
-    const annotationTotalSpace =
-      targetPosition + annotationContainerRect.height;
+      // Set the contents of the annotations to the annotations container
+      annotationContainer.current.style.display = "block";
+      annotationContainer.current.innerHTML = annotation;
 
-    if (textContainerRect.height - annotationTotalSpace < 0) {
-      targetPosition =
-        textContainerRect.height - annotationContainerRect.height;
+      // Check if the the annotation container exceeds the bottom of the poem to bring it back up
+      const annotationContainerRect =
+        annotationContainer.current.getBoundingClientRect();
+      const annotationTotalSpace =
+        targetPosition + annotationContainerRect.height;
+
+      if (textContainerRect.height - annotationTotalSpace < 0) {
+        targetPosition =
+          textContainerRect.height - annotationContainerRect.height;
+      }
+
+      setAnnotationPosition(targetPosition);
+      // Set the position of the annotation container
+      annotationContainer.current.style.transform = [
+        "translateY(",
+        targetPosition,
+        "px)",
+      ].join("");
+    } else {
+      setAnnotationPosition(0);
+      annotationContainer.current.style.display = "block";
     }
-
-    setAnnotationPosition(targetPosition);
-    // Set the position of the annotation container
-    annotationContainer.current.style.transform = [
-      "translateY(",
-      targetPosition,
-      "px)",
-    ].join("");
   };
+
+  const parseAnnotations = (text) => {
+    if (text) {
+      // Split the text using the "|" pipes
+      const splitText = text.split("|");
+      const result = [];
+      for (let index = 0; index < splitText.length; index++) {
+        // Check if the split text has format |<TEXT>=<ANNOTATION>|
+        if (splitText[index].includes("=")) {
+          const splitAnnotations = splitText[index].split("="),
+            _text = splitAnnotations[0],
+            annotation = splitAnnotations[1];
+          result.push(<a onClick={(event) => {
+            positionAnnotationContainer(annotation, event);
+            setActiveIndex(index);
+          }} data-index={index} data-isactive={index === activeIndex}>{_text}</a>)
+        } else {
+          result.push(<span>{splitText[index]}</span>)
+        }
+      }
+      return result
+    } else {
+      return <span>Loading...</span>
+    }
+  }
 
   const deletePoem = () => {
     PoemService.deletePoem(poemData._id, userToken)
@@ -86,6 +130,11 @@ const PoemPage = () => {
         if (response) {
           if (response.status === 200) {
             setPoemData(response.body.data);
+            // Get the poem tags data
+            PoemService.getTags(response.body.data.tags, userToken)
+              .then((tags) => {
+                setPoemTags(tags);
+              });
             document.title = [
               process.env.REACT_APP_NAME,
               ": ",
@@ -115,20 +164,23 @@ const PoemPage = () => {
       const scrollY = window.scrollY;
 
       // Get the distance between the scroll and buttons container and if < 20 make buttons sticky
-      const poemContentRect = poemTextContainer.current.getBoundingClientRect();
-      const scrollDifference = poemContentRect.y - scrollY;
-      if (scrollDifference <= 0) {
-        scrollButtonsContainer.current.style.position = "fixed";
-        scrollButtonsContainer.current.style.top = "200px";
-      } else {
-        scrollButtonsContainer.current.style.position = "absolute";
-        scrollButtonsContainer.current.style.top = "0px";
-      }
+      const poemContent = poemTextContainer.current;
+      if (poemContent) {
+        const poemContentRect = poemContent.getBoundingClientRect()
+        const scrollDifference = poemContentRect.y - scrollY;
+        if (scrollDifference <= 0) {
+          scrollButtonsContainer.current.style.position = "fixed";
+          scrollButtonsContainer.current.style.top = "200px";
+        } else {
+          scrollButtonsContainer.current.style.position = "absolute";
+          scrollButtonsContainer.current.style.top = "0px";
+        }
 
-      if (scrollY > poemContentRect.bottom + 200) {
-        scrollButtonsContainer.current.style.opacity = 0;
-      } else {
-        scrollButtonsContainer.current.style.opacity = 1;
+        if (scrollY > poemContentRect.bottom + 200) {
+          scrollButtonsContainer.current.style.opacity = 0;
+        } else {
+          scrollButtonsContainer.current.style.opacity = 1;
+        }
       }
     });
   }, [poemData]);
@@ -136,14 +188,39 @@ const PoemPage = () => {
   return (
     <>
       <div className={styles.PoemPageContainer}>
+        <ReactModal
+          isOpen={isShareModalOpen}
+          onRequestClose={() => setShareModal(false)}
+          style={{
+            overlay: { zIndex: 60000 },
+            content: {
+              width: "40%",
+              height: "300px",
+              margin: "auto",
+              position: "absolute",
+              bottom: "20px",
+              borderRadius: "0px",
+              border: "3px solid black",
+            },
+          }}
+        >
+          <PoemShareContents pId={poemData?._id} pTitle={poemData?.title} />
+        </ReactModal>
+
         <PoemPageHeader poemData={poemData}></PoemPageHeader>
 
         <div className={styles.PoemContents}>
           <div className={styles.PoemSplitSides}>
             {/* The top of the poem text area */}
             <div className={styles.SideButtons} ref={scrollButtonsContainer}>
-              <button className={styles.Heart}>
-                <IonIcon name="flame"></IonIcon>
+              <button className={styles.Heart} data-isLiked={poemData.likes?.includes(userSession?._id)} onClick={() => {
+                PoemService.likePoem(poemData._id, userToken)
+                  .then((data) => {
+                    // Update the number of likes on the poem data
+                    setPoemData({ ...poemData, likes_count: data.likes_count, likes: data.likes });
+                  })
+              }}>
+                {poemData.likes?.includes(userSession?._id) ? <IonIcon name="heart"></IonIcon> : <IonIcon name="heart-outline"></IonIcon>}
                 <span className="count">{poemData.likes_count}</span>
               </button>
 
@@ -152,14 +229,41 @@ const PoemPage = () => {
                 <span className="count">{poemData.views_count}</span>
               </button>
 
-              <button className={styles.Bookmark}>
-                <IonIcon name="bookmark-outline"></IonIcon>
+              <button className={styles.Bookmark} data-isBookmarked={userSession?.bookmarked_poems.includes(poemData._id)} onClick={() => {
+                // First check if there's a session in place
+                if (userToken) {
+                  // Update the bookmarks of the user
+                  PoemService.bookmarkPoem(poemData._id, userToken)
+                    .then((data) => {
+                      // Update the number of likes on the poem data
+                      setPoemData({ ...poemData, bookmarks_count: data.bookmarks_count })
+                      if (data.is_bookmark) {
+                        setUserSession({ ...userSession, bookmarked_poems: [...userSession.bookmarked_poems, poemData._id] })
+                      } else {
+                        // Remove the poem ID from the bookmarks
+                        const bookmarkedPoems = userSession.bookmarked_poems;
+                        const bookmarkedPoemIndex = bookmarkedPoems.indexOf(poemData._id);
+                        if (bookmarkedPoemIndex > -1) {
+                          bookmarkedPoems.splice(bookmarkedPoemIndex, 1);
+                          setUserSession({ ...userSession, bookmarked_poems: bookmarkedPoems })
+                        }
+                      }
+
+                      console.log("User session", userSession);
+                    })
+                } else {
+                  showToast("You are not logged in. Sign in to bookmark this poem.");
+                }
+              }}>
+                {userSession?.bookmarked_poems.includes(poemData._id) ? <IonIcon name="bookmark-sharp"></IonIcon> : <IonIcon name="bookmark-outline"></IonIcon>}
                 <span className="count">{poemData.bookmarks_count}</span>
               </button>
 
-              <button className={styles.Share}>
+              <button className={styles.Share} onClick={() => {
+                setShareModal(!isShareModalOpen)
+              }}>
                 <IonIcon name="share-outline"></IonIcon>
-                <span className="count">{poemData.shares_count}</span>
+                <span className="count">Share</span>
               </button>
             </div>
 
@@ -223,14 +327,18 @@ const PoemPage = () => {
                 </div>
               )}
 
-              <ReactMarkdown
-                children={poemData.body}
+              {/* <ReactMarkdown
                 plugins={[remarkGfm]}
+                allowedElements={["span", "div", "a"]}
                 style={{
                   opacity: isEditMode ? "0" : "1",
                   position: isEditMode ? "absolute" : "relative",
                 }}
-              ></ReactMarkdown>
+              ></ReactMarkdown> */}
+
+              <p style={{ whiteSpace: "pre-wrap" }} children={parseAnnotations(poemData.body)}>
+
+              </p>
             </div>
 
             {/* Annotations container */}
@@ -238,34 +346,23 @@ const PoemPage = () => {
               className={styles.AnnotationsContainer}
               style={{ translate: `translateY(${annotationPosition}px)` }}
               ref={annotationContainer}
-            >
-              In rememberence of the late first Black President, Nelson Mandela.
-              This praise is meant to remind South Africans about the unity of
-              one.
-            </div>
+            ><i>Click on an annotation to read more about it's text.</i></div>
           </div>
 
           {/* Tags that have been given to the poem */}
-          <div className={styles.PoemTags}>
+          {poemTags.length > 0 && <div className={styles.PoemTags}>
             <span>Tags</span>
-            <a href="#tag" className="tag">
-              African Struggle
-            </a>
-            <a href="#tag" className="tag">
-              Black
-            </a>
-            <a href="#tag" className="tag">
-              Apartheid
-            </a>
-            <a href="#tag" className="tag">
-              Wisdom
-            </a>
-          </div>
+            {poemTags.map((tag) => (
+              <a href={["/search?keyword=", tag.name.toLowerCase().split(" ").join("+")].join("")} className="tag">
+                {tag.name}
+              </a>
+            ))}
+          </div>}
 
           {/* Poem statistics and Author details */}
           <div className={styles.CommentsSection}>
             <h4 className={styles.CommentsSectionHeader}>
-              <span className={styles.Name}>Comments</span>
+              <span className={styles.Name}>Community Commentations</span>
               <span className={styles.Count}>
                 {poemData.comments?.length
                   ? [poemData.comments.length, "Comments"].join(" ")

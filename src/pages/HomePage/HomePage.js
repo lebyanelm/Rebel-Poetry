@@ -38,7 +38,7 @@ const HomePage = () => {
     <React.Fragment>
       <div className="page-container">
         {/* Listed poems */}
-        <h1>Discover</h1>
+        <h1>Charts</h1>
         <PoemsList feed={feed}></PoemsList>
       </div>
     </React.Fragment>
