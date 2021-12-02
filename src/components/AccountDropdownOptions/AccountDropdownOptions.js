@@ -52,23 +52,25 @@ const AccountDropdownOptions = ({ userSession, location }) => {
             style={{ display: isOptionsOpen ? "block" : "none" }}
           >
             <section>
-              <Link to="/poet/me">
-                Signed in as <b>{userSession?.display_name}</b>
+              <span to="/poet/me">
+                Signed in as{" "}
+                <b>
+                  {userSession?.display_name} ({userSession?.username})
+                </b>
+              </span>
+            </section>
+            <section>
+              <Link to={["/rebbels/@", userSession?.username].join("")}>
+                Your Profile
               </Link>
+              <Link to="/collaborations">Your Collaborations and Features</Link>
+              <Link to="/your_drafts">Your Unpublished Drafts</Link>
             </section>
             <section>
-              <Link to="/poet/me">Your Public Poems</Link>
-              <Link to="">Your Anonymous Poems</Link>
-              <Link to="">Your Bookmarked poems</Link>
-              <Link to="">Your Collaborations and Features</Link>
-              <Link to="">Your Unpublished Drafts</Link>
-              <Link to="">Your Notifications</Link>
-            </section>
-            <section>
-              <Link className="" to="">
+              <Link className="" to="/edit_profile">
                 Edit your profile
               </Link>
-              <Link className="danger" to="">
+              <Link className="danger" to="/sign_out">
                 Sign out
               </Link>
             </section>

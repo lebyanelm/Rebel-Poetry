@@ -41,13 +41,12 @@ const SignInPage = () => {
         .set("Authorization", credentialsData)
         .end((_, response) => {
           if (response) {
-            alert(response.statusCode);
             if (response.statusCode === 200) {
               // Set the token to be saved
               Storage.set("AUTH_TOKEN", response.body.data.token);
               setUserSession(response.body.data);
               setUserToken(response.body.data.token);
-              router.push("/");
+              router.push("/discover");
             } else {
               setResponseError(
                 response.body.reason ||

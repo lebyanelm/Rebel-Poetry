@@ -14,7 +14,7 @@ const Header = () => {
     <div className={styles.HeaderContainer}>
       {/* BANNER */}
       <a
-        href="https://patreon.com/@rebelpoetry"
+        href="https://patreon.com/@rebbelpoetry"
         target="_blank"
         rel="noreferrer"
         className={styles.Banner}
