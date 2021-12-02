@@ -38,7 +38,6 @@ const HomePage = () => {
   return (
     <React.Fragment>
       <div className="page-container">
-        {/* Listed poems */}
         <PoemsList feed={feed}></PoemsList>
       </div>
     </React.Fragment>
