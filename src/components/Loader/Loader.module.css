@@ -1,0 +1,25 @@
+.Loader svg {
+  height: 30px; }
+
+.FirstCircle {
+  fill: #000000;
+  animation: FirstCircleBlink 300ms ease infinite alternate-reverse; }
+
+.SecondCircle {
+  fill: #ebc952;
+  animation: SecondCircleBlink 300ms ease infinite alternate-reverse; }
+
+.BlendGroup {
+  mix-blend-mode: difference; }
+
+@keyframes FirstCircleBlink {
+  from {
+    fill: #000000; }
+  to {
+    fill: #ebc952; } }
+
+@keyframes SecondCircleBlink {
+  from {
+    fill: #ebc952; }
+  to {
+    fill: #1436ad; } }

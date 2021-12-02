@@ -1,0 +1,38 @@
+.PageTitle {
+  border-bottom: none; }
+
+.SearchInputContainer {
+  display: grid;
+  grid-template-columns: 90% 10%;
+  border: 3px solid #000000; }
+
+.SearchInputContainer:focus-within,
+SearchInputContainer:hover {
+  border-color: #1436ad; }
+
+.SearchInputContainer .LargeSearchInput {
+  float: left;
+  font-size: 50px;
+  font-weight: normal;
+  border: none; }
+
+.SearchInputContainer .SearchButton {
+  display: grid;
+  place-items: center;
+  border-left: 3px solid #000000;
+  cursor: pointer; }
+
+.SearchInputContainer .SearchButton svg {
+  color: #000000;
+  height: 40px;
+  transform: translateY(-10px) translateX(-10px); }
+
+.SearchInputContainer .SearchButton:hover {
+  background-color: #000000; }
+
+.SearchInputContainer .SearchButton:hover svg {
+  stroke: #ffffff; }
+
+.SearchInputContainer h4 {
+  background-color: #1436ad;
+  color: #ffffff; }
