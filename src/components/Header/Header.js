@@ -56,7 +56,7 @@ const Header = () => {
             <div
               className={[
                 "navigation-item",
-                location.pathname.includes("/rebels") ? "active" : "inactive",
+                location.pathname.includes("/rebbels") ? "active" : "inactive",
               ].join(" ")}
             >
               Rebbel Poets
