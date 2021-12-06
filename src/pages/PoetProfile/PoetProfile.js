@@ -37,7 +37,7 @@ const PoetProfile = () => {
                   process.env.REACT_APP_NAME,
                   [
                     response.body.data.display_name,
-                    "(@",
+                    " (@",
                     response.body.data.username,
                     ")",
                   ].join(""),
