@@ -7,9 +7,8 @@ import Poet from "../../components/Poet/Poet";
 import { useToast } from "../../providers/ToastContext";
 import * as superagent from "superagent";
 import config from "../../config";
-import { useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom";
 import qs from "qs";
-
 
 const SearchPage = () => {
   const [searchValue, setSearchValue] = React.useState(null);
@@ -17,22 +16,33 @@ const SearchPage = () => {
   const { setIsLoaderVisible } = useLoaderState();
   const { showToast } = useToast();
   const history = useHistory();
-  console.log(history)
+  console.log(history);
 
   const getSearchResults = (optionalKeyword) => {
-    history.push([history.location.pathname, "?keyword=", searchValue].join(""));
-    
+    history.push(
+      [history.location.pathname, "?keyword=", searchValue].join("")
+    );
+
     // Reset the results
     setResults({});
 
     setIsLoaderVisible(true);
     superagent
-      .get([config.BACKEND, ["search?keyword=", (searchValue || optionalKeyword).split(" ").join("+")].join("")].join("/"))
+      .get(
+        [
+          config.BACKEND,
+          [
+            "search?keyword=",
+            (searchValue || optionalKeyword).split(" ").join("+"),
+          ].join(""),
+        ].join("/")
+      )
       .end((_, response) => {
         setIsLoaderVisible(false);
         if (response) {
           if (response.status === 200) {
             setResults(response.body.data);
+            console.log(response.body);
           } else {
             showToast(response.body.reason || "Something went wrong.");
           }
@@ -52,7 +62,6 @@ const SearchPage = () => {
       setSearchValue(params.keyword);
       getSearchResults(params.keyword);
     }
-
   }, []);
 
   return (
@@ -75,15 +84,34 @@ const SearchPage = () => {
           </div>
         </div>
 
-        {(results.poems) && (
+        {results.poems && (
+          <>
+            <h4 style={{ textAlign: "center" }}>
+              {results.poems?.length || results.authors?.length
+                ? "All results for "
+                : "No results found for keyword"}{" "}
+              "{searchValue}"
+            </h4>
+
+            {!!results.authors.length && (
               <>
-                <h4 style={{ textAlign: "center" }}>
-                  { results.poems?.length ? "All results for " : "No results found for keyword" } "{searchValue}"
-                </h4>
-                
+                <h1>Rebbel Poets</h1>
+                <div className={styles.Rebbels}>
+                  {results.authors.map((rebbel) => (
+                    <Poet poet={rebbel}></Poet>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {!!results.poems.length && (
+              <>
+                <h1>Poems Results</h1>
                 <PoemsList feed={results.poems}></PoemsList>
               </>
             )}
+          </>
+        )}
       </div>
     </>
   );

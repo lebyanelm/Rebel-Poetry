@@ -49,3 +49,9 @@ SearchInputContainer:hover {
   background-color: $PRIMARY_COLOR;
   color: $TEXT_COLOR_LIGHT;
 }
+
+// ALL THE LISTED REBBEL POETS
+.Rebbels {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}

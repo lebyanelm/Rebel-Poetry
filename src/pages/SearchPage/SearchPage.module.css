@@ -36,3 +36,7 @@ SearchInputContainer:hover {
 .SearchInputContainer h4 {
   background-color: #1436ad;
   color: #ffffff; }
+
+.Rebbels {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr; }

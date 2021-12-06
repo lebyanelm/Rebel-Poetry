@@ -13,37 +13,65 @@ const Poem = ({ data, isDraft }) => {
       description = description.slice(0, 25);
     }
     return description.join(" ") + "...";
-  }
+  };
 
   React.useEffect(() => {
     // Get information of the poet
     if (data.author !== undefined) {
-      PoemService.getPoemAuthors([data.author, ...data.featured_poets])
-        .then((poets) => {
+      PoemService.getPoemAuthors([data.author, ...data.featured_poets]).then(
+        (poets) => {
           setPoemAuthors(poets);
-        });
+        }
+      );
     } else {
-      setPoemAuthors([isDraft ? { display_name: "Myself", username: "me" } : { display_name: "Anonymous", username: "anonymous" }])
+      setPoemAuthors([
+        isDraft
+          ? { display_name: "Myself", username: "me" }
+          : { display_name: "Anonymous", username: "anonymous" },
+      ]);
     }
-  }, [])
+  }, []);
 
   return (
     <div className={styles.Poem}>
-      {data.thumbnail ? <div
-        className={styles.PoemThumbnail}
-        style={{ backgroundImage: `url(${data.thumbnail})` }}
-        data-text="Bookmarked and Liked"></div> :
+      {data.thumbnail ? (
         <div
           className={styles.PoemThumbnail}
-          style={{ backgroundImage: `url(${[process.env.REACT_APP_API_ENDPOINT, "uploads", "default-background.png"].join("/")})` }}
-          data-text="Bookmarked and Liked"></div>}
+          style={{ backgroundImage: `url(${data.thumbnail})` }}
+          data-text="Bookmarked and Liked"
+        ></div>
+      ) : (
+        <div
+          className={styles.PoemThumbnail}
+          style={{
+            backgroundImage: `url(${[
+              process.env.REACT_APP_API_ENDPOINT,
+              "uploads",
+              "default-background.png",
+            ].join("/")})`,
+          }}
+          data-text="Bookmarked and Liked"
+        ></div>
+      )}
       <div className={styles.PoemReadTime}>{data.read_time}</div>
       <div className={styles.PoemDetails}>
-        <a className={styles.PoemTitle} href={isDraft ? ["/new_poem?draft_id=", data.did].join("") : ["/poem", data._id].join("/")}>{data.title}</a>
-        <div className={styles.PoemAuthorTime}>By <a href={["/"].join("")}>{poemAuthors[0]?.display_name}</a> <span>|</span> Published on {data?.time_created.day}</div>
+        <a
+          className={styles.PoemTitle}
+          href={
+            isDraft
+              ? ["/new_poem?draft_id=", data.did].join("")
+              : ["/poem", data._id].join("/")
+          }
+        >
+          {data.title}
+        </a>
+        <div className={styles.PoemAuthorTime}>
+          By <a href={["/"].join("")}>{poemAuthors[0]?.display_name}</a>{" "}
+          <span>|</span> Published on {data?.time_created?.day}
+        </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default Poem;
