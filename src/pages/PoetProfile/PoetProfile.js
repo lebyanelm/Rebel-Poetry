@@ -33,6 +33,15 @@ const PoetProfile = () => {
             if (response) {
               if (response.statusCode === 200) {
                 resolve(response.body.data);
+                document.title = [
+                  process.env.REACT_APP_NAME,
+                  [
+                    response.body.data.display_name,
+                    "(@",
+                    response.body.data.username,
+                    ")",
+                  ].join(""),
+                ].join(": ");
               }
             }
           });

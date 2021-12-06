@@ -10,8 +10,6 @@
 .css
 
 # production
-/build
-.kursk
 
 # misc
 .DS_Store
