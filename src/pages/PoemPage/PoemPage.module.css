@@ -1,0 +1,184 @@
+.PoemPageContainer {
+  padding: 100px 0; }
+
+.PoemContents {
+  padding: 40px 180px; }
+
+.PoemContents .PoemSplitSides {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative; }
+
+.PoemContents .PoemTextContainer.is-guide {
+  background: transparent !important; }
+
+.PoemContents .PoemTextContainer,
+.PoemContents .PoemTextContainer * {
+  font-size: 16px; }
+
+.PoemContents p {
+  color: #000000 !important; }
+
+.PoemContents .PoemSplitSides .AnnotationsContainer {
+  padding: 10px 20px;
+  height: fit-content;
+  transition: transform 300ms ease;
+  position: relative;
+  font-size: 20px;
+  background: rgba(0, 0, 0, 0.05); }
+
+.PoemContents .SideButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 20px;
+  gap: 20px; }
+
+.PoemContents .SideButtons {
+  position: absolute;
+  transform: translateX(calc(-100% + -30px));
+  transition: transform 300ms ease; }
+
+.PoemContents .SideButtons button {
+  display: grid;
+  place-items: center;
+  align-items: center;
+  border: none;
+  background: transparent;
+  padding: 0;
+  color: #000000;
+  position: relative; }
+
+.PoemContents .SideButtons button:hover:not(.Eye) svg {
+  transform: translateY(-5px); }
+
+.PoemContents .SideButtons button svg {
+  height: 28px;
+  fill: #000000;
+  stroke: #000000;
+  transition: transform 300ms ease; }
+
+.PoemContents .SideButtons button.Heart svg {
+  fill: transparent;
+  stroke: black; }
+
+.PoemContents .SideButtons button.Heart[data-isliked=true] svg {
+  fill: red;
+  stroke: red; }
+
+.PoemContents .SideButtons button.Heart
+.PoemContents .SideButtons button.Bookmark svg {
+  fill: black;
+  stroke: black; }
+
+.PoemContents .SideButtons button.Bookmark[data-isbookmarked=true] svg {
+  fill: black !important; }
+
+.PoemContents .SideButtons button span {
+  display: block;
+  font-size: 15px;
+  margin-top: 5px;
+  text-align: center;
+  transform: translateX(5px);
+  letter-spacing: 0; }
+
+.PoemContents .PoemTextContainer {
+  padding: 20px;
+  color: #000; }
+
+.PoemContents * {
+  font-size: 18px; }
+
+.PoemContents .PoemTextContainer p {
+  line-height: 30px;
+  margin-bottom: 5px; }
+
+.PoemContents .PoemTextContainer a {
+  text-decoration-thickness: 1px;
+  font-weight: 600 !important;
+  background: #e9e9e9;
+  padding: 5px 0; }
+
+.PoemContents .PoemTextContainer a[data-isactive=true],
+.PoemContents .PoemTextContainer a:hover {
+  background: #000000;
+  color: #ffffff; }
+
+.PoemContents .PoemTextContainer a[data-isactive=true]::before {
+  content: "";
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: #000000;
+  z-index: -2;
+  margin-bottom: 0;
+  line-height: 0; }
+
+.PoemContents .PoemInformation {
+  padding: 0 20px; }
+
+.PoemContents .PoemTags {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  padding-left: 20px; }
+
+.PoemContents .PoemTags * {
+  font-size: 15px; }
+
+.PoemContents .PoemTags a {
+  display: inline-block;
+  padding: 2px 5px;
+  background: #ebc952;
+  text-decoration-thickness: 4px; }
+
+.PoemContents .PoemTextContainer h1,
+.PoemContents .PoemTextContainer h2,
+.PoemContents .PoemTextContainer h3,
+.PoemContents .PoemTextContainer h4,
+.PoemContents .PoemTextContainer h5,
+.PoemContents .PoemTextContainer h6 {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  font-weight: 900; }
+
+.PoemContents .PoemTextContainer h1 {
+  font-size: 40px;
+  background-color: transparent;
+  text-indent: 0;
+  color: #000000; }
+
+.PoemContents .PoemTextContainer h2 {
+  font-size: 30px; }
+
+.PoemContents .PoemTextContainer h3 {
+  font-size: 25px; }
+
+.PoemContents .PoemTextContainer a {
+  font-weight: bold; }
+
+.PoemActions {
+  border-bottom: 1px solid #DDD; }
+
+.PoemActions a {
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 0px;
+  user-select: none !important; }
+
+.CommentsSection .CommentsSectionHeader {
+  display: flex;
+  padding-bottom: 10px;
+  align-items: center;
+  justify-content: space-between;
+  background: #000000; }
+
+.CommentsSection .CommentsSectionHeader span {
+  font-family: Programme, "Roboto", Arial, sans-serif;
+  font-weight: 200; }
+
+.CommentsSection .CommentsSectionHeader span.Name {
+  font-size: 30px;
+  color: #ffffff !important; }

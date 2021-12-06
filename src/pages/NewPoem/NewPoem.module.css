@@ -1,0 +1,68 @@
+.NewPoemHeaderContainer {
+  display: flex;
+  padding: 180px 180px 60px 180px;
+  width: 100%;
+  background: #000000;
+  position: relative; }
+
+.NewPoemHeaderContainer::before {
+  content: "";
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: 1.2; }
+
+.NewPoemHeaderContainer * {
+  color: #ffffff; }
+
+.NewPoemHeaderContainer a:hover,
+.NewPoemHeaderContainer .link:hover {
+  color: #ebc952 !important; }
+
+.NewPoemImageSelector {
+  display: grid;
+  place-items: center;
+  height: 250px;
+  width: 250px;
+  border: 2.5px solid #ebc952;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  background-repeat: no-repeat;
+  z-index: 100; }
+
+.NewPoemImageSelector svg {
+  height: 60px;
+  transform: translateY(-30px) translateX(-20px);
+  transition: transform 300ms ease;
+  stroke-width: 1px !important; }
+
+.NewPoemImageSelector:hover svg {
+  transform: translateY(-30px) translateX(-20px) scale(1.1); }
+
+.NewPoemHeaderContainer .NewPoemDetails {
+  margin-left: 40px;
+  z-index: 3; }
+
+.NewPoemHeaderContainer .NewPoemDetails .NewPoemTitle {
+  text-indent: 0;
+  padding: 0;
+  border: none;
+  font-size: 50px;
+  font-family: "Programme Alt", Programme, "Roboto", Arial, sans-serif;
+  font-weight: 900 !important;
+  color: #ebc952; }
+
+.NewPoemContentsContainer {
+  padding: 40px 180px; }
+
+.NewPoemContentsContainer textarea {
+  border: none;
+  background: #ffffff;
+  font-size: 20px;
+  font-style: italic; }
