@@ -8,7 +8,7 @@ const developmnent = {
 // Environment for production values
 const production = {
   ENV: "production",
-  BACKEND: "apis.rebbelpoetry.com/api",
+  BACKEND: "https://apis.rebbelpoetry.com/api",
   FRONTEND: "https://rebbelpoetry.com",
 };
 

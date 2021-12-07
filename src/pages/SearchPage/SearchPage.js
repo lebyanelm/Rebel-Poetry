@@ -73,7 +73,7 @@ const SearchPage = () => {
             className={styles.LargeSearchInput}
             type="text"
             defaultValue={searchValue}
-            placeholder="Search for Rebbel Poems / Poets"
+            placeholder="Search for Rebbel Poems / Rebbel Poets"
             onKeyUp={(event) => {
               setSearchValue(event.target.value);
               setResults({});
