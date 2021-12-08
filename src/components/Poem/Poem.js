@@ -60,7 +60,7 @@ const Poem = ({ data, isDraft }) => {
           href={
             isDraft
               ? ["/new_poem?draft_id=", data.did].join("")
-              : ["/poem", data._id].join("/")
+              : ["/~", data._id].join("")
           }
         >
           {data.title}

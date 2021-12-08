@@ -121,7 +121,7 @@ function NewPoem() {
           data={draftData}
           isPublished={(poemId) => {
             setIsPreviewOpen(false);
-            router.push(["/poem/", poemId].join(""));
+            router.push(["/~", poemId].join(""));
           }}
           token={userToken}
         ></DraftPreview>
