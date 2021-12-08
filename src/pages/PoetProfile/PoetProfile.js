@@ -3,6 +3,7 @@ import styles from "./PoetProfile.module.scss";
 import { Link, useParams } from "react-router-dom";
 import PoemsList from "../../components/PoemsList/PoemsList";
 import { useSession } from "../../providers/SessionContext";
+import { useToast } from "../../providers/ToastContext";
 import * as superagent from "superagent";
 import config from "../../config";
 import { useLoaderState } from "../../providers/LoaderContext";
@@ -17,6 +18,7 @@ const PoetProfile = () => {
   // Read from the the user session if any to check if there's a need to reach the server to get data
   const { userSession, setUserSession } = useSession();
   const { userToken } = useStorage();
+  const { showToast } = useToast();
   const { setIsLoaderVisible } = useLoaderState();
 
   const [profileData, setProfileData] = React.useState(null);
@@ -73,6 +75,63 @@ const PoetProfile = () => {
     });
   };
 
+  // Selecting an avatar to upload and place
+  const selectUploadPhoto = () => {
+    // Create a temporary file select element to select an upload file
+    const i = document.createElement("input");
+    i.type = "file";
+    i.accept = ".gif,.jpg,.jpeg,.png"
+
+    // Programmatically click the temporary file select element
+    i.click();
+    i.addEventListener("change", (e) => {
+      // Trigger a file upload and wait for it to finish then replace the profile picture
+      superagent
+        .post([config.BACKEND, "assets", "upload"].join("/"))
+        .attach("file", i.files[0])
+        .set("Authorization", userToken)
+        .end((_, response) => {
+          if (response) {
+            if (response.status === 200) {
+              replaceProfileAvatar(response.body.data.large);
+            } else {
+              showToast(response.body.reason || "Something went wrong.");
+            }
+          } else {
+            showToast("Not connected to the internet.");
+          }
+        })
+    })
+  }
+
+  // Replacing the avatar profile picture
+  const replaceProfileAvatar = (avatar_url) => {
+    // Simply just sending the uploaded image URL to an account PATCH
+    superagent
+      .patch([config.BACKEND, "rebbels", userSession.email_address].join("/"))
+      .set("Authorization", userToken)
+      .send({ display_photo: avatar_url })
+      .end((_, response) => {
+        if (response) {
+          if (response.status === 200) {
+            setUserSession({ ...userSession, display_photo: avatar_url });
+            setProfileData({ ...profileData, display_photo: avatar_url });
+            
+            showToast("Profile avatar updated.");
+          } else {
+            showToast(response.body.reason || "Something went wrong.");
+          }
+        } else {
+          showToast("No internet connection.");
+        }
+      })
+  }
+
+  // Opening a preview modal for an avatar
+  const openAvatarPreview = () => {
+    
+  }
+
   React.useEffect(() => {
     // document.title = process.env.REACT_APP_NAME + ": " + name;
     getProfileData().then((data) => {
@@ -94,6 +153,10 @@ const PoetProfile = () => {
           <div className={styles.ProfileAvatarContainer}>
             <div
               className={styles.ProfileAvatar}
+              data-ischangeable={profileData.username == userSession?.username}
+              data-isviewable={profileData.username != userSession?.username}
+              onClick={() => { profileData?.username == userSession?.username
+                ? selectUploadPhoto() : openAvatarPreview() }}
               style={{
                 backgroundImage: `url(${profileData.display_photo})`,
               }}

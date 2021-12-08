@@ -16,6 +16,29 @@
   background-size: cover;
   background-position: center; }
 
+.ProfilePage .ProfileAvatar[data-ischangeable=true]::after,
+.ProfilePage .ProfileAvatar[data-isviewable=true]::after {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+  font-weight: 900;
+  border-radius: 100px;
+  opacity: 0;
+  transition: opacity 200ms ease-out;
+  cursor: pointer; }
+
+.ProfilePage .ProfileAvatar[data-ischangeable=true]::after {
+  content: "Upload Avatar"; }
+
+.ProfilePage .ProfileAvatar[data-isviewable=true]::after {
+  content: "View Avatar"; }
+
+.ProfilePage .ProfileAvatar:hover::after {
+  opacity: 1; }
+
 .ProfilePage .PageContents .ProfileName .Name {
   display: inline-block;
   background: #ebc952;

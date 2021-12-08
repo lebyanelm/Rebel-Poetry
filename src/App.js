@@ -61,7 +61,7 @@ function App() {
                       <Route path="/feeling_lucky">
                         <FeelingLuckyPage />
                       </Route>
-                      <Route path="/poem/:poemId">
+                      <Route path="/~:poemId">
                         <PoemPage />
                       </Route>
                       <Route path="/search">
