@@ -13,7 +13,7 @@ html {
 * {
   outline: none;
   box-sizing: border-box;
-  font-family: "Roboto", Arial, sans-serif;
+  font-family: Programme, "Roboto", Arial, sans-serif;
   font-size: 15px; }
 
 *::selection {
@@ -190,7 +190,7 @@ code {
   font-weight: 400; }
 
 .page-header span.name {
-  font-family: "Programme Alt", "Roboto", Arial, sans-serif;
+  font-family: "Programme Alt", Programme, "Roboto", Arial, sans-serif;
   font-weight: bolder; }
 
 .more-pages {

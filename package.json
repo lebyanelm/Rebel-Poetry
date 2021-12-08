@@ -1,6 +1,6 @@
 {
   "name": "rebbelpoetry.com",
-  "version": "0.2.6",
+  "version": "0.2.8",
   "private": true,
   "dependencies": {
     "@grammarly/react-textarea": "^0.11.2",
