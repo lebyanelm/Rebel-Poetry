@@ -63,3 +63,6 @@
 .PoetProfileContents h1 {
   text-align: center;
   width: 70vw; }
+
+.FollowButton svg {
+  stroke-width: 4px !important; }

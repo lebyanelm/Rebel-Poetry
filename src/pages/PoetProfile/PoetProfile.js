@@ -6,14 +6,17 @@ import { useSession } from "../../providers/SessionContext";
 import * as superagent from "superagent";
 import config from "../../config";
 import { useLoaderState } from "../../providers/LoaderContext";
+import { useStorage } from "../../providers/StorageContext";
 import { PoemService } from "../../services/Poem";
+import IonIcon from "@reacticons/ionicons";
 
 const PoetProfile = () => {
   // Get the username of the profile being browsed
   const params = useParams();
 
   // Read from the the user session if any to check if there's a need to reach the server to get data
-  const { userSession } = useSession();
+  const { userSession, setUserSession } = useSession();
+  const { userToken } = useStorage();
   const { setIsLoaderVisible } = useLoaderState();
 
   const [profileData, setProfileData] = React.useState(null);
@@ -48,6 +51,27 @@ const PoetProfile = () => {
       }
     });
   });
+
+  // Following / Unfollowing another rebbel
+  const toggleFollowStatus = () => {
+    return new Promise((resolve, reject) => {
+      superagent.post(
+        [config.BACKEND, "rebbels", "follow", profileData.username].join("/")
+      )
+      .set("Authorization", userToken)
+      .end((_, response) => {
+        console.log(response);
+        if (response && response.status === 200) {
+          console.log(setUserSession, userSession)
+          setUserSession({...userSession, follows: response.body.data});
+          resolve();
+          console.log("Follows", userSession.follows)
+        } else {
+          console.log(response.body.reason || "Something went wrong.");
+        }
+      });
+    });
+  };
 
   React.useEffect(() => {
     // document.title = process.env.REACT_APP_NAME + ": " + name;
@@ -110,8 +134,15 @@ const PoetProfile = () => {
               {userSession && userSession.username === profileData.username ? (
                 ""
               ) : (
-                <button style={{ backgroundColor: "black" }}>
-                  Follow Rebbel
+                <button
+                  className={styles.FollowButton}
+                  style={{ backgroundColor: userSession?.follows?.includes(profileData._id) ? "#333" : "black" }}
+                  onClick={() => {
+                    toggleFollowStatus().then(() => console.log());
+                  }}
+                >
+                  
+                  {userSession?.follows?.includes(profileData._id) ? <span>Following &#10003;</span> : <span style={{positon: "relative"}}>Follow <span style={{opacity: 0, positon: "absolute"}}>&#10003;</span></span>}
                 </button>
               )}
               {userSession && userSession.username === profileData.username ? (
