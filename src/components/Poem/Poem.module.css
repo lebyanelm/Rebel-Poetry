@@ -1,7 +1,7 @@
 .Poem {
   padding: 20px 20px;
   border-left: 2px solid #DDD;
-  border-top: 3px solid #DDD; }
+  border-top: 2px solid #DDD; }
 
 .Poem:nth-child(3n) {
   border-right: 2px solid #DDD; }
@@ -40,7 +40,8 @@
 .Poem .PoemTitle {
   font-size: 30px;
   font-weight: 900;
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+  line-height: 25px; }
 
 .Poem .PoemDetails .PoemAuthorTime {
   color: #777;

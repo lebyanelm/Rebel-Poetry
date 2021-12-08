@@ -10,7 +10,7 @@ a.Banner {
   padding: 10px;
   width: 100%;
   text-align: center;
-  background-color: $TEXT_COLOR_DARK;
+  background-color: $PRIMARY_COLOR;
   color: $TEXT_COLOR_LIGHT;
 }
 
@@ -26,9 +26,11 @@ a.Banner:hover svg {
 .HeaderContainer {
   position: fixed;
   width: 100%;
-  background-color: $BACKGROUND_COLOR;
+  background-color: $TERTIARY_COLOR;
   z-index: 10000;
+  border: none !important;
 }
+
 
 .Header,
 .Header section {
@@ -36,16 +38,24 @@ a.Banner:hover svg {
   align-items: center;
 }
 
+.Header section.NavigationLinks {
+  margin-left: $PADDING;
+}
+
 .Header {
-  border: 1px solid #DDD;
-  padding: 0px $PAGE_MARGINS 5px $PAGE_MARGINS;
+  // border: 1px solid #DDD;
+  padding: 10px $PAGE_MARGINS;
   justify-content: space-between;
+}
+
+.Header * {
+  color: $TEXT_COLOR_LIGHT !important;
 }
 
 .Header .HeaderBrandLogo img {
   height: 50px;
   transform: translateY(3px);
-  border-radius: 10px;
+  border-radius: 100px;
 }
 
 .Header section a {

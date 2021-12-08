@@ -29,7 +29,7 @@ const Header = () => {
         <Link to="/" className={styles.HeaderBrandLogo}>
           <img src={Logo} alt="" />
         </Link>
-        <section>
+        <section class={styles.NavigationLinks}>
           {userSession && (
             <Link to="/new_poem">
               <div

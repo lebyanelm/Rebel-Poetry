@@ -23,7 +23,7 @@ a.Banner {
   padding: 10px;
   width: 100%;
   text-align: center;
-  background-color: #000000;
+  background-color: #1436ad;
   color: #ffffff; }
 
 a.Banner svg {
@@ -36,23 +36,29 @@ a.Banner:hover svg {
 .HeaderContainer {
   position: fixed;
   width: 100%;
-  background-color: #EEE;
-  z-index: 10000; }
+  background-color: #000000;
+  z-index: 10000;
+  border: none !important; }
 
 .Header,
 .Header section {
   display: flex;
   align-items: center; }
 
+.Header section.NavigationLinks {
+  margin-left: 20px; }
+
 .Header {
-  border: 1px solid #DDD;
-  padding: 0px 180px 5px 180px;
+  padding: 10px 180px;
   justify-content: space-between; }
+
+.Header * {
+  color: #ffffff !important; }
 
 .Header .HeaderBrandLogo img {
   height: 50px;
   transform: translateY(3px);
-  border-radius: 10px; }
+  border-radius: 100px; }
 
 .Header section a {
   margin: 0 10px; }

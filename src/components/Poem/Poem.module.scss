@@ -4,7 +4,7 @@
 .Poem {
   padding: $PADDING $PADDING;
   border-left: 2px solid #DDD;
-  border-top: 3px solid #DDD;
+  border-top: 2px solid #DDD;
 }
 
 .Poem:nth-child(3n) {
@@ -53,6 +53,7 @@
   font-size: 30px;
   font-weight: 900;
   margin-bottom: 20px;
+  line-height: 25px;
   // font-family: "Programme Alt", $FONT_FAMILY;
 }
 
