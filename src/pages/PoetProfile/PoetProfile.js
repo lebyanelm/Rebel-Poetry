@@ -146,6 +146,11 @@ const PoetProfile = () => {
           const poems = feed;
           poems.push(poem);
           setFeed(poems);
+
+          // Do this to get the poems to show up
+          setTimeout(() => {
+            setProfileData({...data});
+          }, 100);
         })
       );
     });
