@@ -76,6 +76,9 @@ function App() {
                       <Route path="*">
                         <NotFoundPage />
                       </Route>
+                      <Route path="/not_found">
+                        <NotFoundPage />
+                      </Route>
                     </Switch>
                     <Footer />
                   </RootWrapper>

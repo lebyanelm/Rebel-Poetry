@@ -110,7 +110,7 @@ const PoemPage = () => {
   }
 
   const deletePoem = () => {
-    PoemService.deletePoem(poemData._id, userToken)
+    PoemService.deletePoem(poemData?._id, userToken)
       .then(() => {
         showToast("Poem deleted.");
         history.push("/discover");
@@ -142,8 +142,10 @@ const PoemPage = () => {
               response.body.data.title,
             ].join("");
           } else {
-            showToast(response.body.reason || "Something went wrong.");
-            setPoemData(null);
+            if (response.status === 404) {
+              history.push("/not_found");
+              showToast("Poem was not found.")
+            } 
           }
         } else {
           showToast("You're not connected with the internet.");
@@ -155,8 +157,8 @@ const PoemPage = () => {
   // Toggle the poem action buttons as sticky or absolute as page is being scrolled
   React.useEffect(() => {
     // Determine whether or not if this is a guide page
-    if (poemData.title) {
-      if (poemData.title.includes("Guides: ")) {
+    if (poemData?.title) {
+      if (poemData?.title.includes("Guides: ")) {
         poemTextContainer.current.classList.add("is-guide");
       }
     }
@@ -214,36 +216,36 @@ const PoemPage = () => {
           <div className={styles.PoemSplitSides}>
             {/* The top of the poem text area */}
             <div className={styles.SideButtons} ref={scrollButtonsContainer}>
-              <button className={styles.Heart} data-isLiked={poemData.likes?.includes(userSession?._id)} onClick={() => {
-                PoemService.likePoem(poemData._id, userToken)
+              <button className={styles.Heart} data-isLiked={poemData?.likes?.includes(userSession?._id)} onClick={() => {
+                PoemService.likePoem(poemData?._id, userToken)
                   .then((data) => {
                     // Update the number of likes on the poem data
                     setPoemData({ ...poemData, likes_count: data.likes_count, likes: data.likes });
                   })
               }}>
-                {poemData.likes?.includes(userSession?._id) ? <IonIcon name="hand-left"></IonIcon> : <IonIcon name="hand-left-outline"></IonIcon>}
-                <span className="count">{poemData.likes_count}</span>
+                {poemData?.likes?.includes(userSession?._id) ? <IonIcon name="hand-left"></IonIcon> : <IonIcon name="hand-left-outline"></IonIcon>}
+                <span className="count">{poemData?.likes_count}</span>
               </button>
 
               <button title="Users currently reading this poem.">
                 <IonIcon name="eye-outline"></IonIcon>
-                <span className="count">{poemData.views_count}</span>
+                <span className="count">{poemData?.views_count}</span>
               </button>
 
-              <button className={styles.Bookmark} data-isBookmarked={userSession?.bookmarked_poems.includes(poemData._id)} onClick={() => {
+              <button className={styles.Bookmark} data-isBookmarked={userSession?.bookmarked_poems.includes(poemData?._id)} onClick={() => {
                 // First check if there's a session in place
                 if (userToken) {
                   // Update the bookmarks of the user
-                  PoemService.bookmarkPoem(poemData._id, userToken)
+                  PoemService.bookmarkPoem(poemData?._id, userToken)
                     .then((data) => {
                       // Update the number of likes on the poem data
                       setPoemData({ ...poemData, bookmarks_count: data.bookmarks_count })
                       if (data.is_bookmark) {
-                        setUserSession({ ...userSession, bookmarked_poems: [...userSession.bookmarked_poems, poemData._id] })
+                        setUserSession({ ...userSession, bookmarked_poems: [...userSession.bookmarked_poems, poemData?._id] })
                       } else {
                         // Remove the poem ID from the bookmarks
                         const bookmarkedPoems = userSession.bookmarked_poems;
-                        const bookmarkedPoemIndex = bookmarkedPoems.indexOf(poemData._id);
+                        const bookmarkedPoemIndex = bookmarkedPoems.indexOf(poemData?._id);
                         if (bookmarkedPoemIndex > -1) {
                           bookmarkedPoems.splice(bookmarkedPoemIndex, 1);
                           setUserSession({ ...userSession, bookmarked_poems: bookmarkedPoems })
@@ -256,8 +258,8 @@ const PoemPage = () => {
                   showToast("You are not logged in. Sign in to bookmark this poem.");
                 }
               }}>
-                {userSession?.bookmarked_poems.includes(poemData._id) ? <IonIcon name="bookmark-sharp"></IonIcon> : <IonIcon name="bookmark-outline"></IonIcon>}
-                <span className="count">{poemData.bookmarks_count}</span>
+                {userSession?.bookmarked_poems.includes(poemData?._id) ? <IonIcon name="bookmark-sharp"></IonIcon> : <IonIcon name="bookmark-outline"></IonIcon>}
+                <span className="count">{poemData?.bookmarks_count}</span>
               </button>
 
               <button className={styles.Share} onClick={() => {
@@ -269,7 +271,7 @@ const PoemPage = () => {
             </div>
 
             <div className={styles.PoemTextContainer} ref={poemTextContainer}>
-              {userSession && userSession._id === poemData.author && (
+              {userSession && userSession._id === poemData?.author && (
                 <div className={styles.PoemActions}>
                   <a
                     onClick={() => {
@@ -277,12 +279,12 @@ const PoemPage = () => {
                       setIsEditMode(state);
                       if (state) {
                         editableTextContentRef.current.innerText =
-                          poemData.body;
+                          poemData?.body;
                       } else {
                         editableTextContentRef.current.innerText = "";
                         PoemService.updatePoem(
-                          { body: poemData.body },
-                          poemData._id,
+                          { body: poemData?.body },
+                          poemData?._id,
                           userToken
                         );
                       }
@@ -337,7 +339,7 @@ const PoemPage = () => {
                 }}
               ></ReactMarkdown> */}
 
-              <p style={{ whiteSpace: "pre-wrap" }} children={parseAnnotations(poemData.body)}>
+              <p style={{ whiteSpace: "pre-wrap" }} children={parseAnnotations(poemData?.body)}>
 
               </p>
             </div>
@@ -370,15 +372,15 @@ const PoemPage = () => {
             <h4 className={styles.CommentsSectionHeader}>
               <span className={styles.Name}>Community Commentations</span>
               <span className={styles.Count}>
-                {poemData.comments?.length
-                  ? [poemData.comments.length, "Comments"].join(" ")
+                {poemData?.comments?.length
+                  ? [poemData?.comments.length, "Comments"].join(" ")
                   : "No comments"}{" "}
                 posted
               </span>
             </h4>
 
             {/* The comments section */}
-            <CommentsSection commentIds={poemData.comments} />
+            <CommentsSection commentIds={poemData?.comments} />
           </div>
         </div>
       </div>

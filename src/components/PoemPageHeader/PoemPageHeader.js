@@ -10,10 +10,10 @@ const PoemPageHeader = ({ poemData }) => {
   React.useEffect(() => {
     // Get information of the poets
     if (poemData) {
-      if (poemData.author !== undefined) {
+      if (poemData?.author !== undefined) {
         PoemService.getPoemAuthors([
-          poemData.author,
-          ...poemData.featured_poets,
+          poemData?.author,
+          ...poemData?.featured_poets,
         ]).then((poets) => {
           console.log(poets);
           setPoemAuthors(poets);
@@ -33,7 +33,7 @@ const PoemPageHeader = ({ poemData }) => {
               <div
                 className={styles.PoemThumbnailImage}
                 style={{
-                  backgroundImage: `url(${poemData.thumbnail})`,
+                  backgroundImage: `url(${poemData?.thumbnail})`,
                 }}
               >
                 <div className={styles.PlayPauseButton}></div>
