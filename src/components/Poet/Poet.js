@@ -8,7 +8,7 @@ const Poet = ({ poet }) => (
       className={styles.PoetAvatar}
       style={
         {
-          // backgroundImage: `url(${poet.display_photo})`,
+          backgroundImage: `url(${poet.display_photo})`,
         }
       }
     ></div>

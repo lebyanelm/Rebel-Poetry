@@ -20,7 +20,7 @@
   border-radius: 100px;
   background-color: #000000;
   background-size: cover;
-  background-position: center center;
+  background-position: center center !important;
   margin: 0 auto 10px auto;
   transition: background 300ms ease; }
 

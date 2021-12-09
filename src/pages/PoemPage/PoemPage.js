@@ -39,6 +39,7 @@ const PoemPage = () => {
   // Opens an annotation box at the point of the clicked target
   const [annotationPosition, setAnnotationPosition] = React.useState(0);
   const annotationContainer = React.useRef();
+  const [annotoationText, setAnnotationText] = React.useState("Click on an annotation to read more about it's text. The Rebbel Poet left an explaination for the phrases he uses.")
 
   // When an annotation is active
   const [activeIndex, setActiveIndex] = React.useState(-1);
@@ -57,7 +58,7 @@ const PoemPage = () => {
 
       // Set the contents of the annotations to the annotations container
       annotationContainer.current.style.display = "block";
-      annotationContainer.current.innerHTML = annotation;
+      setAnnotationText(annotation);
 
       // Check if the the annotation container exceeds the bottom of the poem to bring it back up
       const annotationContainerRect =
@@ -220,7 +221,7 @@ const PoemPage = () => {
                     setPoemData({ ...poemData, likes_count: data.likes_count, likes: data.likes });
                   })
               }}>
-                {poemData.likes?.includes(userSession?._id) ? <IonIcon name="heart"></IonIcon> : <IonIcon name="heart-outline"></IonIcon>}
+                {poemData.likes?.includes(userSession?._id) ? <IonIcon name="hand-left"></IonIcon> : <IonIcon name="hand-left-outline"></IonIcon>}
                 <span className="count">{poemData.likes_count}</span>
               </button>
 
@@ -346,7 +347,12 @@ const PoemPage = () => {
               className={styles.AnnotationsContainer}
               style={{ translate: `translateY(${annotationPosition}px)` }}
               ref={annotationContainer}
-            ><i>Click on an annotation to read more about it's text.</i></div>
+            >
+              <ReactMarkdown
+                plugins={[remarkGfm]}
+                linkTarget="_blank"
+              >{annotoationText}</ReactMarkdown> 
+            </div>
           </div>
 
           {/* Tags that have been given to the poem */}
