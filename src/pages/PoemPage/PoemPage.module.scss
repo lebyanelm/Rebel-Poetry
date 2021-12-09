@@ -125,7 +125,7 @@
 }
 
 .PoemContents .PoemTextContainer a {
-  text-decoration-thickness: 1px;
+  text-decoration: none;
   font-weight: 600 !important;
   background: #e9e9e9;
   padding: 5px 0;
@@ -134,8 +134,8 @@
 
 .PoemContents .PoemTextContainer a[data-isactive=true],
 .PoemContents .PoemTextContainer a:hover {
-  background: $TEXT_COLOR_DARK;
-  color: $TEXT_COLOR_LIGHT;
+  background: $SECONDARY_COLOR;
+  color: $TEXT_COLOR_DARK;
 }
 
 // .PoemContents .PoemTextContainer a[data-isactive=true] {
@@ -147,7 +147,7 @@
   display: block;
   height: 3px;
   width: 100%;
-  background: $TEXT_COLOR_DARK;
+  background: $SECONDARY_COLOR;
   z-index: -2;
   margin-bottom: 0;
   line-height: 0;
