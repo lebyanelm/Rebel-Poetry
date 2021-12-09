@@ -7,7 +7,7 @@ const LoaderContext = React.createContext({});
 
 // Context Provider
 const LoaderContextProvider = ({ children }) => {
-  const [isLoaderVisible, setIsLoaderVisible] = React.useState(true);
+  const [isLoaderVisible, setIsLoaderVisible] = React.useState(false);
 
   return (
     <LoaderContext.Provider value={{ isLoaderVisible, setIsLoaderVisible }}>

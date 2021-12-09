@@ -4,6 +4,7 @@ import * as superagent from "superagent";
 import config from "../../config";
 import { useSession } from "../../providers/SessionContext";
 import { useStorage } from "../../providers/StorageContext";
+import { useLoaderState } from "../../providers/LoaderContext";
 import { Storage } from "../../services/Storage";
 
 const SignInPage = () => {
@@ -11,6 +12,8 @@ const SignInPage = () => {
   const [responseError, setResponseError] = React.useState("");
   const { setUserSession } = useSession();
   const { setUserToken } = useStorage();
+  const { setIsLoaderVisible } = useLoaderState();
+  
   const [signInData, setSignInData] = React.useState({
     username: "",
     password: "",
@@ -65,6 +68,9 @@ const SignInPage = () => {
         "All fields are required. Please make sure they are all filled."
       );
     }
+
+    // Make sure the loader state is OFF
+    setIsLoaderVisible(false);
   };
 
   return (

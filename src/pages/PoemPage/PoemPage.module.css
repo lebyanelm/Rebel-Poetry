@@ -176,7 +176,7 @@
   background: #000000; }
 
 .CommentsSection .CommentsSectionHeader span {
-  font-family: Programme, "Roboto", Arial, sans-serif;
+  font-family: "Roboto", Programme, Arial, sans-serif;
   font-weight: 200; }
 
 .CommentsSection .CommentsSectionHeader span.Name {

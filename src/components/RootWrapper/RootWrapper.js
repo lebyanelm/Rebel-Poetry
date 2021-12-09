@@ -20,6 +20,7 @@ const RootWrapper = ({ children }) => {
     // Check if there is a session token available
     if (userToken) {
       // Send a get data request to the backend
+      setIsLoaderVisible(true);
       superagent
         .get([config.BACKEND, "rebbels", "reauthenticate"].join("/"))
         .set("Authorization", userToken)

@@ -47,7 +47,7 @@
   line-height: 20px;
   font-weight: 900;
   margin-bottom: 20px;
-  font-family: "Programme Alt", Programme, "Roboto", Arial, sans-serif; }
+  font-family: "Programme Alt", "Roboto", Programme, Arial, sans-serif; }
 
 .ProfilePage .ProfileBiography {
   display: flex;

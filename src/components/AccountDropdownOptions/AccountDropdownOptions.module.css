@@ -1,0 +1,20 @@
+.DropdownLinkItems *,
+.DropdownItemsHeader * {
+  color: #000 !important; }
+
+.DropdownItemsHeader {
+  text-align: center !important; }
+
+.DropdownLinkItems a.SignOut {
+  color: orangered !important; }
+
+.RebbelStatus {
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  background: green;
+  border-radius: 2px;
+  margin-left: 5px; }
+
+.HeaderSectionName svg {
+  stroke-width: 4px; }

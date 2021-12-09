@@ -1,11 +1,17 @@
 import React from "react";
 import IonIcon from "@reacticons/ionicons";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useBacklight } from "../../providers/BacklightContext";
+import { useSession } from "../../providers/SessionContext";
+import styles from "./AccountDropdownOptions.module.scss";
 
 const AccountDropdownOptions = ({ userSession, location }) => {
   const [isOptionsOpen, setIsOptionsOpen] = React.useState(false);
   const { setIsBacklightVisible } = useBacklight();
+
+  const { setUserSession } = useSession();
+
+  const history = useHistory();
 
   const showOptions = () => setIsOptionsOpen(true);
   const hideOptions = () => setIsOptionsOpen(false);
@@ -32,7 +38,7 @@ const AccountDropdownOptions = ({ userSession, location }) => {
               : "inactive",
           ].join(" ")}
         >
-          <section onClick={() => toggleOptions()}>
+          <section onClick={() => toggleOptions()} className={styles.HeaderSectionName}>
             <div
               className="avatar small-avatar"
               style={{
@@ -40,9 +46,9 @@ const AccountDropdownOptions = ({ userSession, location }) => {
                 backgroundImage: `url(${userSession.display_photo})`,
               }}
             ></div>
-            <span>{userSession?.display_name}</span>
+            <span>{userSession?.display_name} <span className={styles.RebbelStatus} data-belt=""></span></span>
             <IonIcon
-              style={{ marginLeft: "5px", transform: "translateY(2px)" }}
+              style={{ marginLeft: "5px", transform: "translateY(0px)" }}
               name="chevron-down"
             ></IonIcon>
           </section>
@@ -51,26 +57,33 @@ const AccountDropdownOptions = ({ userSession, location }) => {
             className="dropdown-options"
             style={{ display: isOptionsOpen ? "block" : "none" }}
           >
-            <section>
+            <section className={styles.DropdownItemsHeader}>
               <span to="/poet/me">
                 Signed in as{" "}
                 <b>
-                  {userSession?.display_name} ({userSession?.username})
+                  {userSession?.display_name} (@{userSession?.username})
                 </b>
               </span>
             </section>
-            <section>
-              <Link to={["/rebbels/@", userSession?.username].join("")}>
+            <section className={styles.DropdownLinkItems}>
+              <a href={["/rebbels/@", userSession?.username].join("")}>
                 Your Profile
-              </Link>
-              <Link to="/collaborations">Your Collaborations and Features</Link>
-              <Link to="/your_drafts">Your Unpublished Drafts</Link>
+              </a>
+              <a href="/collaborations">Your Collaborations and Features</a>
+              <a href="/your_drafts">Your Unpublished Drafts</a>
             </section>
-            <section>
+            <section className={styles.DropdownLinkItems}>
               <Link className="" to="/edit_profile">
                 Edit your profile
               </Link>
-              <Link className="danger" to="/sign_out">
+              <Link className={styles.SignOut} onClick={() => {
+                // Set the session to be null and log the user out
+                setUserSession(null);
+                // Also remove the local storage data session token
+                localStorage.removeItem("AUTH_TOKEN");
+                // Route the user to a sign in page
+                history.push("/sign_in");
+              }}>
                 Sign out
               </Link>
             </section>
