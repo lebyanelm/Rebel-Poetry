@@ -19,7 +19,7 @@ const FeelingLuckyPage = () => {
         if (response) {
           if (response.status === 200) {
             // Route to a poem page to show the random poem
-            history.push(["/~", response.body.data["_id"]].join(""));
+            history.push(["/~", response.body.data["_id"].toUpperCase()].join(""));
           } else {
             showToast(response.body.reason || "Something went wrong.");
             setIsError(true);

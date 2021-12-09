@@ -6,7 +6,7 @@ import { useToast } from '../../providers/ToastContext';
 import IonIcon from '@reacticons/ionicons';
 
 const PoemShareContents = ({pId, pTitle}) => {
-  const [shareLink, setShareLink] = React.useState([config.FRONTEND, "/~", pId].join(""))
+  const [shareLink, setShareLink] = React.useState([config.FRONTEND, "/~", pId.toUpperCase()].join(""))
   const {showToast} = useToast();
   
   return (
