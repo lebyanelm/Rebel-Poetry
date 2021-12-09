@@ -267,6 +267,7 @@ code {
 .navigation-item {
   border-bottom: 4px dashed transparent;
   transform: translateY(4px);
+  text-transform: uppercase;
 }
 .navigation-item.active {
   color: $PRIMARY_COLOR;
