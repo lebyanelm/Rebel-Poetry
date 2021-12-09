@@ -10,6 +10,8 @@ import { useLoaderState } from "../../providers/LoaderContext";
 import { useStorage } from "../../providers/StorageContext";
 import { PoemService } from "../../services/Poem";
 import IonIcon from "@reacticons/ionicons";
+import ReactModal from "react-modal";
+import PreviewAvatar from "../../components/PreviewAvatar/PreviewAvatar"
 
 const PoetProfile = () => {
   // Get the username of the profile being browsed
@@ -23,6 +25,9 @@ const PoetProfile = () => {
 
   const [profileData, setProfileData] = React.useState(null);
   const [feed, setFeed] = React.useState([]);
+
+  // Avatar preview
+  const [isAvatarPreviewOpen, setIsAvatarPreviewOpen] = React.useState(false);
 
   // Contact the server to get the profile data from the backend.
   const getProfileData = React.useCallback(() => {
@@ -128,8 +133,8 @@ const PoetProfile = () => {
   }
 
   // Opening a preview modal for an avatar
-  const openAvatarPreview = () => {
-    
+  const toggleAvatarPreview = () => {
+    setIsAvatarPreviewOpen(!isAvatarPreviewOpen);
   }
 
   React.useEffect(() => {
@@ -149,6 +154,26 @@ const PoetProfile = () => {
   return (
     profileData && (
       <div style={{ width: "100%" }} className="page-container">
+        <ReactModal
+            isOpen={isAvatarPreviewOpen}
+            onRequestClose={() => toggleAvatarPreview()}
+            style={{
+              overlay: { zIndex: 60000 },
+              content: {
+                width: "45%",
+                padding: 0,
+                height: "500px",
+                margin: "auto",
+                position: "absolute",
+                bottom: "20px",
+                borderRadius: "5px",
+                border: "3px solid black",
+              },
+            }}
+          >
+            <PreviewAvatar display_photo={profileData?.display_photo} display_name={profileData?.display_name}></PreviewAvatar>
+          </ReactModal>
+        
         <div className={styles.ProfilePage}>
           <div className={styles.ProfileAvatarContainer}>
             <div
@@ -156,7 +181,7 @@ const PoetProfile = () => {
               data-ischangeable={profileData.username == userSession?.username}
               data-isviewable={profileData.username != userSession?.username}
               onClick={() => { profileData?.username == userSession?.username
-                ? selectUploadPhoto() : openAvatarPreview() }}
+                ? selectUploadPhoto() : toggleAvatarPreview() }}
               style={{
                 backgroundImage: `url(${profileData.display_photo})`,
               }}

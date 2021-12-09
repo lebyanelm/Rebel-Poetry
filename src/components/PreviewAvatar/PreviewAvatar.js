@@ -1,15 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './PreviewAvatar.module.scss';
 
-const PreviewAvatar = () => (
-  <div className={styles.PreviewAvatar} data-testid="PreviewAvatar">
-    PreviewAvatar Component
+const PreviewAvatar = ({ display_name, display_photo }) => (
+  <div className={styles.PreviewAvatar}
+    style={{backgroundImage: `url(${display_photo})`}} data-testid="PreviewAvatar">
+    <div><div className={styles.PreviewDisplayName}>{ display_name }</div></div>
   </div>
 );
 
-PreviewAvatar.propTypes = {};
-
-PreviewAvatar.defaultProps = {};
 
 export default PreviewAvatar;

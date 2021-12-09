@@ -1,1 +1,21 @@
-.PreviewAvatar {}
+@import "../../variables.scss";
+
+.PreviewAvatar {
+	display: flex;
+	justify-content: center;
+	background: $TERTIARY_COLOR;
+	height: 100%;
+	width: 100%;
+	background-position: center;
+	background-size: cover;
+	color: $TEXT_COLOR_LIGHT;
+}
+
+// THE NAME OF THE PREVIEWED AVATAR
+.PreviewAvatar .PreviewDisplayName {
+	padding: 2px 8px;
+	border-radius: 3px;
+	background: $TERTIARY_COLOR;
+	margin-top: $PADDING;
+	font-weight: bolder;
+}
