@@ -46,7 +46,7 @@ const AccountDropdownOptions = ({ userSession, location }) => {
                 backgroundImage: `url(${userSession.display_photo})`,
               }}
             ></div>
-            <span>{userSession?.display_name} <span className={styles.RebbelStatus} data-belt=""></span></span>
+            <span className={styles.RebbelName}>{userSession?.display_name} <span className={styles.RebbelStatus} data-belt=""></span></span>
             <IonIcon
               style={{ marginLeft: "5px", transform: "translateY(0px)" }}
               name="chevron-down"

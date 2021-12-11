@@ -222,7 +222,9 @@ code {
 .navigation-item {
   border-bottom: 4px dashed transparent;
   transform: translateY(4px);
-  text-transform: uppercase; }
+  text-transform: uppercase;
+  font-size: small;
+  font-weight: bolder; }
 
 .navigation-item.active {
   color: #1436ad;

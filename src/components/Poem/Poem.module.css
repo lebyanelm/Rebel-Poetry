@@ -1,36 +1,18 @@
 .Poem {
-  padding: 20px 20px;
-  border-left: 2px solid #DDD;
-  border-top: 2px solid #DDD; }
-
-.Poem:nth-child(3n) {
-  border-right: 2px solid #DDD; }
-
-.Poem:hover {
-  border-top-color: #1436ad; }
+  padding: 20px 20px; }
 
 .Poem .PoemThumbnail {
   display: block;
-  height: 150px;
+  height: 220px;
   width: 100%;
   background: #EEE;
   background-size: cover;
   background-position: center center;
-  margin-bottom: 20px; }
-
-.Poem .PoemThumbnail::before {
-  content: attr(data-liked);
-  display: block;
-  padding: 5px;
-  margin-bottom: 10px;
-  background: #000000;
-  color: #ffffff;
-  font-size: small;
-  font-weight: bold;
-  float: left; }
+  margin-bottom: 20px;
+  border-radius: 10px; }
 
 .Poem .PoemReadTime {
-  display: block;
+  display: none;
   text-transform: uppercase;
   font-size: small;
   opacity: .6;
@@ -38,21 +20,5 @@
   margin-bottom: 5px; }
 
 .Poem .PoemTitle {
-  font-size: 30px;
-  font-weight: 900;
-  margin-bottom: 20px;
-  line-height: 25px; }
-
-.Poem .PoemDetails .PoemAuthorTime {
-  color: #777;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-
-.Poem .PoemDetails .PoemAuthorTime span {
-  color: #ebc952; }
-
-.Poem .PoemDescription * {
-  font-family: 'Courier New', Courier, monospace; }
-
-.Poem .PoemDescription h1, .Poem .PoemDescription h2, .Poem .PoemDescription h3,
-.Poem .PoemDescription h4, .Poem .PoemDescription h5, .Poem .PoemDescription h6 {
-  font-size: 15px !important; }
+  font-weight: normal;
+  font-size: larger; }

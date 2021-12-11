@@ -3,44 +3,31 @@
 // THE MAIN POEM CONTAINER
 .Poem {
   padding: $PADDING $PADDING;
-  border-left: 2px solid #DDD;
-  border-top: 2px solid #DDD;
 }
 
-.Poem:nth-child(3n) {
-  border-right: 2px solid #DDD;
-}
+// .Poem:nth-child(3n) {
+//   border-right: 2px solid #DDD;
+// }
 
-.Poem:hover {
-  border-top-color: $PRIMARY_COLOR;
-}
+// .Poem:hover {
+//   border-top-color: $PRIMARY_COLOR;
+// }
 
 // THE POEM'S THUMBNAIL
 .Poem .PoemThumbnail {
   display: block;
-  height: 150px;
+  height: 220px;
   width: 100%;
   background: #EEE;
   background-size: cover;
   background-position: center center;
   margin-bottom: 20px;
-}
-
-.Poem .PoemThumbnail::before {
-  content: attr(data-liked);
-  display: block;
-  padding: 5px;
-  margin-bottom: 10px;
-  background: $TEXT_COLOR_DARK;
-  color: $TEXT_COLOR_LIGHT;
-  font-size: small;
-  font-weight: bold;
-  float: left;
+  border-radius: 10px;
 }
 
 // THE POEM READ TIME INDICATION
 .Poem .PoemReadTime {
-  display: block;
+  display: none;
   text-transform: uppercase;
   font-size: small;
   opacity: .6;
@@ -50,31 +37,28 @@
 
 // THE POEM'S TITLE
 .Poem .PoemTitle {
-  font-size: 30px;
-  font-weight: 900;
-  margin-bottom: 20px;
-  line-height: 25px;
-  // font-family: "Programme Alt", $FONT_FAMILY;
+  font-weight: normal;
+  font-size: larger;
 }
 
-// THE POEM'S AUTHOR AND DATE PUBLISHED
-.Poem .PoemDetails .PoemAuthorTime {
-  color: #777;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+// // THE POEM'S AUTHOR AND DATE PUBLISHED
+// .Poem .PoemDetails .PoemAuthorTime {
+//   color: #777;
+//   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+// }
 
-.Poem .PoemDetails .PoemAuthorTime span {
-  color: $SECONDARY_COLOR;
-}
+// .Poem .PoemDetails .PoemAuthorTime span {
+//   color: $SECONDARY_COLOR;
+// }
 
-// PREVENT SOME NATURE OF OTHER ELEMENTS ON THE DESCRIPTION
-.Poem .PoemDescription  {
-  * {
-    font-family: 'Courier New', Courier, monospace;
-  }
+// // PREVENT SOME NATURE OF OTHER ELEMENTS ON THE DESCRIPTION
+// .Poem .PoemDescription  {
+//   * {
+//     font-family: 'Courier New', Courier, monospace;
+//   }
 
-  h1, h2, h3,
-  h4, h5, h6 {
-    font-size: $FONT_SIZE !important;
-  }
-}
+//   h1, h2, h3,
+//   h4, h5, h6 {
+//     font-size: $FONT_SIZE !important;
+//   }
+// }

@@ -37,7 +37,7 @@ const HomePage = () => {
 
   return (
     <React.Fragment>
-      <div className="page-container">
+      <div style={{margin: "0 40px", paddingTop: "100px"}}>
         <PoemsList feed={feed}></PoemsList>
       </div>
     </React.Fragment>
