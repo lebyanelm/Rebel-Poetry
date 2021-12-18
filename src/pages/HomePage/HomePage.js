@@ -23,7 +23,6 @@ const HomePage = () => {
     setIsLoaderVisible(true);
     if (userToken) {
       PoemService.getUnauthenticatedFeed().then((poems) => {
-        console.log(poems);
         setIsLoaderVisible(false);
         setFeed([...feed, ...poems]);
       });
@@ -37,7 +36,7 @@ const HomePage = () => {
 
   return (
     <React.Fragment>
-      <div style={{margin: "0 40px", paddingTop: "100px"}}>
+      <div style={{ margin: "0 40px", paddingTop: "100px" }}>
         <PoemsList feed={feed}></PoemsList>
       </div>
     </React.Fragment>
