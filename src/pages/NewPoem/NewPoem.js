@@ -72,7 +72,8 @@ function NewPoem() {
     setDraftData({ ...draftData, [changes.name]: changes.value });
 
     if (ev.target.name === "title")
-      titleInputRef.current.style.height = titleInputRef.current.scrollHeight + "px";
+      titleInputRef.current.style.height =
+        titleInputRef.current.scrollHeight + "px";
 
     // TODO: Change only on an interval.
   };
@@ -82,16 +83,13 @@ function NewPoem() {
   const onImageSelect = () => {
     // Preview the file on the poem page then upload the image in the background
     if (imageInputRef.current.files.length) {
-      const fileReader = new FileReader();
-      fileReader.onloadend = () =>
-        setDraftData({ ...draftData, thumbnail: fileReader.result });
-      fileReader.readAsDataURL(imageInputRef.current.files[0]);
-
+      showToast("Uploading thumbnail image.");
       // Upload the file to the backend server
       PoemService.uploadThumbnail(
         imageInputRef.current.files[0],
         userToken
       ).then((data) => {
+        showToast("Thumbnail uploaded and saved.");
         setDraftData({ ...draftData, thumbnail: data.large });
         PoemService.updateDraft(draftData, userToken);
       });
@@ -99,7 +97,7 @@ function NewPoem() {
   };
 
   // To be able to get rid of the change interval listener/timer use an effect clean up
-  React.useEffect(() => { }, []);
+  React.useEffect(() => {}, []);
 
   return (
     <div className={styles.PageContainer}>
@@ -176,7 +174,8 @@ function NewPoem() {
               <tr>
                 <td>Written by</td>
                 <td>
-                  <span className="link"
+                  <span
+                    className="link"
                     onClick={() =>
                       setDraftData({
                         ...draftData,
@@ -218,17 +217,21 @@ function NewPoem() {
             >
               Save Draft
             </button>
-            <button className="outline" onClick={() => {
-              setIsLoaderVisible(true);
-              PoemService.updateDraft(draftData, userToken)
-                .then(() => {
-                  setIsLoaderVisible(false);
-                  setIsPreviewOpen(true);
-                }).catch((error) => {
-                  console.log("Error something went wrong.");
-                  setIsLoaderVisible(false);
-                })
-            }}>
+            <button
+              className="outline"
+              onClick={() => {
+                setIsLoaderVisible(true);
+                PoemService.updateDraft(draftData, userToken)
+                  .then(() => {
+                    setIsLoaderVisible(false);
+                    setIsPreviewOpen(true);
+                  })
+                  .catch((error) => {
+                    console.log("Error something went wrong.");
+                    setIsLoaderVisible(false);
+                  });
+              }}
+            >
               Preview and Publish
             </button>
           </div>
