@@ -11,7 +11,8 @@ import { useStorage } from "../../providers/StorageContext";
 import { PoemService } from "../../services/Poem";
 import IonIcon from "@reacticons/ionicons";
 import ReactModal from "react-modal";
-import PreviewAvatar from "../../components/PreviewAvatar/PreviewAvatar"
+import PreviewAvatar from "../../components/PreviewAvatar/PreviewAvatar";
+import PoemShareContents from "../../components/PoemShareContents/PoemShareContents";
 
 const PoetProfile = () => {
   // Get the username of the profile being browsed
@@ -25,6 +26,23 @@ const PoetProfile = () => {
 
   const [profileData, setProfileData] = React.useState(null);
   const [feed, setFeed] = React.useState([]);
+
+  const [isShareModalOpen, _setShareModal] = React.useState(false);
+  const [shareText, setShareText] = React.useState("");
+  const [shareLink, setShareLink] = React.useState("");
+  const setShareModal = (state) => {
+    const link = ["rebbels/@", profileData.username].join("");
+    setShareLink(link);
+    setShareText(
+      [
+        'View and follow "',
+        profileData?.display_name,
+        '" on Rebbel Poetry using the link https://rebbelpoetry.com/',
+        link,
+      ].join("")
+    );
+    _setShareModal(state);
+  };
 
   // Avatar preview
   const [isAvatarPreviewOpen, setIsAvatarPreviewOpen] = React.useState(false);
@@ -62,21 +80,22 @@ const PoetProfile = () => {
   // Following / Unfollowing another rebbel
   const toggleFollowStatus = () => {
     return new Promise((resolve, reject) => {
-      superagent.post(
-        [config.BACKEND, "rebbels", "follow", profileData.username].join("/")
-      )
-      .set("Authorization", userToken)
-      .end((_, response) => {
-        console.log(response);
-        if (response && response.status === 200) {
-          console.log(setUserSession, userSession)
-          setUserSession({...userSession, follows: response.body.data});
-          resolve();
-          console.log("Follows", userSession.follows)
-        } else {
-          console.log(response.body.reason || "Something went wrong.");
-        }
-      });
+      superagent
+        .post(
+          [config.BACKEND, "rebbels", "follow", profileData.username].join("/")
+        )
+        .set("Authorization", userToken)
+        .end((_, response) => {
+          console.log(response);
+          if (response && response.status === 200) {
+            console.log(setUserSession, userSession);
+            setUserSession({ ...userSession, follows: response.body.data });
+            resolve();
+            console.log("Follows", userSession.follows);
+          } else {
+            console.log(response.body.reason || "Something went wrong.");
+          }
+        });
     });
   };
 
@@ -85,7 +104,7 @@ const PoetProfile = () => {
     // Create a temporary file select element to select an upload file
     const i = document.createElement("input");
     i.type = "file";
-    i.accept = ".gif,.jpg,.jpeg,.png"
+    i.accept = ".gif,.jpg,.jpeg,.png";
 
     // Programmatically click the temporary file select element
     i.click();
@@ -105,9 +124,9 @@ const PoetProfile = () => {
           } else {
             showToast("Not connected to the internet.");
           }
-        })
-    })
-  }
+        });
+    });
+  };
 
   // Replacing the avatar profile picture
   const replaceProfileAvatar = (avatar_url) => {
@@ -121,7 +140,7 @@ const PoetProfile = () => {
           if (response.status === 200) {
             setUserSession({ ...userSession, display_photo: avatar_url });
             setProfileData({ ...profileData, display_photo: avatar_url });
-            
+
             showToast("Profile avatar updated.");
           } else {
             showToast(response.body.reason || "Something went wrong.");
@@ -129,13 +148,13 @@ const PoetProfile = () => {
         } else {
           showToast("No internet connection.");
         }
-      })
-  }
+      });
+  };
 
   // Opening a preview modal for an avatar
   const toggleAvatarPreview = () => {
     setIsAvatarPreviewOpen(!isAvatarPreviewOpen);
-  }
+  };
 
   React.useEffect(() => {
     // document.title = process.env.REACT_APP_NAME + ": " + name;
@@ -149,7 +168,7 @@ const PoetProfile = () => {
 
           // Do this to get the poems to show up
           setTimeout(() => {
-            setProfileData({...data});
+            setProfileData({ ...data });
           }, 100);
         })
       );
@@ -160,33 +179,63 @@ const PoetProfile = () => {
     profileData && (
       <div style={{ width: "100%" }} className="page-container">
         <ReactModal
-            isOpen={isAvatarPreviewOpen}
-            onRequestClose={() => toggleAvatarPreview()}
-            style={{
-              overlay: { zIndex: 60000 },
-              content: {
-                width: "45%",
-                padding: 0,
-                height: "500px",
-                margin: "auto",
-                position: "absolute",
-                bottom: "20px",
-                borderRadius: "5px",
-                border: "3px solid black",
-              },
+          isOpen={isAvatarPreviewOpen}
+          onRequestClose={() => toggleAvatarPreview()}
+          style={{
+            overlay: { zIndex: 60000 },
+            content: {
+              width: "45%",
+              padding: 0,
+              height: "500px",
+              margin: "auto",
+              position: "absolute",
+              bottom: "20px",
+              borderRadius: "5px",
+              border: "3px solid black",
+            },
+          }}
+        >
+          <PreviewAvatar
+            display_photo={profileData?.display_photo}
+            display_name={profileData?.display_name}
+          ></PreviewAvatar>
+        </ReactModal>
+
+        <ReactModal
+          isOpen={isShareModalOpen}
+          onRequestClose={() => setShareModal(false)}
+          style={{
+            overlay: { zIndex: 60000 },
+            content: {
+              width: "40%",
+              height: "300px",
+              margin: "auto",
+              position: "absolute",
+              bottom: "20px",
+              borderRadius: "0px",
+              border: "3px solid black",
+            },
+          }}
+        >
+          <PoemShareContents
+            data={{
+              shareText: shareText,
+              shareLink: shareLink,
             }}
-          >
-            <PreviewAvatar display_photo={profileData?.display_photo} display_name={profileData?.display_name}></PreviewAvatar>
-          </ReactModal>
-        
+          />
+        </ReactModal>
+
         <div className={styles.ProfilePage}>
           <div className={styles.ProfileAvatarContainer}>
             <div
               className={styles.ProfileAvatar}
               data-ischangeable={profileData.username == userSession?.username}
               data-isviewable={profileData.username != userSession?.username}
-              onClick={() => { profileData?.username == userSession?.username
-                ? selectUploadPhoto() : toggleAvatarPreview() }}
+              onClick={() => {
+                profileData?.username == userSession?.username
+                  ? selectUploadPhoto()
+                  : toggleAvatarPreview();
+              }}
               style={{
                 backgroundImage: `url(${profileData.display_photo})`,
               }}
@@ -229,24 +278,35 @@ const PoetProfile = () => {
               ) : (
                 <button
                   className={styles.FollowButton}
-                  style={{ backgroundColor: userSession?.follows?.includes(profileData._id) ? "#333" : "black" }}
+                  style={{
+                    backgroundColor: userSession?.follows?.includes(
+                      profileData._id
+                    )
+                      ? "#333"
+                      : "black",
+                  }}
                   onClick={() => {
                     toggleFollowStatus().then(() => console.log());
                   }}
                 >
-                  
-                  {userSession?.follows?.includes(profileData._id) ? <span>Following &#10003;</span> : <span style={{positon: "relative"}}>Follow <span style={{opacity: 0, positon: "absolute"}}>&#10003;</span></span>}
+                  {userSession?.follows?.includes(profileData._id) ? (
+                    <span>Following &#10003;</span>
+                  ) : (
+                    <span style={{ positon: "relative" }}>
+                      Follow{" "}
+                      <span style={{ opacity: 0, positon: "absolute" }}>
+                        &#10003;
+                      </span>
+                    </span>
+                  )}
                 </button>
               )}
               {userSession && userSession.username === profileData.username ? (
                 <button>Share your profile</button>
               ) : (
-                <button>Share Profile</button>
-              )}
-              {userSession && userSession.username === profileData.username ? (
-                ""
-              ) : (
-                <button>Collaborate</button>
+                <button onClick={() => setShareModal(!isShareModalOpen)}>
+                  Share Profile
+                </button>
               )}
             </div>
 

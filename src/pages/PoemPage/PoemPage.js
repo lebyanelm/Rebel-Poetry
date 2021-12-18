@@ -17,7 +17,6 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import ReactModal from "react-modal";
 
-
 const PoemPage = () => {
   const { setIsLoaderVisible } = useLoaderState();
   const { userToken } = useStorage();
@@ -27,10 +26,12 @@ const PoemPage = () => {
 
   // Toggling the editing mode of the poem
   const [isEditMode, setIsEditMode] = React.useState(false);
+  const [shareText, setShareText] = React.useState("");
+  const [shareLink, setShareLink] = React.useState("");
   const editableTextContentRef = React.createRef();
 
   // Toggling the share modal
-  const [isShareModalOpen, setShareModal] = React.useState(false);
+  const [isShareModalOpen, _setShareModal] = React.useState(false);
 
   // Reference of the poem text container, to easily calculate annotation position
   const poemTextContainer = React.useRef();
@@ -39,7 +40,9 @@ const PoemPage = () => {
   // Opens an annotation box at the point of the clicked target
   const [annotationPosition, setAnnotationPosition] = React.useState(0);
   const annotationContainer = React.useRef();
-  const [annotoationText, setAnnotationText] = React.useState("Click on an annotation to read more about it's text. The Rebbel Poet left an explaination for the phrases he uses.")
+  const [annotoationText, setAnnotationText] = React.useState(
+    "Click on an annotation to read more about it's text. The Rebbel Poet left an explaination for the phrases he uses."
+  );
 
   // When an annotation is active
   const [activeIndex, setActiveIndex] = React.useState(-1);
@@ -51,10 +54,10 @@ const PoemPage = () => {
     if (event) {
       const targetElement = event.target;
       const targetRect = targetElement.getBoundingClientRect();
-      const textContainerRect = poemTextContainer.current.getBoundingClientRect();
+      const textContainerRect =
+        poemTextContainer.current.getBoundingClientRect();
 
       let targetPosition = targetRect.y - textContainerRect.y;
-
 
       // Set the contents of the annotations to the annotations container
       annotationContainer.current.style.display = "block";
@@ -95,19 +98,27 @@ const PoemPage = () => {
           const splitAnnotations = splitText[index].split("="),
             _text = splitAnnotations[0],
             annotation = splitAnnotations[1];
-          result.push(<a onClick={(event) => {
-            positionAnnotationContainer(annotation, event);
-            setActiveIndex(index);
-          }} data-index={index} data-isactive={index === activeIndex}>{_text}</a>)
+          result.push(
+            <a
+              onClick={(event) => {
+                positionAnnotationContainer(annotation, event);
+                setActiveIndex(index);
+              }}
+              data-index={index}
+              data-isactive={index === activeIndex}
+            >
+              {_text}
+            </a>
+          );
         } else {
-          result.push(<span>{splitText[index]}</span>)
+          result.push(<span>{splitText[index]}</span>);
         }
       }
-      return result
+      return result;
     } else {
-      return <span>Loading...</span>
+      return <span>Loading...</span>;
     }
-  }
+  };
 
   const deletePoem = () => {
     PoemService.deletePoem(poemData?._id, userToken)
@@ -120,6 +131,19 @@ const PoemPage = () => {
 
   // Get the poem data when the page is opened
   const params = useParams();
+  const setShareModal = (state) => {
+    setShareLink(["~", params.poemId].join(""));
+    setShareText(
+      [
+        'View and read "',
+        poemData?.title,
+        '" on Rebbel Poetry using the link https://rebbelpoetry.com/',
+        shareLink,
+      ].join("")
+    );
+    _setShareModal(state);
+  };
+
   const [poemData, setPoemData] = React.useState({});
   React.useEffect(() => {
     setIsLoaderVisible(true);
@@ -132,10 +156,11 @@ const PoemPage = () => {
           if (response.status === 200) {
             setPoemData(response.body.data);
             // Get the poem tags data
-            PoemService.getTags(response.body.data.tags, userToken)
-              .then((tags) => {
+            PoemService.getTags(response.body.data.tags, userToken).then(
+              (tags) => {
                 setPoemTags(tags);
-              });
+              }
+            );
             document.title = [
               process.env.REACT_APP_NAME,
               ": ",
@@ -144,8 +169,8 @@ const PoemPage = () => {
           } else {
             if (response.status === 404) {
               history.push("/not_found");
-              showToast("Poem was not found.")
-            } 
+              showToast("Poem was not found.");
+            }
           }
         } else {
           showToast("You're not connected with the internet.");
@@ -169,7 +194,7 @@ const PoemPage = () => {
       // Get the distance between the scroll and buttons container and if < 20 make buttons sticky
       const poemContent = poemTextContainer.current;
       if (poemContent) {
-        const poemContentRect = poemContent.getBoundingClientRect()
+        const poemContentRect = poemContent.getBoundingClientRect();
         const scrollDifference = poemContentRect.y - scrollY;
         if (scrollDifference <= 0) {
           scrollButtonsContainer.current.style.position = "fixed";
@@ -207,7 +232,14 @@ const PoemPage = () => {
             },
           }}
         >
-          <PoemShareContents pId={poemData?._id} pTitle={poemData?.title} />
+          <PoemShareContents
+            data={{
+              pId: poemData?._id,
+              shareText: shareText,
+              shareLink: shareLink,
+            }}
+            pTitle={poemData?.title}
+          />
         </ReactModal>
 
         <PoemPageHeader poemData={poemData}></PoemPageHeader>
@@ -216,14 +248,27 @@ const PoemPage = () => {
           <div className={styles.PoemSplitSides}>
             {/* The top of the poem text area */}
             <div className={styles.SideButtons} ref={scrollButtonsContainer}>
-              <button className={styles.Heart} data-isLiked={poemData?.likes?.includes(userSession?._id)} onClick={() => {
-                PoemService.likePoem(poemData?._id, userToken)
-                  .then((data) => {
-                    // Update the number of likes on the poem data
-                    setPoemData({ ...poemData, likes_count: data.likes_count, likes: data.likes });
-                  })
-              }}>
-                {poemData?.likes?.includes(userSession?._id) ? <IonIcon name="hand-left"></IonIcon> : <IonIcon name="hand-left-outline"></IonIcon>}
+              <button
+                className={styles.Heart}
+                data-isLiked={poemData?.likes?.includes(userSession?._id)}
+                onClick={() => {
+                  PoemService.likePoem(poemData?._id, userToken).then(
+                    (data) => {
+                      // Update the number of likes on the poem data
+                      setPoemData({
+                        ...poemData,
+                        likes_count: data.likes_count,
+                        likes: data.likes,
+                      });
+                    }
+                  );
+                }}
+              >
+                {poemData?.likes?.includes(userSession?._id) ? (
+                  <IonIcon name="hand-left"></IonIcon>
+                ) : (
+                  <IonIcon name="hand-left-outline"></IonIcon>
+                )}
                 <span className="count">{poemData?.likes_count}</span>
               </button>
 
@@ -232,39 +277,69 @@ const PoemPage = () => {
                 <span className="count">{poemData?.views_count}</span>
               </button>
 
-              <button className={styles.Bookmark} data-isBookmarked={userSession?.bookmarked_poems.includes(poemData?._id)} onClick={() => {
-                // First check if there's a session in place
-                if (userToken) {
-                  // Update the bookmarks of the user
-                  PoemService.bookmarkPoem(poemData?._id, userToken)
-                    .then((data) => {
-                      // Update the number of likes on the poem data
-                      setPoemData({ ...poemData, bookmarks_count: data.bookmarks_count })
-                      if (data.is_bookmark) {
-                        setUserSession({ ...userSession, bookmarked_poems: [...userSession.bookmarked_poems, poemData?._id] })
-                      } else {
-                        // Remove the poem ID from the bookmarks
-                        const bookmarkedPoems = userSession.bookmarked_poems;
-                        const bookmarkedPoemIndex = bookmarkedPoems.indexOf(poemData?._id);
-                        if (bookmarkedPoemIndex > -1) {
-                          bookmarkedPoems.splice(bookmarkedPoemIndex, 1);
-                          setUserSession({ ...userSession, bookmarked_poems: bookmarkedPoems })
+              <button
+                className={styles.Bookmark}
+                data-isBookmarked={userSession?.bookmarked_poems.includes(
+                  poemData?._id
+                )}
+                onClick={() => {
+                  // First check if there's a session in place
+                  if (userToken) {
+                    // Update the bookmarks of the user
+                    PoemService.bookmarkPoem(poemData?._id, userToken).then(
+                      (data) => {
+                        // Update the number of likes on the poem data
+                        setPoemData({
+                          ...poemData,
+                          bookmarks_count: data.bookmarks_count,
+                        });
+                        if (data.is_bookmark) {
+                          setUserSession({
+                            ...userSession,
+                            bookmarked_poems: [
+                              ...userSession.bookmarked_poems,
+                              poemData?._id,
+                            ],
+                          });
+                        } else {
+                          // Remove the poem ID from the bookmarks
+                          const bookmarkedPoems = userSession.bookmarked_poems;
+                          const bookmarkedPoemIndex = bookmarkedPoems.indexOf(
+                            poemData?._id
+                          );
+                          if (bookmarkedPoemIndex > -1) {
+                            bookmarkedPoems.splice(bookmarkedPoemIndex, 1);
+                            setUserSession({
+                              ...userSession,
+                              bookmarked_poems: bookmarkedPoems,
+                            });
+                          }
                         }
-                      }
 
-                      console.log("User session", userSession);
-                    })
-                } else {
-                  showToast("You are not logged in. Sign in to bookmark this poem.");
-                }
-              }}>
-                {userSession?.bookmarked_poems.includes(poemData?._id) ? <IonIcon name="bookmark-sharp"></IonIcon> : <IonIcon name="bookmark-outline"></IonIcon>}
+                        console.log("User session", userSession);
+                      }
+                    );
+                  } else {
+                    showToast(
+                      "You are not logged in. Sign in to bookmark this poem."
+                    );
+                  }
+                }}
+              >
+                {userSession?.bookmarked_poems.includes(poemData?._id) ? (
+                  <IonIcon name="bookmark-sharp"></IonIcon>
+                ) : (
+                  <IonIcon name="bookmark-outline"></IonIcon>
+                )}
                 <span className="count">{poemData?.bookmarks_count}</span>
               </button>
 
-              <button className={styles.Share} onClick={() => {
-                setShareModal(!isShareModalOpen)
-              }}>
+              <button
+                className={styles.Share}
+                onClick={() => {
+                  setShareModal(!isShareModalOpen);
+                }}
+              >
                 <IonIcon name="share-outline"></IonIcon>
                 <span className="count">Share</span>
               </button>
@@ -339,9 +414,10 @@ const PoemPage = () => {
                 }}
               ></ReactMarkdown> */}
 
-              <p style={{ whiteSpace: "pre-wrap" }} children={parseAnnotations(poemData?.body)}>
-
-              </p>
+              <p
+                style={{ whiteSpace: "pre-wrap" }}
+                children={parseAnnotations(poemData?.body)}
+              ></p>
             </div>
 
             {/* Annotations container */}
@@ -350,22 +426,29 @@ const PoemPage = () => {
               style={{ translate: `translateY(${annotationPosition}px)` }}
               ref={annotationContainer}
             >
-              <ReactMarkdown
-                plugins={[remarkGfm]}
-                linkTarget="_blank"
-              >{annotoationText}</ReactMarkdown> 
+              <ReactMarkdown plugins={[remarkGfm]} linkTarget="_blank">
+                {annotoationText}
+              </ReactMarkdown>
             </div>
           </div>
 
           {/* Tags that have been given to the poem */}
-          {poemTags.length > 0 && <div className={styles.PoemTags}>
-            <span>Tags</span>
-            {poemTags.map((tag) => (
-              <a href={["/search?keyword=", tag.name.toLowerCase().split(" ").join("+")].join("")} className="tag">
-                {tag.name}
-              </a>
-            ))}
-          </div>}
+          {poemTags.length > 0 && (
+            <div className={styles.PoemTags}>
+              <span>Tags</span>
+              {poemTags.map((tag) => (
+                <a
+                  href={[
+                    "/search?keyword=",
+                    tag.name.toLowerCase().split(" ").join("+"),
+                  ].join("")}
+                  className="tag"
+                >
+                  {tag.name}
+                </a>
+              ))}
+            </div>
+          )}
 
           {/* Poem statistics and Author details */}
           <div className={styles.CommentsSection}>
