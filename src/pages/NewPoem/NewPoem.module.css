@@ -45,6 +45,14 @@
 .NewPoemImageSelector:hover svg {
   transform: translateY(-30px) translateX(-20px) scale(1.1); }
 
+.ImageUploadProgress {
+  height: 5px;
+  background: red;
+  align-self: flex-start;
+  position: absolute;
+  left: -4px;
+  bottom: -4px; }
+
 .NewPoemHeaderContainer .NewPoemDetails {
   margin-left: 40px;
   z-index: 3; }

@@ -16,6 +16,7 @@ function NewPoem() {
   const { setIsLoaderVisible } = useLoaderState();
   const { showToast } = useToast();
   const [isPreviewOpen, setIsPreviewOpen] = React.useState(false);
+  const [uploadProgress, setUploadProgress] = React.useState(0);
   const router = useHistory();
 
   const [draftData, setDraftData] = React.useState({
@@ -87,7 +88,8 @@ function NewPoem() {
       // Upload the file to the backend server
       PoemService.uploadThumbnail(
         imageInputRef.current.files[0],
-        userToken
+        userToken,
+        setUploadProgress
       ).then((data) => {
         showToast("Thumbnail uploaded and saved.");
         setDraftData({ ...draftData, thumbnail: data.large });
@@ -148,6 +150,15 @@ function NewPoem() {
             }}
           >
             <IonIcon name="add-sharp"></IonIcon>
+            <div
+              className={styles.ImageUploadProgress}
+              style={{
+                width:
+                  uploadProgress === 0
+                    ? uploadProgress
+                    : `calc(${uploadProgress}% + 6px)`,
+              }}
+            ></div>
           </div>
         </div>
         <div className={styles.NewPoemDetails}>

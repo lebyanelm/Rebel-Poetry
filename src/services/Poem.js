@@ -58,7 +58,7 @@ export const PoemService = {
     });
   },
   likePoem: (pId, token) => {
-    console.log(pId, token)
+    console.log(pId, token);
     return new Promise((resolve, reject) => {
       superagent
         .post([config.BACKEND, "poems", pId, "react"].join("/"))
@@ -70,7 +70,7 @@ export const PoemService = {
     });
   },
   bookmarkPoem: (pId, token) => {
-    console.log(pId, token)
+    console.log(pId, token);
     return new Promise((resolve, reject) => {
       superagent
         .post([config.BACKEND, "poems", "bookmark"].join("/"))
@@ -112,11 +112,14 @@ export const PoemService = {
         });
     });
   },
-  uploadThumbnail: (file, token) => {
+  uploadThumbnail: (file, token, progressUpdate) => {
     return new Promise((resolve, reject) => {
       superagent
         .put([config.BACKEND, "assets", "upload"].join("/"))
         .set("Authorization", token)
+        .on("progress", (event) => {
+          if (progressUpdate) progressUpdate(event.percent);
+        })
         .attach("file", file)
         .end((_, response) => {
           PoemService.respond(response, resolve, reject);
