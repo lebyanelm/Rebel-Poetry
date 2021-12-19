@@ -132,13 +132,14 @@ const PoemPage = () => {
   // Get the poem data when the page is opened
   const params = useParams();
   const setShareModal = (state) => {
-    setShareLink(["~", params.poemId].join(""));
+    const link = ["~", params.poemId].join("");
+    setShareLink(link);
     setShareText(
       [
         'View and read "',
         poemData?.title,
         '" on Rebbel Poetry using the link https://rebbelpoetry.com/',
-        shareLink,
+        link,
       ].join("")
     );
     _setShareModal(state);
